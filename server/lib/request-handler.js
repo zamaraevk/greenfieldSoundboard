@@ -19,8 +19,12 @@ exports.logoutUser = function(req, res) {
   });
 };
 
-exports.fetchSounds = function(req, res) {
+exports.fetchSoundFiles = function(req, res) {
   // build
+};
+
+exports.fetchASoundFile = function(req, res) {
+
 };
 
 exports.loginuser = function(req, res) {
