@@ -16,38 +16,47 @@
 //in this same directory.
 
 
-exports.App = function() {
+exports.App = React.createClass({
   //helper that given a path, modified a dom audio element with the given path
-  var setCurrentSong = (path, cb) => {
+  setCurrentSong: (path, cb) => {
     var audio = document.getElementById("mainAudio");
+    //ajax call that actually returns file
     audio.src = path;
     if (cb) {
       cb();
     }
-  };
+  },
 
   //returns a div with a keypress listener, which will call setCurrentSong 
   //on the provided path when the target key is pressed. 
-  var vKey = (targetKeyCode, path) => (
+  vKey: (targetKeyCode, path) => (
       <div onKeyPress={function(event) {
+          //add audio tag here?
           if (event.keyCode === targetKeyCode) {
-            setCurrentSong(path);
+            this.setCurrentSong(path);
           }
         }
       }></div>
+      ////
     );
-   
-  ///returns a string of html representing all of the keybindings provided 
-  //as input.
-  var init = (keyBindings) => {
-    var result = "";
-    for (var code in keyBindings) {
-      result += vKey(code, keyBindings[code]);
-    }
-    return result;
-  };
 
-  return{
-    init: init(keyBindings)
+  render: function() {
+
+    //returns a string of html representing all of the keybindings provided 
+    //as input.
+    $.get({
+      url: __dirname + "/soundboard",
+      dataType: 'json',
+      error: function(err) {
+        console.error(err);
+      }.bind(this)
+    }).done(function(data) {      
+      var result = "";
+      for (var code in data) {
+        result += vKey(code, data[code]);
+      }
+      this.setState({data: result});
+    });
   }
-}
+})
+
