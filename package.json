@@ -8,7 +8,6 @@
     "watch": "babel public/src --out-dir compiled --preset es2015,react --watch",
     "start": "nodemon server/server.js",
     "test": "test"
-
   },
   "repository": {
     "type": "git",
@@ -26,14 +25,20 @@
   "homepage": "https://github.com/ProductivePerson/MKS-NYC-greenfield#readme",
   "dependencies": {
     "babel": "^6.5.2",
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-react": "^6.11.1",
     "express": "^4.14.0",
     "express-partials": "~0.2.0",
     "express-session": "^1.7.2",
     "jquery": "^2.2.1",
     "lodash": "^4.6.1",
+    "mongodb": "^2.2.1",
+    "mongoose": "^4.5.4",
     "react": "^15.2.0",
     "react-dom": "^0.14.7",
     "request": "^2.72.0",
+    "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
