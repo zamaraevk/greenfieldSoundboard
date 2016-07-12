@@ -15,14 +15,14 @@ var path = require('path');
 var session = require('express-session');
 
 var app = express();
-var rootPath = path.normalize(__dirname + './public/src');
+var rootPath = path.normalize(__dirname + './public/components');
 app.configure(function() {
   app.use(partials());
   app.use(express.bodyParser());
   app.use(express.static(__dirname + '/public'));
   app.use(express.static('./node_modules'));
   app.use(express.static('./compiled'));
-  app.use(express.static('./public/src'));
+  app.use(express.static('./public/components'));
   app.use(express.cookieParser('secret'));
   app.use(session({
     secret: 'secretCode',
@@ -94,5 +94,4 @@ module.exports = app;
 
 /*
   32 different ajax calls that will be routed to paths.
-
 */
