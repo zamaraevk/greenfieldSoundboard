@@ -23,7 +23,7 @@ app.configure(function() {
   app.use(express.static(__dirname + '/public'));
   app.use(express.static('./node_modules'));
   app.use(express.static('./compiled'));
-  app.use(express.static('./public'));
+  app.use(express.static('./public/components'));
   app.use(express.cookieParser('secret'));
   app.use(session({
     secret: 'secretCode',
