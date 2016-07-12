@@ -9,26 +9,25 @@ var express = require('express');
 */
 var partials = require('express-partials');
 var bodyParser = require('body-parser');
-var util = require('./lib/utility');
+var util = require('./lib/util.js');
+var handler = require('./lib/request-handler.js');
 var path = require('path');
 var session = require('express-session');
-var handler = require('./lib/request-handler');
 
 var app = express();
-
+var rootPath = path.normalize(__dirname + './public/src');
 app.configure(function() {
-  app.set('views', __dirname + '/views'); // EJS files
   app.use(partials());
   app.use(express.bodyParser());
   app.use(express.static(__dirname + '/public'));
   app.use(express.static('./node_modules'));
   app.use(express.static('./compiled'));
-  app.use(express.static('./client'));
+  app.use(express.static('./public/src'));
   app.use(express.cookieParser('secret'));
   app.use(session({
-  secret: 'secretCode',
-  resave: false,
-  saveUninitialized: true
+    secret: 'secretCode',
+    resave: false,
+    saveUninitialized: true
   }));
 });
 
@@ -41,6 +40,13 @@ app.get('/', util.checkUser, handler.renderIndex);
 // must be given ability to make a request to server.
 app.post('/soundboard', util.checkUser, function(req, res) {
   // user another helper function that will determine what keys are pressed
+  // and what must happen next.
+  // fetch from DB the requested file.
+});
+
+app.post('/soundboard/:user', util.checkUser, function(req, res) {
+  // user another helper function that will determine if this user exists in the DB.
+  // if so,
   // and what must happen next.
   // fetch from DB the requested file.
 });
@@ -82,8 +88,8 @@ app.post('/signup', handler.signupUser);
   // else if the account exists, then redirect to /signup.
 // });
 
-app.get('/*', handler......);
-
+app.get('/soundboard/file/*', handler......);
+  // find a specific file in DB
 module.exports = app;
 
 /*
