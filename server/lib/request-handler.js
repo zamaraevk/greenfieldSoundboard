@@ -20,12 +20,6 @@ exports.logoutUser = function(req, res) {
   });
 };
 
-exports.fetchSoundFile = function(req, res) {
-  var file = fs.readFile('../../foley/28134__herbertboland__grendel');
-  res.set({'Content-Type' : 'audio/wav'});
-  res.sendFile("soundfiles/28134__herbertboland__grendel");
-};
-
 exports.loginUser = function(req, res) {
   // build
 };
