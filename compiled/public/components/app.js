@@ -9,10 +9,10 @@
 //}
 
 var testData = {
-  97: "../foley/beads.wav",
-  98: "../foley/beltbuckle.wav",
-  99: "../foley/footsteps.wav",
-  100: "../foley/grendel.wav"
+  97: "soundfiles/beads.wav",
+  98: "soundfiles/beltbuckle.wav",
+  99: "soundfiles/footsteps.wav",
+  100: "soundfiles/grendel.wav"
 };
 
 //sample input:

@@ -17,13 +17,16 @@ var path = require('path');
 
 var app = express();
 
-var rootPath = path.normalize(__dirname + './public');
+var rootPath = path.normalize(__dirname + '/../public');
 
 // app.use(partials());
 // app.use(express.bodyParser());
 app.use('/soundfiles', express.static(__dirname + '/../foley/'));
+app.use('/node_modules', express.static(__dirname + '/../node_modules/'));
+app.use('/compiled', express.static(__dirname + '/../compiled/'));
+
 app.use(express.static(__dirname + '/public'));
-app.use(express.static('./node_modules'));
+app.use(express.static('/../node_modules'));
 app.use(express.static('./compiled'));
 app.use(express.static('./public/components'));
 // app.use(express.cookieParser('secret'));
@@ -38,7 +41,9 @@ app.use(express.static('./public/components'));
 // else at root without token/auth, redirect to login page. Send status.
 // res.end();
 
-app.get('/', handler.renderIndex);
+app.get('/', function(req, res) {
+  res.sendFile(path.join(rootPath + '/index.html'));
+});
 // serve index.
 // callback, redirects to /login.
 
