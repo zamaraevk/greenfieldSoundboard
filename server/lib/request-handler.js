@@ -1,5 +1,6 @@
 var request = require('request');
-var util = require('./lib/util.js');
+var util = require('./utility.js');
+var fs = require('fs');
 
 exports.renderIndex = function(req, res) {
   res.render('index');
@@ -19,15 +20,13 @@ exports.logoutUser = function(req, res) {
   });
 };
 
-exports.fetchSoundFiles = function(req, res) {
-  // build
+exports.fetchSoundFile = function(req, res) {
+  var file = fs.readFile('../../foley/28134__herbertboland__grendel');
+  res.set({'Content-Type' : 'audio/wav'});
+  res.sendFile("soundfiles/28134__herbertboland__grendel");
 };
 
-exports.fetchASoundFile = function(req, res) {
-
-};
-
-exports.loginuser = function(req, res) {
+exports.loginUser = function(req, res) {
   // build
 };
 exports.signupUser = function(req, res) {

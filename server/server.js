@@ -1,7 +1,7 @@
 var app = require('./server-config.js');
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 // using Mongoose ORM to build into our DB.
-mongoose.connect('mongodb://localhost/soundboarddatabase');
+// mongoose.connect('mongodb://localhost/soundboarddatabase');
 
 var port = process.env.PORT || 8000;
 
