@@ -1,0 +1,19 @@
+.keyboard {
+  margin:50px auto;
+  border: 2px solid black;
+  border-radius:8px;
+  max-width:90%;
+}
+
+.key {
+  margin: 0 auto;
+  padding: 20px;
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: 4px;
+  max-width: 90px;
+}
+
+.keyLabel {
+  font-size: 80px;
+}
