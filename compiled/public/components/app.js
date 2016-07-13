@@ -1,7 +1,5 @@
 "use strict";
 
-// var keycodes = require("./keycode.js");
-
 //input syntax:  {
 //  targetKeyCode1: "/path/to/source/file.wav",
 //  targetKeyCode2: "/path/to/next/source.wav"
@@ -66,13 +64,11 @@ var VKey = React.createClass({
   render: function render() {
     return React.createElement(
       "div",
-      { onKeyPress: this.handleKeyPress },
+      { className: "key", onKeyPress: this.handleKeyPress },
       React.createElement(
         "p",
-        null,
-        " this is the ",
-        this.props.targetKey,
-        " div"
+        { className: "keyLabel" },
+        keyCodes[this.props.targetKey]
       ),
       React.createElement("audio", { id: this.props.targetKey, src: this.props.path })
     );
@@ -82,73 +78,6 @@ var VKey = React.createClass({
 var App = React.createClass({
   displayName: "App",
 
-  // getInitialState:  function() {
-  //   return {viewHTML: <div> no data to show </div>};
-  // },
-  //
-  // //helper that given a path, modified a dom audio element with the given path
-  // setCurrentSong: (path, cb) => {
-  //   var audio = document.getElementById("mainAudio");
-  //   //ajax call that actually returns file
-  //   audio.src = path;
-  //   if (cb) {
-  //     cb();
-  //   }
-  // },
-
-  //returns a div with a keypress listener, which will call setCurrentSong
-  //on the provided path when the target key is pressed.
-
-  // loadFile: () => {
-  //   var vKey = (targetKeyCode, path) => (
-  //       <div onKeyPress={function(event) {
-  //           //add audio tag here?
-  //           // if (event.keyCode === targetKeyCode) {
-  //           //   this.setCurrentSong(path);
-  //           // }
-  //         }
-  //       }>
-  //       <audio src=""></audio>
-  //       </div>
-  ////
-  // );
-  //DO NOT DELETE!  This has been commented out for testing purposes but will
-  //be necessary for communicating with the server.
-
-  //   $.get({
-  //   url: '/',
-  //   dataType: 'json',
-  //   error: function(err) {
-  //     console.error(err);
-  //   }.bind(this)
-  // }).done(function(data) {
-  //   var result = <div></div>;
-  //   for (var code in data) {
-  //     result.append(vKey(code, data[code]));
-  //   }
-  //   this.setState({viewHTML: result});
-  //   this.render();
-  // });
-  //   var data = testData;
-  //
-  //   var newData = [];
-  //
-  //   for (var code in data) {
-  //     newData.push(vKey(code, data[code]));
-  //   }
-  //
-  //   var result = (<div>
-  //
-  //     {
-  //       newData.map(function(element) {
-  //         return element;
-  //       })
-  //     }
-  //     </div>);
-  //   console.log(this);
-  //   this.setState({viewHTML: result});
-  //   // this.render();
-  // },
 
   render: function render() {
     var data = [];
@@ -159,7 +88,7 @@ var App = React.createClass({
     }
     return React.createElement(
       "div",
-      null,
+      { className: "keyboard" },
       data.map(function (keyBinding) {
         return React.createElement(VKey, { targetKey: keyBinding.key, path: keyBinding.path });
       })
