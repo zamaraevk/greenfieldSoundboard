@@ -4,8 +4,8 @@
   "description": "A virtual soundboard",
   "main": "server.js",
   "scripts": {
-    "compile": "babel public/src --out-dir compiled --presets es2015,react",
-    "watch": "babel public/src --out-dir compiled --preset es2015,react --watch",
+    "compile": "babel public/ --out-dir compiled --presets es2015,react",
+    "watch": "babel public/ --out-dir compiled --preset es2015,react --watch",
     "start": "nodemon server/server.js",
     "test": "test"
   },
