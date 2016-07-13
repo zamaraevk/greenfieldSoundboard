@@ -1,7 +1,4 @@
-use "esversion: 6";
-
-import React from "react";
-import ReactDOM from "react-dom";
+'esversion: 6';
 
 class Layout extends React.Component {
   render() {
@@ -14,6 +11,7 @@ class Layout extends React.Component {
 }
 
 ReactDOM.render(
-  <Layout/>,
-  document.getElementById('app')
+  <div>
+  <Layout/>
+  </div>, document.getElementById('app')
 );
