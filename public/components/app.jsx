@@ -1,4 +1,4 @@
-// var keycodes = require("./keycode.js");
+
 
 //input syntax:  {
 //  targetKeyCode1: "/path/to/source/file.wav",
@@ -7,10 +7,32 @@
 //}
 
 var testData = {
-  97: "../foley/beads.wav",
-  98: "../foley/beltbuckle.wav",
-  99: "../foley/footsteps.wav",
-  100: "../foley/grendel.wav"
+  97: "/soundfiles/beads.wav",
+  98: "/soundfiles/beltbuckle.wav",
+  99: "/soundfiles/footsteps.wav",
+  100: "/soundfiles/grendel.wav",
+  101: "/soundfiles/beads.wav",
+  102: "/soundfiles/beltbuckle.wav",
+  103: "/soundfiles/footsteps.wav",
+  104: "/soundfiles/grendel.wav",
+  105: "/soundfiles/beads.wav",
+  106: "/soundfiles/beltbuckle.wav",
+  107: "/soundfiles/footsteps.wav",
+  108: "/soundfiles/grendel.wav",
+  109: "/soundfiles/beads.wav",
+  110: "/soundfiles/beltbuckle.wav",
+  111: "/soundfiles/footsteps.wav",
+  112: "/soundfiles/grendel.wav",
+  113: "/soundfiles/beltbuckle.wav",
+  114: "/soundfiles/footsteps.wav",
+  115: "/soundfiles/grendel.wav",
+  116: "/soundfiles/beads.wav",
+  117: "/soundfiles/beltbuckle.wav",
+  118: "/soundfiles/footsteps.wav",
+  119: "/soundfiles/grendel.wav",
+  120: "/soundfiles/beads.wav",
+  121: "/soundfiles/beltbuckle.wav",
+  122: "/soundfiles/footsteps.wav"
 };
 
 //sample input:
@@ -39,8 +61,8 @@ var VKey = React.createClass ({
   },
   render: function() {
     return (
-      <div onKeyPress= { this.handleKeyPress }>
-        <p> this is the {this.props.targetKey} div</p>
+      <div className="key" onKeyPress= { this.handleKeyPress }>
+        <p className="keyLabel">{keyCodes[this.props.targetKey]}</p>
         <audio id={this.props.targetKey} src= { this.props.path }></audio>
       </div>
     )
@@ -48,73 +70,6 @@ var VKey = React.createClass ({
 });
 
 var App = React.createClass({
-  // getInitialState:  function() {
-  //   return {viewHTML: <div> no data to show </div>};
-  // },
-  //
-  // //helper that given a path, modified a dom audio element with the given path
-  // setCurrentSong: (path, cb) => {
-  //   var audio = document.getElementById("mainAudio");
-  //   //ajax call that actually returns file
-  //   audio.src = path;
-  //   if (cb) {
-  //     cb();
-  //   }
-  // },
-
-  //returns a div with a keypress listener, which will call setCurrentSong
-  //on the provided path when the target key is pressed.
-
-  // loadFile: () => {
-  //   var vKey = (targetKeyCode, path) => (
-  //       <div onKeyPress={function(event) {
-  //           //add audio tag here?
-  //           // if (event.keyCode === targetKeyCode) {
-  //           //   this.setCurrentSong(path);
-  //           // }
-  //         }
-  //       }>
-  //       <audio src=""></audio>
-  //       </div>
-        ////
-      // );
-  //DO NOT DELETE!  This has been commented out for testing purposes but will
-  //be necessary for communicating with the server.
-
-  //   $.get({
-  //   url: '/',
-  //   dataType: 'json',
-  //   error: function(err) {
-  //     console.error(err);
-  //   }.bind(this)
-  // }).done(function(data) {
-  //   var result = <div></div>;
-  //   for (var code in data) {
-  //     result.append(vKey(code, data[code]));
-  //   }
-  //   this.setState({viewHTML: result});
-  //   this.render();
-  // });
-//   var data = testData;
-//
-//   var newData = [];
-//
-//   for (var code in data) {
-//     newData.push(vKey(code, data[code]));
-//   }
-//
-//   var result = (<div>
-//
-//     {
-//       newData.map(function(element) {
-//         return element;
-//       })
-//     }
-//     </div>);
-//   console.log(this);
-//   this.setState({viewHTML: result});
-//   // this.render();
-// },
 
   render: function() {
     var data = [];
@@ -124,7 +79,7 @@ var App = React.createClass({
       });
     }
     return (
-      <div>
+      <div className="keyboard">
       {
         data.map(function(keyBinding) {
           return <VKey targetKey={keyBinding.key} path={keyBinding.path} />
