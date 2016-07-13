@@ -17,22 +17,6 @@ var path = require('path');
 
 var app = express();
 
-var rootPath = path.normalize(__dirname + './public/components');
-app.configure(function() {
-  app.use(partials());
-  app.use(express.bodyParser());
-  app.use(express.static(__dirname + '/public'));
-  app.use(express.static('./node_modules'));
-  app.use(express.static('./compiled'));
-  app.use(express.static('./public/components'));
-  app.use(express.cookieParser('secret'));
-  app.use(session({
-    secret: 'secretCode',
-    resave: false,
-    saveUninitialized: true
-  }));
-});
-
 var rootPath = path.normalize(__dirname + './public');
 
 // app.use(partials());
@@ -50,15 +34,17 @@ app.use(express.static('./public/components'));
 // }));
 
 // If at root with token/auth, redirect to /user. res.sendStatus.
+// add util.checkUser
 // else at root without token/auth, redirect to login page. Send status.
 // res.end();
-app.get('/', util.checkUser, handler.renderIndex);
+
+app.get('/', handler.renderIndex);
+// serve index.
+// callback, redirects to /login.
 
 // we may have to create many of the below routers, because each keyboard key
+// add util.checkUser
 // must be given ability to make a request to server.
-app.post('/soundboard', util.checkUser, function(req, res) {
-  // user another helper function that will determine what keys are pressed
-  // and what must happen next.
 app.post('/soundboard', function(req, res) {
   // for() {
 
@@ -117,4 +103,5 @@ module.exports = app;
 
 /*
   32 different ajax calls that will be routed to paths.
+
 */
