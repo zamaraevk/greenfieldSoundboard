@@ -17,7 +17,7 @@
   },
   "engines": {
     "node": "6.2.2"
-  }
+  ,
   "keywords": [
     "keyboard",
     "music",
