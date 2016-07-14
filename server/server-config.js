@@ -26,10 +26,6 @@ app.use('/node_modules', express.static(__dirname + '/../node_modules/'));
 app.use('/compiled', express.static(__dirname + '/../compiled/'));
 app.use('/styles', express.static(__dirname + '/../public/components/styles/'));
 
-app.use(express.static(__dirname + '/public'));
-app.use(express.static('/../node_modules'));
-app.use(express.static('./compiled'));
-app.use(express.static('./public/components'));
 // app.use(express.cookieParser('secret'));
 // app.use(session({
 //   secret: 'secretCode',
