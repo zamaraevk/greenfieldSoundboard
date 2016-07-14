@@ -7,6 +7,7 @@ var html = require('html');
 var port = process.env.PORT || 8000;
 app.set('view engine', 'html');
 
+app.set('view engine', 'html');
 app.listen(port);
 
 console.log('Soundboard is now listening on port ' + port);

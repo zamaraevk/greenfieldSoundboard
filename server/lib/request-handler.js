@@ -2,9 +2,9 @@ var request = require('request');
 var util = require('./utility.js');
 var fs = require('fs');
 
-exports.renderIndex = function(req, res) {
-  res.render('index');
-};
+// exports.renderIndex = function(req, res) {
+//   res.render(__dirname + '/../../public/index.html');
+// };
 
 exports.signupUserForm = function(req, res) {
   res.render('signup');

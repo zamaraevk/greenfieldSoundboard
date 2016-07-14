@@ -1,6 +1,7 @@
 .keyboard {
-  margin:100px auto;
-  border: 2px solid black;
+  margin:100px 100px auto;
+  /*border: 2px solid black;*/
+  text-align: center;
   border-radius:8px;
   max-width:90%;
 }
