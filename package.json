@@ -2,7 +2,7 @@
   "name": "soundboard",
   "version": "0.1.0",
   "description": "A virtual soundboard",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
     "compile": "babel public/ --out-dir compiled --presets es2015,react",
     "watch": "babel public/ --out-dir compiled --preset es2015,react --watch",
