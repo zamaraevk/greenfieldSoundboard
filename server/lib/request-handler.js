@@ -1,9 +1,10 @@
 var request = require('request');
-var util = require('./lib/util.js');
+var util = require('./utility.js');
+var fs = require('fs');
 
-exports.renderIndex = function(req, res) {
-  res.render('index');
-};
+// exports.renderIndex = function(req, res) {
+//   res.render(__dirname + '/../../public/index.html');
+// };
 
 exports.signupUserForm = function(req, res) {
   res.render('signup');
@@ -19,11 +20,7 @@ exports.logoutUser = function(req, res) {
   });
 };
 
-exports.fetchSounds = function(req, res) {
-  // build
-};
-
-exports.loginuser = function(req, res) {
+exports.loginUser = function(req, res) {
   // build
 };
 exports.signupUser = function(req, res) {

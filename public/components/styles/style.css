@@ -1,0 +1,23 @@
+keyboard {
+ margin:100px auto;
+ border: 2px solid black;
+ border-radius:8px;
+ max-width:90%;
+}
+
+.key {
+ margin: 0 auto;
+ padding: 30px;
+ display: inline-block;
+ border: 2px solid black;
+ border-radius: 4px;
+ min-width: 65px;
+ max-height: 50px;
+ box-shadow: 5px 5px 10px 0 black;
+}
+
+.keyLabel {
+ margin: auto;
+ font-size: 50px;
+ text-align: center;
+}
