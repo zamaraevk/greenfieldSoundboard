@@ -16,8 +16,8 @@
     "url": "git+https://github.com/ProductivePerson/MKS-NYC-greenfield.git"
   },
   "engines": {
-    "node": "5.11.1"
-  ,
+    "node": "6.2.2"
+  },
   "keywords": [
     "keyboard",
     "music",
