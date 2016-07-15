@@ -84,7 +84,7 @@
 	  122: "/soundfiles/footsteps.wav"
 	};
 	
-	var qwertyMap = [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 0, 122, 120, 99, 118, 98, 110, 109];
+	var qwertyMap = [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 0, 97, 115, 100, 102, 103, 104, 106, 107, 108, 0, 122, 120, 99, 118, 98, 110, 109];
 	
 	//sample input:
 	//This example would bind the 'a' key to the "example.wav" file.
@@ -154,7 +154,7 @@
 	      React.createElement(
 	        "p",
 	        { className: "filename" },
-	        this.props.path.split("/").pop()
+	        this.props.path.split("/").pop().split(".").shift()
 	      ),
 	      React.createElement("audio", { id: this.props.targetKey, src: this.props.path, onEnded: this.handleAudioEnd, preload: "auto" })
 	    ) //
