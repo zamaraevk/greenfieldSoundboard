@@ -35,6 +35,36 @@ var testData = {
   122: "/soundfiles/footsteps.wav"
 };
 
+var qwertyMap = [
+  113,
+  119,
+  101,
+  114,
+  116,
+  121,
+  117,
+  105,
+  111,
+  112,
+  97,
+  115,
+  100,
+  102,
+  103,
+  104,
+  106,
+  107,
+  108,
+  0,
+  122,
+  120,
+  99,
+  118,
+  98,
+  110,
+  109
+];
+
 //sample input:
 //This example would bind the 'a' key to the "example.wav" file.
 //{
@@ -76,9 +106,19 @@ var VKey = React.createClass({
 });
 
 var App = React.createClass({
-  displayName: "App",
+  render: function () {
+    qwertyMap = qwertyMap.map(function (key) {
+      if (key !== 0) {
+        return {
+          key: key,
+          path: testData[key]
+        };
+      } else {
+        return 0;
+      }
+    });
 
-
+<<<<<<< HEAD
   render: function render() {
     var data = [];
 
@@ -94,8 +134,23 @@ var App = React.createClass({
         return React.createElement(VKey, { targetKey: keyBinding.key, path: keyBinding.path });
       })
     );
+=======
+    return ( <
+      div className = "keyboard" > {
+        qwertyMap.map(function (keyBinding, idx) {
+          if (keyBinding === 0) {
+            return <br / >
+          } else {
+            return <VKey targetKey = { keyBinding.key }
+            path = { keyBinding.path }
+            />
+          }
+        })
+      } </div>
+    )
+>>>>>>> 03304bf617eb6961beb3d1613d5764374dd8ba96
   }
-});
+})
 
 ReactDOM.render(React.createElement(
   "div",
