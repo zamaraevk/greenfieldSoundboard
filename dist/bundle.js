@@ -186,11 +186,10 @@
 	  }
 	});
 	
-	ReactDOM.render(React.createElement(
-	  "div",
-	  null,
-	  React.createElement(App, null)
-	), document.getElementById('app'));
+	// ReactDOM.render(<div>
+	//   <App/>
+	//   </div>, document.getElementById('app')
+	// );
 
 /***/ }
 /******/ ]);

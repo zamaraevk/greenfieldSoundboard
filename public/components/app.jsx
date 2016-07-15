@@ -155,7 +155,7 @@ var App = React.createClass({
  }
 })
 
-ReactDOM.render(<div>
-  <App/>
-  </div>, document.getElementById('app')
-);
+// ReactDOM.render(<div>
+//   <App/>
+//   </div>, document.getElementById('app')
+// );
