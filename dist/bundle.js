@@ -56,7 +56,7 @@
 	//}
 	
 	var testData = {
-	  97: "/soundfiles/beads.wav",
+	  97: "/soundfiles/deep-techno-groove.wav",
 	  98: "/soundfiles/beltbuckle.wav",
 	  99: "/soundfiles/footsteps.wav",
 	  100: "/soundfiles/grendel.wav",
@@ -100,31 +100,46 @@
 	  // the initial state houses the player, which is set to false.
 	  getInitialState: function getInitialState() {
 	    return {
+	      isShiftPressed: false,
 	      playing: false
 	    };
 	  },
 	  // when a key is pressed, change key color, set player to true, and play it.
 	  handleKeyPress: function handleKeyPress(event) {
+	    var $audio = document.getElementById(this.props.targetKey);
+	    var $vKey = $('#' + event.keyCode).parent();
+	    if ("" + event.keyCode === "" + (this.props.targetKey - 32)) {
+	      $vKey = $('#' + (event.keyCode + 32)).parent();
+	      $vKey.addClass('red');
+	      $audio.loop = $audio.loop ? false : true;
+	      $audio.currentTime = 0;
+	      $audio.paused ? $audio.play() : $audio.pause();
+	    }
 	    if ("" + event.keyCode === "" + this.props.targetKey) {
-	      $('#' + event.keyCode).parent().removeClass('key');
-	      $('#' + event.keyCode).parent().addClass('blue');
-	      this.setState({ playing: true });
-	      document.getElementById(this.props.targetKey).play();
+	      $vKey.addClass('green');
+	      $audio.currentTime = 0;
+	      if ($audio.paused) {
+	        $audio.play();
+	      } else {
+	        $audio.pause();
+	        $vKey.removeClass('green');
+	        $vKey.removeClass('red');
+	      }
 	      event.preventDefault();
 	    }
 	    this.render();
 	  },
 	
 	  handleAudioEnd: function handleAudioEnd(event) {
-	    $('#' + this.props.targetKey).parent().removeClass('blue');
-	    $('#' + this.props.targetKey).parent().addClass('key');
+	    var $vKey = $('#' + this.props.targetKey).parent();
+	    $vKey.removeClass('green');
+	    $vKey.removeClass('red');
 	    event.preventDefault();
 	    this.render();
 	  },
 	
 	  componentDidMount: function componentDidMount(event) {
 	    window.addEventListener('keypress', this.handleKeyPress);
-	    // window.addEventListener('ended', this.handleKeyUp);
 	  },
 	
 	  render: function render() {
@@ -136,8 +151,14 @@
 	        { className: "keyLabel" },
 	        keyCodes[this.props.targetKey]
 	      ),
-	      React.createElement("audio", { id: this.props.targetKey, src: this.props.path, onEnded: this.handleAudioEnd })
-	    );
+	      React.createElement(
+	        "p",
+	        { className: "filename" },
+	        this.props.path.split("/").pop()
+	      ),
+	      React.createElement("audio", { id: this.props.targetKey, src: this.props.path, onEnded: this.handleAudioEnd, preload: "auto" })
+	    ) //
+	    ;
 	  }
 	});
 	var App = React.createClass({
