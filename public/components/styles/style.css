@@ -24,7 +24,11 @@
   text-align: center;
 }
 
-.key .green {
+.filename {
+
+}
+
+.blue {
   margin: 0 auto;
   padding: 30px;
   display: inline-block;

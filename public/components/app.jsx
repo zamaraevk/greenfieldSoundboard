@@ -84,8 +84,8 @@ var VKey = React.createClass ({
   handleKeyPress: function(event) {
     if ("" + event.keyCode === "" + this.props.targetKey) {
       $('#' + event.keyCode).parent().removeClass('key');
-      $('#' + event.keyCode).parent().addClass('blue');
-      this.setState({playing: true})
+      $('#' + event.keyCode).parent().addClass('green');
+      // this.setState({playing: true})
       document.getElementById(this.props.targetKey).play();
       event.preventDefault();
     }
@@ -93,8 +93,8 @@ var VKey = React.createClass ({
   },
 
   handleAudioEnd: function(event) {
-    $('#' + this.props.targetKey).parent().removeClass('blue');
-    $('#' + this.props.targetKey).parent().addClass('key');
+    $('#' + this.props.targetKey).parent().removeClass('green');
+    // $('#' + this.props.targetKey).parent().addClass('key');
     event.preventDefault();
     this.render();
   },
@@ -108,8 +108,9 @@ var VKey = React.createClass ({
     return (
       <div className="key" onKeyPress={ this.handleKeyPress }>
         <p className="keyLabel">{keyCodes[this.props.targetKey]}</p>
-        <audio id={this.props.targetKey} src={ this.props.path } onEnded={ this.handleAudioEnd }></audio>
-      </div>
+        <p>{ this.props.path.split("/").pop() }</p>
+        <audio id={this.props.targetKey} src={ this.props.path } onEnded={ this.handleAudioEnd } preload="auto"></audio>
+      </div>  //
     )
   }
 });

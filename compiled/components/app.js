@@ -58,8 +58,8 @@ var VKey = React.createClass({
   handleKeyPress: function handleKeyPress(event) {
     if ("" + event.keyCode === "" + this.props.targetKey) {
       $('#' + event.keyCode).parent().removeClass('key');
-      $('#' + event.keyCode).parent().addClass('blue');
-      this.setState({ playing: true });
+      $('#' + event.keyCode).parent().addClass('green');
+      // this.setState({playing: true})
       document.getElementById(this.props.targetKey).play();
       event.preventDefault();
     }
@@ -67,8 +67,8 @@ var VKey = React.createClass({
   },
 
   handleAudioEnd: function handleAudioEnd(event) {
-    $('#' + this.props.targetKey).parent().removeClass('blue');
-    $('#' + this.props.targetKey).parent().addClass('key');
+    $('#' + this.props.targetKey).parent().removeClass('green');
+    // $('#' + this.props.targetKey).parent().addClass('key');
     event.preventDefault();
     this.render();
   },
@@ -87,8 +87,14 @@ var VKey = React.createClass({
         { className: "keyLabel" },
         keyCodes[this.props.targetKey]
       ),
-      React.createElement("audio", { id: this.props.targetKey, src: this.props.path, onEnded: this.handleAudioEnd })
-    );
+      React.createElement(
+        "p",
+        null,
+        this.props.path.split("/").pop()
+      ),
+      React.createElement("audio", { id: this.props.targetKey, src: this.props.path, onEnded: this.handleAudioEnd, preload: "auto" })
+    ) //
+    ;
   }
 });
 var App = React.createClass({
@@ -102,7 +108,6 @@ var App = React.createClass({
         return 0;
       }
     });
-
     return React.createElement(
       "div",
       { className: "keyboard" },
