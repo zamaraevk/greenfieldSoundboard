@@ -1,4 +1,4 @@
-"use strict";
+
 
 //input syntax:  {
 //  targetKeyCode1: "/path/to/source/file.wav",
@@ -49,13 +49,13 @@ var VKey = React.createClass({
   displayName: "VKey",
 
   // the initial state houses the player, which is set to false.
-  getInitialState: function getInitialState() {
+  getInitialState: function () {
     return {
       playing: false
     };
   },
   // when a key is pressed, change key color, set player to true, and play it.
-  handleKeyPress: function handleKeyPress(event) {
+  handleKeyPress: function (event) {
     if ("" + event.keyCode === "" + this.props.targetKey) {
       $('#' + event.keyCode).parent().removeClass('key');
       $('#' + event.keyCode).parent().addClass('blue');
@@ -66,19 +66,19 @@ var VKey = React.createClass({
     this.render();
   },
 
-  handleAudioEnd: function handleAudioEnd(event) {
+  handleAudioEnd: function (event) {
     $('#' + this.props.targetKey).parent().removeClass('blue');
     $('#' + this.props.targetKey).parent().addClass('key');
     event.preventDefault();
     this.render();
   },
 
-  componentDidMount: function componentDidMount(event) {
+  componentDidMount: function (event) {
     window.addEventListener('keypress', this.handleKeyPress);
     // window.addEventListener('ended', this.handleKeyUp);
   },
 
-  render: function render() {
+  render: function () {
     return React.createElement(
       "div",
       { className: "key", onKeyPress: this.handleKeyPress },
@@ -94,7 +94,7 @@ var VKey = React.createClass({
 var App = React.createClass({
   displayName: "App",
 
-  render: function render() {
+  render: function () {
     qwertyMap = qwertyMap.map(function (key) {
       if (key !== 0) {
         return { key: key, path: testData[key] };
@@ -102,6 +102,7 @@ var App = React.createClass({
         return 0;
       }
     });
+    
     return React.createElement(
       "div",
       { className: "keyboard" },
