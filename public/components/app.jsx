@@ -45,25 +45,41 @@ var testData = {
 //in this same directory.
 var VKey = React.createClass ({
   getInitialState: function() {
-    return {playing: false}
+    return {
+      playing: false
+    }
   },
 
   handleKeyPress: function(event) {
     if ("" + event.keyCode === "" + this.props.targetKey) {
+      $('#' + event.keyCode).parent().removeClass('key');
+      $('#' + event.keyCode).parent().addClass('green');
       this.setState({playing: true})
       document.getElementById(this.props.targetKey).play();
+      this.handleKeyUp(event);
       event.preventDefault();
     }
     this.render();
   },
+
+  handleKeyUp: function(event) {
+    if ("" + event.keyCode === "" + this.props.targetKey) {
+      $('#' + event.keyCode).parent().keyup(console.log('hey'));
+      event.preventDefault();
+    }
+    this.render();
+  },
+
   componentDidMount: function(event) {
     window.addEventListener('keypress', this.handleKeyPress);
+    window.addEventListener('keyup', this.handleKeyPress);
   },
+
   render: function() {
     return (
-      <div className="key" onKeyPress= { this.handleKeyPress }>
+      <div className="key" onKeyPress={ this.handleKeyPress }>
         <p className="keyLabel">{keyCodes[this.props.targetKey]}</p>
-        <audio id={this.props.targetKey} src= { this.props.path }></audio>
+        <audio id={this.props.targetKey} src={ this.props.path }></audio>
       </div>
     )
   }

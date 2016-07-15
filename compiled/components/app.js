@@ -47,20 +47,36 @@ var VKey = React.createClass({
   displayName: "VKey",
 
   getInitialState: function getInitialState() {
-    return { playing: false };
+    return {
+      playing: false
+    };
   },
 
   handleKeyPress: function handleKeyPress(event) {
     if ("" + event.keyCode === "" + this.props.targetKey) {
+      $('#' + event.keyCode).parent().removeClass('key');
+      $('#' + event.keyCode).parent().addClass('green');
       this.setState({ playing: true });
       document.getElementById(this.props.targetKey).play();
+      this.handleKeyUp(event);
       event.preventDefault();
     }
     this.render();
   },
+
+  handleKeyUp: function handleKeyUp(event) {
+    if ("" + event.keyCode === "" + this.props.targetKey) {
+      $('#' + event.keyCode).parent().keyup(console.log('hey'));
+      event.preventDefault();
+    }
+    this.render();
+  },
+
   componentDidMount: function componentDidMount(event) {
     window.addEventListener('keypress', this.handleKeyPress);
+    window.addEventListener('keyup', this.handleKeyPress);
   },
+
   render: function render() {
     return React.createElement(
       "div",
