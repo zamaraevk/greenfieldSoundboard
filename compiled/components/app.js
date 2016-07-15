@@ -51,15 +51,20 @@ var VKey = React.createClass({
   // the initial state houses the player, which is set to false.
   getInitialState: function getInitialState() {
     return {
+      isShiftPressed: false,
       playing: false
     };
   },
   // when a key is pressed, change key color, set player to true, and play it.
   handleKeyPress: function handleKeyPress(event) {
+    if ("" + event.keyCode === "" + (this.props.targetKey - 32)) {
+      $('#' + (event.keyCode + 32)).parent().addClass('red');
+      document.getElementById(this.props.targetKey).loop = document.getElementById(this.props.targetKey).loop ? false : true;
+      document.getElementById(this.props.targetKey).play();
+      console.log("dun shifted.", event.keyCode);
+    }
     if ("" + event.keyCode === "" + this.props.targetKey) {
-      $('#' + event.keyCode).parent().removeClass('key');
-      $('#' + event.keyCode).parent().addClass('blue');
-      this.setState({ playing: true });
+      $('#' + event.keyCode).parent().addClass('green');
       document.getElementById(this.props.targetKey).play();
       event.preventDefault();
     }
@@ -67,15 +72,14 @@ var VKey = React.createClass({
   },
 
   handleAudioEnd: function handleAudioEnd(event) {
-    $('#' + this.props.targetKey).parent().removeClass('blue');
-    $('#' + this.props.targetKey).parent().addClass('key');
+    $('#' + this.props.targetKey).parent().removeClass('green');
+    $('#' + this.props.targetKey).parent().removeClass('red');
     event.preventDefault();
     this.render();
   },
 
   componentDidMount: function componentDidMount(event) {
     window.addEventListener('keypress', this.handleKeyPress);
-    // window.addEventListener('ended', this.handleKeyUp);
   },
 
   render: function render() {
@@ -87,8 +91,14 @@ var VKey = React.createClass({
         { className: "keyLabel" },
         keyCodes[this.props.targetKey]
       ),
-      React.createElement("audio", { id: this.props.targetKey, src: this.props.path, onEnded: this.handleAudioEnd })
-    );
+      React.createElement(
+        "p",
+        { className: "filename" },
+        this.props.path.split("/").pop()
+      ),
+      React.createElement("audio", { id: this.props.targetKey, src: this.props.path, onEnded: this.handleAudioEnd, preload: "auto" })
+    ) //
+    ;
   }
 });
 var App = React.createClass({
@@ -102,7 +112,6 @@ var App = React.createClass({
         return 0;
       }
     });
-
     return React.createElement(
       "div",
       { className: "keyboard" },
