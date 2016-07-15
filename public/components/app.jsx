@@ -77,15 +77,20 @@ var VKey = React.createClass ({
   // the initial state houses the player, which is set to false.
   getInitialState: function() {
     return {
+      isShiftPressed: false,
       playing: false
     }
   },
   // when a key is pressed, change key color, set player to true, and play it.
   handleKeyPress: function(event) {
+    if ("" + event.keyCode === "" + (this.props.targetKey - 32)){
+      $('#' + (event.keyCode + 32)).parent().addClass('red');
+      document.getElementById(this.props.targetKey).loop = document.getElementById(this.props.targetKey).loop ? false : true;
+      document.getElementById(this.props.targetKey).play();
+      console.log("dun shifted.",  event.keyCode);
+    }
     if ("" + event.keyCode === "" + this.props.targetKey) {
-      $('#' + event.keyCode).parent().removeClass('key');
       $('#' + event.keyCode).parent().addClass('green');
-      // this.setState({playing: true})
       document.getElementById(this.props.targetKey).play();
       event.preventDefault();
     }
@@ -94,21 +99,20 @@ var VKey = React.createClass ({
 
   handleAudioEnd: function(event) {
     $('#' + this.props.targetKey).parent().removeClass('green');
-    // $('#' + this.props.targetKey).parent().addClass('key');
+    $('#' + this.props.targetKey).parent().removeClass('red');
     event.preventDefault();
     this.render();
   },
 
   componentDidMount: function(event) {
     window.addEventListener('keypress', this.handleKeyPress);
-    // window.addEventListener('ended', this.handleKeyUp);
   },
 
   render: function() {
     return (
       <div className="key" onKeyPress={ this.handleKeyPress }>
         <p className="keyLabel">{keyCodes[this.props.targetKey]}</p>
-        <p>{ this.props.path.split("/").pop() }</p>
+        <p className="filename">{ this.props.path.split("/").pop() }</p>
         <audio id={this.props.targetKey} src={ this.props.path } onEnded={ this.handleAudioEnd } preload="auto"></audio>
       </div>  //
     )

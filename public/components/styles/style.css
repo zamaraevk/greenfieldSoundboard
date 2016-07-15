@@ -19,23 +19,22 @@
 }
 
 .keyLabel {
+  position:relative;
+  bottom:10px;
   margin: auto;
   font-size: 50px;
   text-align: center;
 }
 
 .filename {
-
+  position:relative;
+  bottom:25px;
+  font-size: 20px;
 }
 
-.blue {
-  margin: 0 auto;
-  padding: 30px;
-  display: inline-block;
-  border: 2px solid black;
-  border-radius: 4px;
-  min-width: 65px;
-  max-height: 50px;
-  box-shadow: 5px 5px 10px 0 black;
+.green {
   background-color: #ADFF2F;
+}
+.red {
+  background-color: red;
 }
