@@ -102,7 +102,6 @@ var App = React.createClass({
         return 0;
       }
     });
-
     return React.createElement(
       "div",
       { className: "keyboard" },
