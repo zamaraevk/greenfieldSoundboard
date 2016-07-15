@@ -21,6 +21,7 @@ var rootPath = path.normalize(__dirname + '/../public');
 
 // app.use(partials());
 // app.use(express.bodyParser());
+app.use('/dist', express.static(__dirname + '/../dist/'));
 app.use('/soundfiles', express.static(__dirname + '/../foley/'));
 app.use('/node_modules', express.static(__dirname + '/../node_modules/'));
 app.use('/compiled', express.static(__dirname + '/../compiled/'));

@@ -2,20 +2,26 @@
   "name": "soundboard",
   "version": "0.1.0",
   "description": "A virtual soundboard",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
     "compile": "babel public/ --out-dir compiled --presets es2015,react",
     "watch": "babel public/ --out-dir compiled --preset es2015,react --watch",
-    "start": "nodemon server/server.js",
-    "test": "test"
+    "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack -d --watch",
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ProductivePerson/MKS-NYC-greenfield.git"
   },
+  "engines": {
+    "node": "6.2.2"
+  },
   "keywords": [
     "keyboard",
-    "music"
+    "music",
+    "heroku"
   ],
   "author": "Tim, Jear, Ian, James",
   "license": "ISC",

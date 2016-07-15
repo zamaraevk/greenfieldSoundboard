@@ -4,6 +4,7 @@ var app = require('./server-config.js');
 // mongoose.connect('mongodb://localhost/soundboarddatabase');
 
 var port = process.env.PORT || 8000;
+app.set('view engine', 'html');
 
 app.listen(port);
 

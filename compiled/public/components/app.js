@@ -118,6 +118,23 @@ var App = React.createClass({
       }
     });
 
+<<<<<<< HEAD
+  render: function render() {
+    var data = [];
+
+    for (var code in testData) {
+      data.push({ key: code,
+        path: testData[code]
+      });
+    }
+    return React.createElement(
+      "div",
+      { className: "keyboard" },
+      data.map(function (keyBinding) {
+        return React.createElement(VKey, { targetKey: keyBinding.key, path: keyBinding.path });
+      })
+    );
+=======
     return ( <
       div className = "keyboard" > {
         qwertyMap.map(function (keyBinding, idx) {
@@ -131,6 +148,7 @@ var App = React.createClass({
         })
       } </div>
     )
+>>>>>>> 03304bf617eb6961beb3d1613d5764374dd8ba96
   }
 })
 

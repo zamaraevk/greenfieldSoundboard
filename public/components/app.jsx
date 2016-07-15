@@ -124,6 +124,26 @@ var App = React.createClass({
      }
    });
 
+<<<<<<< HEAD
+  render: function() {
+    var data = [];
+
+    for (var code in testData) {
+      data.push({key: code,
+        path: testData[code]
+      });
+    }
+    return (
+      <div className="keyboard">
+      {
+        data.map(function(keyBinding) {
+          return <VKey targetKey={keyBinding.key} path={keyBinding.path} />
+        })
+      }
+      </div>
+    )
+  }
+=======
    return (
      <div className="keyboard">
      {
@@ -138,6 +158,7 @@ var App = React.createClass({
      </div>
    )
  }
+>>>>>>> 03304bf617eb6961beb3d1613d5764374dd8ba96
 })
 
 ReactDOM.render(<div>
