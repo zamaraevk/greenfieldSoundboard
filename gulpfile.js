@@ -36,6 +36,8 @@ gulp.task('watch', function() {
 });
 
 // gulp deploy to activate Heroku commands in cli.
+// Be sure to login to Heroku, clone repo, create, add, commit
+// before using this task.
 gulp.task('heroku', shell.task([
   'git push heroku master',
   'heroku open'
@@ -48,9 +50,5 @@ gulp.task('webpack', function() {
     watch: true,
     webpackConfig
   }))
-  .pipe(gulp.dest('./dist/'));
+  .pipe(gulp.dest('./dist'));
 });
-
-gulp.task('changed', function() {
-
-})
