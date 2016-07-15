@@ -164,6 +164,10 @@
 	var App = React.createClass({
 	  displayName: "App",
 	
+	  // componentDidMount: function(event) {
+	  //   $('.loading').hide();
+	  // },
+	
 	  render: function render() {
 	    qwertyMap = qwertyMap.map(function (key) {
 	      if (key !== 0) {
@@ -186,10 +190,11 @@
 	  }
 	});
 	
-	// ReactDOM.render(<div>
-	//   <App/>
-	//   </div>, document.getElementById('app')
-	// );
+	ReactDOM.render(React.createElement(
+	  "div",
+	  null,
+	  React.createElement(App, null)
+	), document.getElementById('app'));
 
 /***/ }
 /******/ ]);

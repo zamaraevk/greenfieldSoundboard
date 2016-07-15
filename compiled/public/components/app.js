@@ -115,6 +115,10 @@ var VKey = React.createClass({
 var App = React.createClass({
   displayName: "App",
 
+  componentDidMount: function componentDidMount(event) {
+    $('.loading').hide();
+  },
+
   render: function render() {
     qwertyMap = qwertyMap.map(function (key) {
       if (key !== 0) {

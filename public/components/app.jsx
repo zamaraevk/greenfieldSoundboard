@@ -131,7 +131,11 @@ var VKey = React.createClass ({
   }
 });
 var App = React.createClass({
- render: function() {
+  // componentDidMount: function(event) {
+  //   $('.loading').hide();
+  // },
+
+  render: function() {
    qwertyMap = qwertyMap.map(function(key) {
      if (key !== 0) {
        return {key: key, path: testData[key]};
@@ -155,7 +159,7 @@ var App = React.createClass({
  }
 })
 
-// ReactDOM.render(<div>
-//   <App/>
-//   </div>, document.getElementById('app')
-// );
+ReactDOM.render(<div>
+  <App/>
+  </div>, document.getElementById('app')
+);
