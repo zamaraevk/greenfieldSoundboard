@@ -3,9 +3,9 @@
 class Layout extends React.Component {
   render() {
     return (
-      <div className="keyboard">
-        <h1>Welcome to Soundboard!</h1>
-        <img src="assets/tumblr_luxr3mmGVw1r1sjguo1_400.gif">
+      <div className="loading">
+        <h1 className="intro">Soundboard Loading...</h1>
+        <img src="styles/tumblr_luxr3mmGVw1r1sjguo1_400.gif"/>
       </div>
     );
   }

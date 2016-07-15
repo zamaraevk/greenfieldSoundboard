@@ -1,3 +1,51 @@
+
+body {
+  background-color: #013366;
+}
+
+.loading {
+  margin:0 auto;
+  text-align: center;
+  border-radius:8px;
+  max-width:90%;
+}
+
+.intro{
+  font-family: 'Audiowide', cursive;
+  margin: 50px auto;
+  text-align:center;
+  font-size:5.5em;
+  color:#fff;
+  letter-spacing: -7px;
+  font-weight:700;
+  text-transform:uppercase;
+  animation:blur .75s ease-out infinite;
+  text-shadow:0 0 5px #ffff00,
+      0 0 7px #ffff00;
+}
+
+@keyframes blur{
+  from{
+      text-shadow:0 0 10px #ffa500,
+      0 0 10px #ffa500,
+      0 0 25px #ffa500,
+      0 0 25px #ffa500,
+      0 0 25px #ffa500,
+      0 0 25px #ffa500,
+      0 0 25px #ffa500,
+      0 0 25px #ffa500,
+      0 0 50px #fe0000,
+      0 0 50px #fe0000,
+      0 0 50px #fe0000,
+      0 0 150px #fe0000,
+      0 10px 100px #fe0000,
+      0 10px 100px #fe0000,
+      0 10px 100px #fe0000,
+      0 10px 100px #fe0000,
+      0 -10px 100px #fe0000,
+      0 -10px 100px #fe0000;}
+}
+
 .keyboard {
   margin:100px 100px auto;
   /*border: 2px solid black;*/
