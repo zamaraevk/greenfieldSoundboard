@@ -74,42 +74,41 @@ var qwertyMap = [
 //For a comprehensive list of keycode bindings, see "keycode.js"
 //in this same directory.
 var VKey = React.createClass ({
+  // the initial state houses the player, which is set to false.
   getInitialState: function() {
     return {
       playing: false
     }
   },
-
+  // when a key is pressed, change key color, set player to true, and play it.
   handleKeyPress: function(event) {
     if ("" + event.keyCode === "" + this.props.targetKey) {
       $('#' + event.keyCode).parent().removeClass('key');
-      $('#' + event.keyCode).parent().addClass('green');
+      $('#' + event.keyCode).parent().addClass('blue');
       this.setState({playing: true})
       document.getElementById(this.props.targetKey).play();
-      this.handleKeyUp(event);
       event.preventDefault();
     }
     this.render();
   },
 
-  handleKeyUp: function(event) {
-    if ("" + event.keyCode === "" + this.props.targetKey) {
-      $('#' + event.keyCode).parent().keyup(console.log('hey'));
-      event.preventDefault();
-    }
+  handleAudioEnd: function(event) {
+    $('#' + this.props.targetKey).parent().removeClass('blue');
+    $('#' + this.props.targetKey).parent().addClass('key');
+    event.preventDefault();
     this.render();
   },
 
   componentDidMount: function(event) {
     window.addEventListener('keypress', this.handleKeyPress);
-    window.addEventListener('keyup', this.handleKeyPress);
+    // window.addEventListener('ended', this.handleKeyUp);
   },
 
   render: function() {
     return (
       <div className="key" onKeyPress={ this.handleKeyPress }>
         <p className="keyLabel">{keyCodes[this.props.targetKey]}</p>
-        <audio id={this.props.targetKey} src={ this.props.path }></audio>
+        <audio id={this.props.targetKey} src={ this.props.path } onEnded={ this.handleAudioEnd }></audio>
       </div>
     )
   }
