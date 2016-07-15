@@ -15,7 +15,7 @@
   min-width: 65px;
   max-height: 50px;
   box-shadow: 5px 5px 10px 0 black;
-  background-color: lightgray;
+  background-color: lightblue;
 }
 
 .keyLabel {
@@ -24,7 +24,7 @@
   text-align: center;
 }
 
-.green {
+.key .green {
   margin: 0 auto;
   padding: 30px;
   display: inline-block;
@@ -33,16 +33,5 @@
   min-width: 65px;
   max-height: 50px;
   box-shadow: 5px 5px 10px 0 black;
-  background-color: lightgreen;
-}
-.blue {
-  margin: 0 auto;
-  padding: 30px;
-  display: inline-block;
-  border: 2px solid black;
-  border-radius: 4px;
-  min-width: 65px;
-  max-height: 50px;
-  box-shadow: 5px 5px 10px 0 black;
-  background-color: lightblue;
+  background-color: #ADFF2F;
 }
