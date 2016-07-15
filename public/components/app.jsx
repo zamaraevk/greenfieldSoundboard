@@ -7,7 +7,7 @@
 //}
 
 var testData = {
-  97: "/soundfiles/beads.wav",
+  97: "/soundfiles/deep-techno-groove.wav",
   98: "/soundfiles/beltbuckle.wav",
   99: "/soundfiles/footsteps.wav",
   100: "/soundfiles/grendel.wav",
@@ -83,23 +83,35 @@ var VKey = React.createClass ({
   },
   // when a key is pressed, change key color, set player to true, and play it.
   handleKeyPress: function(event) {
+    var $audio = document.getElementById(this.props.targetKey);
+    var $vKey = $('#' + event.keyCode).parent();
     if ("" + event.keyCode === "" + (this.props.targetKey - 32)){
-      $('#' + (event.keyCode + 32)).parent().addClass('red');
-      document.getElementById(this.props.targetKey).loop = document.getElementById(this.props.targetKey).loop ? false : true;
-      document.getElementById(this.props.targetKey).play();
-      console.log("dun shifted.",  event.keyCode);
+      $vKey = $('#' + (event.keyCode + 32)).parent();
+      $vKey.addClass('red');
+      $audio.loop = $audio.loop ? false : true;
+      $audio.currentTime = 0;
+      $audio.paused ? $audio.play() : $audio.pause();
     }
     if ("" + event.keyCode === "" + this.props.targetKey) {
-      $('#' + event.keyCode).parent().addClass('green');
-      document.getElementById(this.props.targetKey).play();
+      $vKey.addClass('green');
+      $audio.currentTime = 0;
+      if ($audio.paused) {
+        $audio.play()
+      }
+      else {
+        $audio.pause()
+        $vKey.removeClass('green');
+        $vKey.removeClass('red');
+      }
       event.preventDefault();
     }
     this.render();
   },
 
   handleAudioEnd: function(event) {
-    $('#' + this.props.targetKey).parent().removeClass('green');
-    $('#' + this.props.targetKey).parent().removeClass('red');
+    var $vKey = $('#' + this.props.targetKey).parent();
+    $vKey.removeClass('green');
+    $vKey.removeClass('red');
     event.preventDefault();
     this.render();
   },
