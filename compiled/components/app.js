@@ -1,4 +1,4 @@
-
+"use strict";
 
 //input syntax:  {
 //  targetKeyCode1: "/path/to/source/file.wav",
@@ -43,18 +43,20 @@ var testData = {
 
 //For a comprehensive list of keycode bindings, see "keycode.js"
 //in this same directory.
-var VKey = React.createClass ({
-  getInitialState: function() {
+var VKey = React.createClass({
+  displayName: "VKey",
+
+  getInitialState: function getInitialState() {
     return {
       playing: false
-    }
+    };
   },
 
-  handleKeyPress: function(event) {
+  handleKeyPress: function handleKeyPress(event) {
     if ("" + event.keyCode === "" + this.props.targetKey) {
       $('#' + event.keyCode).parent().removeClass('key');
       $('#' + event.keyCode).parent().addClass('green');
-      this.setState({playing: true})
+      this.setState({ playing: true });
       document.getElementById(this.props.targetKey).play();
       this.handleKeyUp(event);
       event.preventDefault();
@@ -62,7 +64,7 @@ var VKey = React.createClass ({
     this.render();
   },
 
-  handleKeyUp: function(event) {
+  handleKeyUp: function handleKeyUp(event) {
     if ("" + event.keyCode === "" + this.props.targetKey) {
       $('#' + event.keyCode).parent().keyup(console.log('hey'));
       event.preventDefault();
@@ -70,43 +72,48 @@ var VKey = React.createClass ({
     this.render();
   },
 
-  componentDidMount: function(event) {
+  componentDidMount: function componentDidMount(event) {
     window.addEventListener('keypress', this.handleKeyPress);
     window.addEventListener('keyup', this.handleKeyPress);
   },
 
-  render: function() {
-    return (
-      <div className="key" onKeyPress={ this.handleKeyPress }>
-        <p className="keyLabel">{keyCodes[this.props.targetKey]}</p>
-        <audio id={this.props.targetKey} src={ this.props.path }></audio>
-      </div>
-    )
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "key", onKeyPress: this.handleKeyPress },
+      React.createElement(
+        "p",
+        { className: "keyLabel" },
+        keyCodes[this.props.targetKey]
+      ),
+      React.createElement("audio", { id: this.props.targetKey, src: this.props.path })
+    );
   }
 });
 
 var App = React.createClass({
+  displayName: "App",
 
-  render: function() {
+
+  render: function render() {
     var data = [];
     for (var code in testData) {
-      data.push({key: code,
+      data.push({ key: code,
         path: testData[code]
       });
     }
-    return (
-      <div className="keyboard">
-      {
-        data.map(function(keyBinding) {
-          return <VKey targetKey={keyBinding.key} path={keyBinding.path} />
-        })
-      }
-      </div>
-    )
+    return React.createElement(
+      "div",
+      { className: "keyboard" },
+      data.map(function (keyBinding) {
+        return React.createElement(VKey, { targetKey: keyBinding.key, path: keyBinding.path });
+      })
+    );
   }
-})
+});
 
-ReactDOM.render(<div>
-  <App/>
-  </div>, document.getElementById('app')
-);
+ReactDOM.render(React.createElement(
+  "div",
+  null,
+  React.createElement(App, null)
+), document.getElementById('app'));
