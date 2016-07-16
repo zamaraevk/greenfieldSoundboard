@@ -120,30 +120,16 @@ h3 {
   font-weight: bolder;
 }
 
-.tim {
-  float: left;
-  margin: 0 auto;
-  width: calc(100% / 4);
-}
-
-.ian {
-  float: left;
-  margin: 0 auto;
-  width: calc(100% / 4);
-}
-
-.jear {
-  float: left;
-  margin: 0 auto;
-  width: calc(100% / 4);
-}
-
-.james {
+.person {
   float: left;
   margin: 0 auto;
   width: calc(100% / 4);
 }
 
 .img {
-  border-radius: 20px;
+  border-radius: 10px;
+  border: 0px;
+  width: 150px;
+  height: 150px;
+  align-items: center;
 }
