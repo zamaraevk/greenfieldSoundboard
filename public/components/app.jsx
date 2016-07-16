@@ -94,6 +94,25 @@ var VKey = React.createClass ({
     )
   }
 });
+var RebindNode = React.createClass({
+  updateKeyBinding: function(event) {
+    var code = this.props.targetKey.charCodeAt();
+    var song = "/soundfiles/" + this.props.targetSong;
+
+    this.props.bindings.forEach(function (ele, idx) {
+      if (ele.key === code) {
+        this.props.bindings[idx].path = song;
+      }
+    }, this);
+  },
+  render: function() {
+    return (
+      <div onClick = {this.updateKeyBinding}>
+        <p>Click here to bind: {this.props.targetSong}</p>
+      </div>
+    )
+  }
+});
 var App = React.createClass({
   // componentDidMount: function(event) {
   //   $('.loading').hide();
@@ -133,6 +152,7 @@ var App = React.createClass({
     if (event.altKey) {
       if (keyNumber < 123 && keyNumber > 96) {
         this.setState({changeKey: key})
+        this.handleAltKey();
       }
     } else if (event.shiftKey) {
       $vKey.addClass('red');
@@ -162,18 +182,40 @@ var App = React.createClass({
     $audio.currentTime = 0;
     $audio.paused ? $audio.play() : $audio.pause();
   },
+  rebind: function(event) {
+    console.log(event);
+  },
+  reRender: function() {
+    ReactDOM.render(<div>
+      <App/>
+      </div>, document.getElementById('app')
+    );
+  },
   render: function() {
+
    return (
-     <div className="keyboard">
-     {
-       this.state.bindings.map(function(keyBinding, idx) {
-         if (keyBinding === 0) {
-           return <br/>
-         } else {
-           return <VKey key={idx} keyId = {keyBinding.key} path={keyBinding.path}/>
-         }
-       })
-     }
+     <div id="appWindow">
+       <div id = "bindingWindow" className="keyboard">
+         <h1>Click on a sound that you would like to change the binding of {this.state.changeKey} to</h1>
+           <ul onClick = {this.reRender}>
+           {
+             this.state.soundList.map(function (sound, idx) {
+               return <RebindNode key={idx} targetSong = {sound} targetKey = {this.state.changeKey} bindings = {this.state.bindings}/>;
+             }, this)
+           }
+           </ul>
+       </div>
+       <div className="keyboard">
+       {
+         this.state.bindings.map(function(keyBinding, idx) {
+           if (keyBinding === 0) {
+             return <br key={idx}/>
+           } else {
+             return <VKey key={idx} keyId = {keyBinding.key} path={keyBinding.path}/>
+           }
+         })
+       }
+       </div>
      </div>
    )
  }

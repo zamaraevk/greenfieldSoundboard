@@ -76,6 +76,32 @@ var VKey = React.createClass({
     ;
   }
 });
+var RebindNode = React.createClass({
+  displayName: "RebindNode",
+
+  updateKeyBinding: function updateKeyBinding(event) {
+    var code = this.props.targetKey.charCodeAt();
+    var song = "/soundfiles/" + this.props.targetSong;
+
+    this.props.bindings.forEach(function (ele, idx) {
+      if (ele.key === code) {
+        this.props.bindings[idx].path = song;
+      }
+    }, this);
+  },
+  render: function render() {
+    return React.createElement(
+      "div",
+      { onClick: this.updateKeyBinding },
+      React.createElement(
+        "p",
+        null,
+        "Click here to bind: ",
+        this.props.targetSong
+      )
+    );
+  }
+});
 var App = React.createClass({
   displayName: "App",
 
@@ -115,6 +141,7 @@ var App = React.createClass({
     if (event.altKey) {
       if (keyNumber < 123 && keyNumber > 96) {
         this.setState({ changeKey: key });
+        this.handleAltKey();
       }
     } else if (event.shiftKey) {
       $vKey.addClass('red');
@@ -141,17 +168,50 @@ var App = React.createClass({
     $audio.currentTime = 0;
     $audio.paused ? $audio.play() : $audio.pause();
   },
+  rebind: function rebind(event) {
+    console.log(event);
+  },
+  reRender: function reRender() {
+    ReactDOM.render(React.createElement(
+      "div",
+      null,
+      React.createElement(App, null)
+    ), document.getElementById('app'));
+  },
   render: function render() {
+
     return React.createElement(
       "div",
-      { className: "keyboard" },
-      this.state.bindings.map(function (keyBinding, idx) {
-        if (keyBinding === 0) {
-          return React.createElement("br", null);
-        } else {
-          return React.createElement(VKey, { key: idx, keyId: keyBinding.key, path: keyBinding.path });
-        }
-      })
+      { id: "appWindow" },
+      React.createElement(
+        "div",
+        { id: "bindingWindow", className: "keyboard" },
+        React.createElement(
+          "h1",
+          null,
+          "Click on a sound that you would like to change the binding of ",
+          this.state.changeKey,
+          " to"
+        ),
+        React.createElement(
+          "ul",
+          { onClick: this.reRender },
+          this.state.soundList.map(function (sound, idx) {
+            return React.createElement(RebindNode, { key: idx, targetSong: sound, targetKey: this.state.changeKey, bindings: this.state.bindings });
+          }, this)
+        )
+      ),
+      React.createElement(
+        "div",
+        { className: "keyboard" },
+        this.state.bindings.map(function (keyBinding, idx) {
+          if (keyBinding === 0) {
+            return React.createElement("br", { key: idx });
+          } else {
+            return React.createElement(VKey, { key: idx, keyId: keyBinding.key, path: keyBinding.path });
+          }
+        })
+      )
     );
   }
 });
