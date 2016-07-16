@@ -35,7 +35,7 @@ var testData = {
   122: "/soundfiles/footsteps.wav"
 };
 
-var qwertyMap = [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 97, 115, 100, 102, 103, 104, 106, 107, 108, 0, 122, 120, 99, 118, 98, 110, 109];
+var qwertyMap = [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 0, 97, 115, 100, 102, 103, 104, 106, 107, 108, 0, 122, 120, 99, 118, 98, 110, 109];
 
 //sample input:
 //This example would bind the 'a' key to the "example.wav" file.
@@ -49,38 +49,6 @@ var VKey = React.createClass({
   displayName: "VKey",
 
   // the initial state houses the player, which is set to false.
-  getInitialState: function getInitialState() {
-    return {
-      isShiftPressed: false,
-      playing: false
-    };
-  },
-  // when a key is pressed, change key color, set player to true, and play it.
-  handleKeyPress: function handleKeyPress(event) {
-    var $audio = document.getElementById(this.props.targetKey);
-    var $vKey = $('#' + event.keyCode).parent();
-    if ("" + event.keyCode === "" + (this.props.targetKey - 32)) {
-      $vKey = $('#' + (event.keyCode + 32)).parent();
-      $vKey.addClass('red');
-      $audio.loop = $audio.loop ? false : true;
-      $audio.currentTime = 0;
-      $audio.paused ? $audio.play() : $audio.pause();
-    }
-    if ("" + event.keyCode === "" + this.props.targetKey) {
-      $vKey.addClass('green');
-      $audio.currentTime = 0;
-      if ($audio.paused) {
-        $audio.play();
-      } else {
-        $audio.pause();
-        $vKey.removeClass('green');
-        $vKey.removeClass('red');
-      }
-      event.preventDefault();
-    }
-    this.render();
-  },
-
   handleAudioEnd: function handleAudioEnd(event) {
     var $vKey = $('#' + this.props.targetKey).parent();
     $vKey.removeClass('green');
@@ -89,25 +57,21 @@ var VKey = React.createClass({
     this.render();
   },
 
-  componentDidMount: function componentDidMount(event) {
-    window.addEventListener('keypress', this.handleKeyPress);
-  },
-
   render: function render() {
     return React.createElement(
       "div",
-      { className: "key", onKeyPress: this.handleKeyPress },
+      { className: "key" },
       React.createElement(
         "p",
         { className: "keyLabel" },
-        keyCodes[this.props.targetKey]
+        keyCodes[this.props.keyId]
       ),
       React.createElement(
         "p",
         { className: "filename" },
-        this.props.path.split("/").pop()
+        this.props.path.substr(12).slice(0, -4)
       ),
-      React.createElement("audio", { id: this.props.targetKey, src: this.props.path, onEnded: this.handleAudioEnd, preload: "auto" })
+      React.createElement("audio", { id: this.props.keyId, src: this.props.path, onEnded: this.handleAudioEnd, preload: "auto" })
     ) //
     ;
   }
@@ -115,33 +79,85 @@ var VKey = React.createClass({
 var App = React.createClass({
   displayName: "App",
 
-  componentDidMount: function componentDidMount(event) {
-    $('.loading').hide();
+  // componentDidMount: function(event) {
+  //   $('.loading').hide();
+  // },
+  getInitialState: function getInitialState() {
+    return {
+      bindings: [],
+      soundList: [],
+      changeKey: ""
+    };
   },
+  componentDidMount: function componentDidMount() {
+    this.serverRequest = $.get("http://localhost:8000/sounds", function (result) {
+      this.setState({
+        soundList: result
+      });
+    }.bind(this));
 
-  render: function render() {
-    qwertyMap = qwertyMap.map(function (key) {
-      if (key !== 0) {
-        return { key: key, path: testData[key] };
-      } else {
-        return 0;
-      }
+    this.setState({
+      bindings: qwertyMap.map(function (key) {
+        return key !== 0 ? { key: key, path: testData[key], loop: false, playing: false } : 0;
+      })
     });
+    window.addEventListener('keypress', this.handleKeyPress);
+  },
+  componentWillUnmount: function componentWillUnmount() {
+    this.serverRequest.abort(); //not sure what this is for but online said to put it in.
+  },
+  handleKeyPress: function handleKeyPress(event) {
+    var key = event.code.toLowerCase()[3],
+        keyNumber = key.charCodeAt(),
+        $audio = document.getElementById(keyNumber),
+        $vKey = $('#' + keyNumber).parent();
+
+    if (event.altKey) {
+      if (keyNumber < 123 && keyNumber > 96) {
+        this.setState({ changeKey: key });
+      }
+    } else if (event.shiftKey) {
+      $vKey.addClass('red');
+      this.handleShiftKey($audio);
+    } else {
+      this.triggerKey($vKey, $audio);
+    }
+  },
+  triggerKey: function triggerKey($vKey, $audio) {
+    $vKey.addClass('green');
+    $audio.currentTime = 0;
+    if ($audio.paused) {
+      $audio.play();
+    } else {
+      $audio.pause();
+      $vKey.removeClass('green');
+      $vKey.removeClass('red');
+    }
+    event.preventDefault();
+  },
+  handleAltKey: function handleAltKey() {},
+  handleShiftKey: function handleShiftKey($audio) {
+    $audio.loop = !$audio.loop;
+    $audio.currentTime = 0;
+    $audio.paused ? $audio.play() : $audio.pause();
+  },
+  render: function render() {
     return React.createElement(
       "div",
       { className: "keyboard" },
-      qwertyMap.map(function (keyBinding, idx) {
+      this.state.bindings.map(function (keyBinding, idx) {
         if (keyBinding === 0) {
           return React.createElement("br", null);
         } else {
-          return React.createElement(VKey, { targetKey: keyBinding.key, path: keyBinding.path });
+          return React.createElement(VKey, { key: idx, keyId: keyBinding.key, path: keyBinding.path });
         }
       })
     );
   }
 });
 
-// ReactDOM.render(<div>
-//   <App/>
-//   </div>, document.getElementById('app')
-// );
+ReactDOM.render(React.createElement(
+  "div",
+  null,
+  React.createElement(App, null)
+), document.getElementById('app'));
