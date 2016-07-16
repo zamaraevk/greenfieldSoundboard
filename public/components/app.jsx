@@ -76,6 +76,49 @@ var qwertyMap = [
 //in this same directory.
 var VKey = React.createClass ({
   // the initial state houses the player, which is set to false.
+<<<<<<< HEAD
+  getInitialState: function() {
+    return {
+      isShiftPressed: false,
+      playing: false
+    }
+  },
+  // when a key is pressed, change key color, set player to true, and play it.
+  handleKeyPress: function(event) {
+    var $audio = document.getElementById(this.props.targetKey);
+    var $vKey = $('#' + event.keyCode).parent();
+    if ("" + event.keyCode === "" + (this.props.targetKey - 32)){
+      $vKey = $('#' + (event.keyCode + 32)).parent();
+      $vKey.addClass('red');
+      $audio.loop = $audio.loop ? false : true;
+      $audio.currentTime = 0;
+      if ($audio.paused) {
+        $audio.play();
+      }
+      else {
+        $audio.pause();
+        $vKey.removeClass('green');
+        $vKey.removeClass('red');
+      }
+    }
+    if ("" + event.keyCode === "" + this.props.targetKey) {
+      $vKey.addClass('green');
+      $audio.currentTime = 0;
+      if ($audio.paused) {
+        $audio.play();
+      }
+      else {
+        $audio.pause();
+        $vKey.removeClass('green');
+        $vKey.removeClass('red');
+      }
+      event.preventDefault();
+    }
+    this.render();
+  },
+
+=======
+>>>>>>> 2d63ec8aaa6be096888590df95a21a3a68415935
   handleAudioEnd: function(event) {
     var $vKey = $('#' + this.props.targetKey).parent();
     $vKey.removeClass('green');
