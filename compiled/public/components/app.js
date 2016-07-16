@@ -48,7 +48,6 @@ var qwertyMap = [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 0, 97, 115, 1
 var VKey = React.createClass({
   displayName: "VKey",
 
-  // the initial state houses the player, which is set to false.
   handleAudioEnd: function handleAudioEnd(event) {
     var $vKey = $('#' + this.props.targetKey).parent();
     $vKey.removeClass('green');
@@ -69,15 +68,37 @@ var VKey = React.createClass({
       React.createElement(
         "p",
         { className: "filename" },
-<<<<<<< HEAD
-        this.props.path.split("/").pop().split(".").shift()
-=======
         this.props.path.substr(12).slice(0, -4)
->>>>>>> cc9239d5cbe7b4ee27559ddc90cbd01f2abee514
       ),
       React.createElement("audio", { id: this.props.keyId, src: this.props.path, onEnded: this.handleAudioEnd, preload: "auto" })
     ) //
     ;
+  }
+});
+var RebindNode = React.createClass({
+  displayName: "RebindNode",
+
+  updateKeyBinding: function updateKeyBinding(event) {
+    var code = this.props.targetKey.charCodeAt();
+    var song = "/soundfiles/" + this.props.targetSong;
+
+    this.props.bindings.forEach(function (ele, idx) {
+      if (ele.key === code) {
+        this.props.bindings[idx].path = song;
+      }
+    }, this);
+  },
+  render: function render() {
+    return React.createElement(
+      "div",
+      { onClick: this.updateKeyBinding },
+      React.createElement(
+        "p",
+        null,
+        "Click here to bind: ",
+        this.props.targetSong.slice(0, -4)
+      )
+    );
   }
 });
 var App = React.createClass({
@@ -86,8 +107,6 @@ var App = React.createClass({
   // componentDidMount: function(event) {
   //   $('.loading').hide();
   // },
-<<<<<<< HEAD
-=======
   getInitialState: function getInitialState() {
     return {
       bindings: [],
@@ -101,7 +120,6 @@ var App = React.createClass({
         soundList: result
       });
     }.bind(this));
->>>>>>> cc9239d5cbe7b4ee27559ddc90cbd01f2abee514
 
     this.setState({
       bindings: qwertyMap.map(function (key) {
@@ -122,6 +140,7 @@ var App = React.createClass({
     if (event.altKey) {
       if (keyNumber < 123 && keyNumber > 96) {
         this.setState({ changeKey: key });
+        this.handleAltKey();
       }
     } else if (event.shiftKey) {
       $vKey.addClass('red');
@@ -142,23 +161,55 @@ var App = React.createClass({
     }
     event.preventDefault();
   },
-  handleAltKey: function handleAltKey() {},
+  handleAltKey: function handleAltKey() {
+    //insert logic for showing/hiding the divs.
+  },
   handleShiftKey: function handleShiftKey($audio) {
     $audio.loop = !$audio.loop;
     $audio.currentTime = 0;
     $audio.paused ? $audio.play() : $audio.pause();
   },
+  reRender: function reRender() {
+    ReactDOM.render(React.createElement(
+      "div",
+      null,
+      React.createElement(App, null)
+    ), document.getElementById('app'));
+  },
   render: function render() {
+
     return React.createElement(
       "div",
-      { className: "keyboard" },
-      this.state.bindings.map(function (keyBinding, idx) {
-        if (keyBinding === 0) {
-          return React.createElement("br", null);
-        } else {
-          return React.createElement(VKey, { key: idx, keyId: keyBinding.key, path: keyBinding.path });
-        }
-      })
+      { id: "appWindow" },
+      React.createElement(
+        "div",
+        { id: "bindingWindow", className: "keyboard" },
+        React.createElement(
+          "h1",
+          null,
+          "Click on a sound that you would like to change the binding of ",
+          this.state.changeKey,
+          " to"
+        ),
+        React.createElement(
+          "ul",
+          { onClick: this.reRender },
+          this.state.soundList.map(function (sound, idx) {
+            return React.createElement(RebindNode, { key: idx, targetSong: sound, targetKey: this.state.changeKey, bindings: this.state.bindings });
+          }, this)
+        )
+      ),
+      React.createElement(
+        "div",
+        { className: "keyboard" },
+        this.state.bindings.map(function (keyBinding, idx) {
+          if (keyBinding === 0) {
+            return React.createElement("br", { key: idx });
+          } else {
+            return React.createElement(VKey, { key: idx, keyId: keyBinding.key, path: keyBinding.path });
+          }
+        })
+      )
     );
   }
 });
