@@ -76,6 +76,7 @@ var qwertyMap = [
 //in this same directory.
 var VKey = React.createClass ({
   // the initial state houses the player, which is set to false.
+<<<<<<< HEAD
   getInitialState: function() {
     return {
       isShiftPressed: false,
@@ -116,6 +117,8 @@ var VKey = React.createClass ({
     this.render();
   },
 
+=======
+>>>>>>> 2d63ec8aaa6be096888590df95a21a3a68415935
   handleAudioEnd: function(event) {
     var $vKey = $('#' + this.props.targetKey).parent();
     $vKey.removeClass('green');
@@ -124,16 +127,12 @@ var VKey = React.createClass ({
     this.render();
   },
 
-  componentDidMount: function(event) {
-    window.addEventListener('keypress', this.handleKeyPress);
-  },
-
   render: function() {
     return (
-      <div className="key" onKeyPress={ this.handleKeyPress }>
-        <p className="keyLabel">{keyCodes[this.props.targetKey]}</p>
-        <p className="filename">{ this.props.path.split("/").pop().split(".").shift() }</p>
-        <audio id={this.props.targetKey} src={ this.props.path } onEnded={ this.handleAudioEnd } preload="auto"></audio>
+      <div className="key">
+        <p className="keyLabel">{keyCodes[this.props.keyId]}</p>
+        <p className="filename">{ this.props.path.substr(12).slice(0, -4)}</p>
+        <audio id={this.props.keyId} src={ this.props.path } onEnded={ this.handleAudioEnd } preload="auto"></audio>
       </div>  //
     )
   }
@@ -142,23 +141,79 @@ var App = React.createClass({
   // componentDidMount: function(event) {
   //   $('.loading').hide();
   // },
+  getInitialState: function(){
+    return {
+      bindings: [],
+      soundList: [],
+      changeKey: ""
+    }
+  },
+  componentDidMount: function() {
+    this.serverRequest = $.get("http://localhost:8000/sounds", function (result) {
+      this.setState({
+        soundList: result,
+      });
+    }.bind(this));
 
+    this.setState({
+      bindings: qwertyMap.map(function(key) {
+        return key !== 0
+          ? {key: key, path: testData[key], loop: false, playing: false}
+          : 0;
+      })
+    })
+    window.addEventListener('keypress', this.handleKeyPress);
+  },
+  componentWillUnmount: function() {
+    this.serverRequest.abort();//not sure what this is for but online said to put it in.
+  },
+  handleKeyPress: function(event) {
+    var key = event.code.toLowerCase()[3],
+        keyNumber = key.charCodeAt(),
+        $audio = document.getElementById(keyNumber),
+        $vKey = $('#' + keyNumber).parent();
+
+    if (event.altKey) {
+      if (keyNumber < 123 && keyNumber > 96) {
+        this.setState({changeKey: key})
+      }
+    } else if (event.shiftKey) {
+      $vKey.addClass('red');
+      this.handleShiftKey($audio);
+    } else {
+      this.triggerKey($vKey, $audio);
+    }
+  },
+  triggerKey: function($vKey, $audio) {
+    $vKey.addClass('green');
+    $audio.currentTime = 0;
+    if ($audio.paused) {
+      $audio.play()
+    }
+    else {
+      $audio.pause()
+      $vKey.removeClass('green');
+      $vKey.removeClass('red');
+    }
+    event.preventDefault();
+  },
+  handleAltKey: function() {
+
+  },
+  handleShiftKey: function($audio) {
+    $audio.loop = !$audio.loop
+    $audio.currentTime = 0;
+    $audio.paused ? $audio.play() : $audio.pause();
+  },
   render: function() {
-   qwertyMap = qwertyMap.map(function(key) {
-     if (key !== 0) {
-       return {key: key, path: testData[key]};
-     } else {
-       return 0;
-     }
-   });
    return (
      <div className="keyboard">
      {
-       qwertyMap.map(function(keyBinding, idx) {
+       this.state.bindings.map(function(keyBinding, idx) {
          if (keyBinding === 0) {
            return <br/>
          } else {
-           return <VKey targetKey={keyBinding.key} path={keyBinding.path}/>
+           return <VKey key={idx} keyId = {keyBinding.key} path={keyBinding.path}/>
          }
        })
      }
