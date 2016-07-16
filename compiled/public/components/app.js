@@ -49,9 +49,9 @@ var VKey = React.createClass({
   displayName: "VKey",
 
   handleAudioEnd: function handleAudioEnd(event) {
-    var $vKey = $('#' + this.props.targetKey).parent();
-    $vKey.removeClass('green');
-    $vKey.removeClass('red');
+    var $vKey = $('#' + this.props.keyId).parent();
+
+    $vKey.removeClass('green red');
     event.preventDefault();
     this.render();
   },
@@ -115,17 +115,16 @@ var App = React.createClass({
     };
   },
   componentDidMount: function componentDidMount() {
+    $('#bindingWindow').hide();
     this.serverRequest = $.get("http://localhost:8000/sounds", function (result) {
       this.setState({
-        soundList: result
+        soundList: result,
+        bindings: qwertyMap.map(function (key) {
+          return key !== 0 ? { key: key, path: testData[key], loop: false, playing: false } : 0;
+        })
       });
     }.bind(this));
 
-    this.setState({
-      bindings: qwertyMap.map(function (key) {
-        return key !== 0 ? { key: key, path: testData[key], loop: false, playing: false } : 0;
-      })
-    });
     window.addEventListener('keypress', this.handleKeyPress);
   },
   componentWillUnmount: function componentWillUnmount() {
@@ -156,13 +155,13 @@ var App = React.createClass({
       $audio.play();
     } else {
       $audio.pause();
-      $vKey.removeClass('green');
-      $vKey.removeClass('red');
+      $vKey.removeClass('green red');
     }
     event.preventDefault();
   },
   handleAltKey: function handleAltKey() {
-    //insert logic for showing/hiding the divs.
+    $('#bindingWindow').show();
+    $('#keyboardWindow').hide();
   },
   handleShiftKey: function handleShiftKey($audio) {
     $audio.loop = !$audio.loop;
@@ -170,6 +169,8 @@ var App = React.createClass({
     $audio.paused ? $audio.play() : $audio.pause();
   },
   reRender: function reRender() {
+    $('#bindingWindow').hide();
+    $('#keyboardWindow').show();
     ReactDOM.render(React.createElement(
       "div",
       null,
@@ -183,11 +184,11 @@ var App = React.createClass({
       { id: "appWindow" },
       React.createElement(
         "div",
-        { id: "bindingWindow", className: "keyboard" },
+        { id: "bindingWindow" },
         React.createElement(
           "h1",
           null,
-          "Click on a sound that you would like to change the binding of ",
+          "Click on a file to change the binding of ",
           this.state.changeKey,
           " to"
         ),
@@ -201,7 +202,7 @@ var App = React.createClass({
       ),
       React.createElement(
         "div",
-        { className: "keyboard" },
+        { id: "keyboardWindow", className: "keyboard" },
         this.state.bindings.map(function (keyBinding, idx) {
           if (keyBinding === 0) {
             return React.createElement("br", { key: idx });
