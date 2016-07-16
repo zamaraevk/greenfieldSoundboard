@@ -46,6 +46,7 @@ var qwertyMap = [
  105,
  111,
  112,
+ 0,
  97,
  115,
  100,
@@ -124,14 +125,18 @@ var VKey = React.createClass ({
     return (
       <div className="key" onKeyPress={ this.handleKeyPress }>
         <p className="keyLabel">{keyCodes[this.props.targetKey]}</p>
-        <p className="filename">{ this.props.path.split("/").pop() }</p>
+        <p className="filename">{ this.props.path.split("/").pop().split(".").shift() }</p>
         <audio id={this.props.targetKey} src={ this.props.path } onEnded={ this.handleAudioEnd } preload="auto"></audio>
       </div>  //
     )
   }
 });
 var App = React.createClass({
- render: function() {
+  // componentDidMount: function(event) {
+  //   $('.loading').hide();
+  // },
+
+  render: function() {
    qwertyMap = qwertyMap.map(function(key) {
      if (key !== 0) {
        return {key: key, path: testData[key]};
