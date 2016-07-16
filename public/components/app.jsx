@@ -75,10 +75,10 @@ var qwertyMap = [
 //For a comprehensive list of keycode bindings, see "keycode.js"
 //in this same directory.
 var VKey = React.createClass ({
-  handleAudioEnd: function(event) {
-    var $vKey = $('#' + this.props.targetKey).parent();
-    $vKey.removeClass('green');
-    $vKey.removeClass('red');
+  handleAudioEnd: function (event) {
+    var $vKey = $('#' + this.props.keyId).parent();
+
+    $vKey.removeClass('green red');
     event.preventDefault();
     this.render();
   },
@@ -96,11 +96,11 @@ var VKey = React.createClass ({
 var RebindNode = React.createClass({
   updateKeyBinding: function(event) {
     var code = this.props.targetKey.charCodeAt();
-    var song = "/soundfiles/" + this.props.targetSong;
+    var path = "/soundfiles/" + this.props.targetSong;
 
     this.props.bindings.forEach(function (ele, idx) {
       if (ele.key === code) {
-        this.props.bindings[idx].path = song;
+        this.props.bindings[idx].path = path;
       }
     }, this);
   },
@@ -116,42 +116,42 @@ var App = React.createClass({
   // componentDidMount: function(event) {
   //   $('.loading').hide();
   // },
-  getInitialState: function(){
-    return {
+  getInitialState: () => (//playing with es6
+     {
       bindings: [],
       soundList: [],
       changeKey: ""
     }
-  },
+  ),
   componentDidMount: function() {
-    this.serverRequest = $.get("http://localhost:8000/sounds", function (result) {
+    $('#bindingWindow').hide();
+    this.serverRequest = $.get(window.location.href + "sounds", function (result) {
       this.setState({
         soundList: result,
+        bindings: qwertyMap.map(function(key) {
+          return key !== 0
+            ? {key: key, path: testData[key], loop: false, playing: false}
+            : 0;
+        })
       });
     }.bind(this));
 
-    this.setState({
-      bindings: qwertyMap.map(function(key) {
-        return key !== 0
-          ? {key: key, path: testData[key], loop: false, playing: false}
-          : 0;
-      })
-    })
     window.addEventListener('keypress', this.handleKeyPress);
   },
   componentWillUnmount: function() {
     this.serverRequest.abort();//not sure what this is for but online said to put it in.
   },
   handleKeyPress: function(event) {
+    console.log(event);
     var key = event.code.toLowerCase()[3],
         keyNumber = key.charCodeAt(),
         $audio = document.getElementById(keyNumber),
         $vKey = $('#' + keyNumber).parent();
 
-    if (event.altKey) {
+    if (event.ctrlKey && $('#keyboardWindow').is(':visible')) {
       if (keyNumber < 123 && keyNumber > 96) {
         this.setState({changeKey: key})
-        this.handleAltKey();
+        this.handleCtrlKey();
       }
     } else if (event.shiftKey) {
       $vKey.addClass('red');
@@ -163,25 +163,31 @@ var App = React.createClass({
   triggerKey: function($vKey, $audio) {
     $vKey.addClass('green');
     $audio.currentTime = 0;
+
     if ($audio.paused) {
       $audio.play()
     }
     else {
       $audio.pause()
-      $vKey.removeClass('green');
-      $vKey.removeClass('red');
+      $vKey.removeClass('green red');
     }
     event.preventDefault();
   },
-  handleAltKey: function() {
-    //insert logic for showing/hiding the divs.
+  handleCtrlKey: function() {
+
+    $('#bindingWindow').animate({height:'toggle'},350);
+    $('#keyboardWindow').animate({width:'toggle'},350);
   },
   handleShiftKey: function($audio) {
+
     $audio.loop = !$audio.loop
     $audio.currentTime = 0;
     $audio.paused ? $audio.play() : $audio.pause();
   },
   reRender: function() {
+
+    $('#bindingWindow').animate({height:'toggle'},350);
+    $('#keyboardWindow').animate({width:'toggle'},350);
     ReactDOM.render(<div>
       <App/>
       </div>, document.getElementById('app')
@@ -192,24 +198,22 @@ var App = React.createClass({
    return (
      <div id="appWindow">
        <div id = "bindingWindow" className="keyboard">
-         <h1>Click on a sound that you would like to change the binding of {this.state.changeKey} to</h1>
+         <h1>Click on a file to change the binding of {this.state.changeKey} to</h1>
            <ul onClick = {this.reRender}>
            {
-             this.state.soundList.map(function (sound, idx) {
-               return <RebindNode key={idx} targetSong = {sound} targetKey = {this.state.changeKey} bindings = {this.state.bindings}/>;
-             }, this)
+             this.state.soundList.map( (sound, idx) => ( //es6 again
+               <RebindNode key={idx} targetSong = {sound} targetKey = {this.state.changeKey} bindings = {this.state.bindings}/>
+             ), this)
            }
            </ul>
        </div>
-       <div className="keyboard">
+       <div id='keyboardWindow' className="keyboard">
        {
-         this.state.bindings.map(function(keyBinding, idx) {
-           if (keyBinding === 0) {
-             return <br key={idx}/>
-           } else {
-             return <VKey key={idx} keyId = {keyBinding.key} path={keyBinding.path}/>
-           }
-         })
+         this.state.bindings.map( (keyBinding, idx) => //yay es6
+           keyBinding === 0
+            ? <br key={idx}/>
+            : <VKey key={idx} keyId = {keyBinding.key} path={keyBinding.path}/>
+         )
        }
        </div>
      </div>
