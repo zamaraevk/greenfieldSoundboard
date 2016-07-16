@@ -91,16 +91,23 @@ var VKey = React.createClass ({
       $vKey.addClass('red');
       $audio.loop = $audio.loop ? false : true;
       $audio.currentTime = 0;
-      $audio.paused ? $audio.play() : $audio.pause();
+      if ($audio.paused) {
+        $audio.play();
+      }
+      else {
+        $audio.pause();
+        $vKey.removeClass('green');
+        $vKey.removeClass('red');
+      }
     }
     if ("" + event.keyCode === "" + this.props.targetKey) {
       $vKey.addClass('green');
       $audio.currentTime = 0;
       if ($audio.paused) {
-        $audio.play()
+        $audio.play();
       }
       else {
-        $audio.pause()
+        $audio.pause();
         $vKey.removeClass('green');
         $vKey.removeClass('red');
       }
