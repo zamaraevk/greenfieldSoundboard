@@ -95,8 +95,9 @@ var RebindNode = React.createClass({
       React.createElement(
         "p",
         null,
-        "Click here to bind: ",
-        this.props.targetSong.slice(0, -4)
+        " ",
+        this.props.targetSong.slice(0, -4),
+        " "
       )
     );
   }

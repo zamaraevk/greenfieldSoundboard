@@ -24,7 +24,7 @@ body {
       0 0 7px #ffff00;
 }
 
-@keyframes blur{
+@keyframes blur {
 
       text-shadow:0 0 10px #ffa500,
       0 0 10px #ffa500,
@@ -43,7 +43,7 @@ body {
       0 10px 100px #fe0000,
       0 10px 100px #fe0000,
       0 -10px 100px #fe0000,
-      0 -10px 100px #fe0000;}
+      0 -10px 100px #fe0000;
 }
 
 .keyboard {
@@ -83,13 +83,16 @@ body {
 .green {
   background-color: #ADFF2F;
 }
+
 .red {
   background-color: red;
 }
+
 .header {
+  font-family: 'Audiowide', cursive;
   text-align: center;
   font-weight: bold;
-  font-family: Futura, Helvetica, Garamond, Arial;;
+  /*font-family: Futura, Helvetica, Garamond, Arial;;*/
   font-size: 60px;
   color: #A6CA26;
   background: #5f2c82; /* fallback for old browsers */
@@ -128,7 +131,7 @@ h3 {
 
 .img {
   border-radius: 10px;
-  border: 0px;
+  border: 0;
   width: 150px;
   height: 150px;
   align-items: center;

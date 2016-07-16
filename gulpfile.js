@@ -26,7 +26,7 @@ gulp.task('babel', function() {
 		.pipe(babel({
 			presets: ['react']
 		}))
-		.pipe(gulp.dest('./compiled/public/components'));
+		.pipe(gulp.dest('./compiled/components'));
 });
 
 // gulp watch to monitor changes in any jsx file.
