@@ -86,3 +86,64 @@ body {
 .red {
   background-color: red;
 }
+.header {
+  text-align: center;
+  font-weight: bold;
+  font-family: Futura, Helvetica, Garamond, Arial;;
+  font-size: 60px;
+  color: #A6CA26;
+  background: #5f2c82; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #5f2c82 , #49a09d);
+  background: linear-gradient(to left, #5f2c82 , #49a09d);
+  padding: 50px 100px;
+  border-radius: 10px;
+}
+
+h3 {
+  text-align: center;
+  font-weight: bold;
+  font-family: Futura, Helvetica, Garamond, Arial;;
+  font-size: 30px;
+}
+
+.creators {
+  text-align: center;
+  display: block;
+  margin: auto;
+  width: 50%;
+}
+
+.name {
+  text-align: center;
+  font-size: 20px;
+  font-family: Futura, Helvetica, Garamond, Arial;
+  font-weight: bolder;
+}
+
+.tim {
+  float: left;
+  margin: 0 auto;
+  width: calc(100% / 4);
+}
+
+.ian {
+  float: left;
+  margin: 0 auto;
+  width: calc(100% / 4);
+}
+
+.jear {
+  float: left;
+  margin: 0 auto;
+  width: calc(100% / 4);
+}
+
+.james {
+  float: left;
+  margin: 0 auto;
+  width: calc(100% / 4);
+}
+
+.img {
+  border-radius: 20px;
+}
