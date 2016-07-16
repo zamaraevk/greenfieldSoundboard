@@ -48,7 +48,6 @@ var qwertyMap = [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 0, 97, 115, 1
 var VKey = React.createClass({
   displayName: "VKey",
 
-  // the initial state houses the player, which is set to false.
   handleAudioEnd: function handleAudioEnd(event) {
     var $vKey = $('#' + this.props.targetKey).parent();
     $vKey.removeClass('green');
@@ -69,11 +68,7 @@ var VKey = React.createClass({
       React.createElement(
         "p",
         { className: "filename" },
-<<<<<<< HEAD
-        this.props.path.split("/").pop().split(".").shift()
-=======
         this.props.path.substr(12).slice(0, -4)
->>>>>>> cc9239d5cbe7b4ee27559ddc90cbd01f2abee514
       ),
       React.createElement("audio", { id: this.props.keyId, src: this.props.path, onEnded: this.handleAudioEnd, preload: "auto" })
     ) //
@@ -101,7 +96,7 @@ var RebindNode = React.createClass({
         "p",
         null,
         "Click here to bind: ",
-        this.props.targetSong
+        this.props.targetSong.slice(0, -4)
       )
     );
   }
@@ -112,8 +107,6 @@ var App = React.createClass({
   // componentDidMount: function(event) {
   //   $('.loading').hide();
   // },
-<<<<<<< HEAD
-=======
   getInitialState: function getInitialState() {
     return {
       bindings: [],
@@ -127,7 +120,6 @@ var App = React.createClass({
         soundList: result
       });
     }.bind(this));
->>>>>>> cc9239d5cbe7b4ee27559ddc90cbd01f2abee514
 
     this.setState({
       bindings: qwertyMap.map(function (key) {
@@ -169,14 +161,13 @@ var App = React.createClass({
     }
     event.preventDefault();
   },
-  handleAltKey: function handleAltKey() {},
+  handleAltKey: function handleAltKey() {
+    //insert logic for showing/hiding the divs.
+  },
   handleShiftKey: function handleShiftKey($audio) {
     $audio.loop = !$audio.loop;
     $audio.currentTime = 0;
     $audio.paused ? $audio.play() : $audio.pause();
-  },
-  rebind: function rebind(event) {
-    console.log(event);
   },
   reRender: function reRender() {
     ReactDOM.render(React.createElement(

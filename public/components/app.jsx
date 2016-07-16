@@ -75,50 +75,6 @@ var qwertyMap = [
 //For a comprehensive list of keycode bindings, see "keycode.js"
 //in this same directory.
 var VKey = React.createClass ({
-  // the initial state houses the player, which is set to false.
-<<<<<<< HEAD
-  getInitialState: function() {
-    return {
-      isShiftPressed: false,
-      playing: false
-    }
-  },
-  // when a key is pressed, change key color, set player to true, and play it.
-  handleKeyPress: function(event) {
-    var $audio = document.getElementById(this.props.targetKey);
-    var $vKey = $('#' + event.keyCode).parent();
-    if ("" + event.keyCode === "" + (this.props.targetKey - 32)){
-      $vKey = $('#' + (event.keyCode + 32)).parent();
-      $vKey.addClass('red');
-      $audio.loop = $audio.loop ? false : true;
-      $audio.currentTime = 0;
-      if ($audio.paused) {
-        $audio.play();
-      }
-      else {
-        $audio.pause();
-        $vKey.removeClass('green');
-        $vKey.removeClass('red');
-      }
-    }
-    if ("" + event.keyCode === "" + this.props.targetKey) {
-      $vKey.addClass('green');
-      $audio.currentTime = 0;
-      if ($audio.paused) {
-        $audio.play();
-      }
-      else {
-        $audio.pause();
-        $vKey.removeClass('green');
-        $vKey.removeClass('red');
-      }
-      event.preventDefault();
-    }
-    this.render();
-  },
-
-=======
->>>>>>> 2d63ec8aaa6be096888590df95a21a3a68415935
   handleAudioEnd: function(event) {
     var $vKey = $('#' + this.props.targetKey).parent();
     $vKey.removeClass('green');
@@ -151,7 +107,7 @@ var RebindNode = React.createClass({
   render: function() {
     return (
       <div onClick = {this.updateKeyBinding}>
-        <p>Click here to bind: {this.props.targetSong}</p>
+        <p>Click here to bind: {this.props.targetSong.slice(0, -4)}</p>
       </div>
     )
   }
@@ -218,15 +174,12 @@ var App = React.createClass({
     event.preventDefault();
   },
   handleAltKey: function() {
-
+    //insert logic for showing/hiding the divs.
   },
   handleShiftKey: function($audio) {
     $audio.loop = !$audio.loop
     $audio.currentTime = 0;
     $audio.paused ? $audio.play() : $audio.pause();
-  },
-  rebind: function(event) {
-    console.log(event);
   },
   reRender: function() {
     ReactDOM.render(<div>
