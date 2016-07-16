@@ -1,10 +1,9 @@
 var gulp = require('gulp');
-// var jshint = require('gulp-jshint');//linting JS files
+var jshint = require('gulp-jshint');//linting JS files
 var changed = require('gulp-changed');//moniters files for changes to be gulped
-var webpack = require('gulp-webpack');//not sure what this does yet but it's important
+var webpack = require('gulp-webpack');
 var shell = require('gulp-shell');//shell commands for pushing to heroku
 var webpackConfig = require('./webpack.config.js');
-var minifyHtml = require('gulp-minify-html');
 const babel = require('gulp-babel');
 const watch = require('gulp-watch');
 
@@ -14,11 +13,11 @@ gulp.task('default', function() {
 });
 
 // JS hint task
-// gulp.task('jshint', function() {
-//   gulp.src('./src/scripts/*.js') // will we create this?
-//     .pipe(jshint())
-//     .pipe(jshint.reporter('default'));
-// });
+gulp.task('jshint', function() {
+  gulp.src('./compiled/components/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
+});
 
 // gulp babel to compile components.
 gulp.task('babel', function() {
@@ -52,17 +51,4 @@ gulp.task('webpack', function() {
     webpackConfig
   }))
   .pipe(gulp.dest('./dist'));
-});
-
-gulp.task('babel', function() {
-	return gulp.src('public/components/*')
-    // .pipe(jsx())
-		.pipe(babel({
-			presets: ['react']
-		}))
-		.pipe(gulp.dest('compiled/public/components'));
-});
-
-gulp.task('watch', function() {
-  gulp.watch('public/components/*.jsx', ['babel']);
 });
