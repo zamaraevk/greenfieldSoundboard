@@ -94,7 +94,7 @@ body {
   text-align: center;
   font-weight: bold;
   /*font-family: Futura, Helvetica, Garamond, Arial;;*/
-  font-size: 60px;
+  font-size: 5em;
   color: #A6CA26;
   background: #5f2c82; /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #5f2c82 , #49a09d);
@@ -107,7 +107,7 @@ h3 {
   text-align: center;
   font-weight: bold;
   font-family: Futura, Helvetica, Garamond, Arial;;
-  font-size: 30px;
+  font-size: 2em;
 }
 
 .creators {
@@ -132,7 +132,7 @@ h3 {
 
 .img {
   border-radius: 10px;
-  border: 0;
+  border: 5px solid black;
   width: 150px;
   height: 150px;
   align-items: center;
