@@ -7,7 +7,7 @@
 //}
 
 var testData = {
-  97: "/soundfiles/deep-techno-groove.wav",
+  97: "/soundfiles/techno-groove.wav",
   98: "/soundfiles/beltbuckle.wav",
   99: "/soundfiles/footsteps.wav",
   100: "/soundfiles/grendel.wav",
@@ -224,10 +224,10 @@ var App = React.createClass({
   }
 });
 
-setInterval(function () {
-  ReactDOM.render(React.createElement(
-    "div",
-    null,
-    React.createElement(App, null)
-  ), document.getElementById('app'));
-}, 8000);
+// setInterval(function() {
+ReactDOM.render(React.createElement(
+  "div",
+  null,
+  React.createElement(App, null)
+), document.getElementById('app'));
+// }, 8000);

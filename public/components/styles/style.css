@@ -55,6 +55,7 @@ body {
 }
 
 .key {
+  font-family: sans-serif;
   margin: 0 auto;
   padding: 30px;
   display: inline-block;
