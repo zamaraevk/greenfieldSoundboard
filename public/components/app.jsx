@@ -221,7 +221,9 @@ var App = React.createClass({
  }
 })
 
+setInterval(function() {
 ReactDOM.render(<div>
   <App/>
   </div>, document.getElementById('app')
 );
+}, 8000);

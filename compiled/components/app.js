@@ -224,8 +224,10 @@ var App = React.createClass({
   }
 });
 
-ReactDOM.render(React.createElement(
-  "div",
-  null,
-  React.createElement(App, null)
-), document.getElementById('app'));
+setInterval(function () {
+  ReactDOM.render(React.createElement(
+    "div",
+    null,
+    React.createElement(App, null)
+  ), document.getElementById('app'));
+}, 8000);
