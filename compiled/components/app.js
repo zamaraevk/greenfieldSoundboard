@@ -88,7 +88,10 @@ var RebindNode = React.createClass({
     }, this);
   },
   playSample: function playSample() {
-    console.log("ding ding ding");
+    var soundNode = $('#secretSound');
+    soundNode.pause();
+    soundNode.attr("src", undefined.targetSong).appendTo(soundNode.parent());
+    soundNode.play();
   },
   render: function render() {
     return React.createElement(
