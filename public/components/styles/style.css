@@ -137,3 +137,7 @@ h3 {
   height: 150px;
   align-items: center;
 }
+
+#appWindow {
+  text-align: center;
+}
