@@ -12,8 +12,8 @@ Clone from GitHub, then run
 
   >npm install
 
-to install your dependency packages.  To compile, set a Babel watch statement: 
-  
+to install your dependency packages.  To compile, set a Babel watch statement:
+
   >babel public/ --out-dir compiled --preset es2015,react --watch
 
 For local testing start server using Node:
@@ -32,7 +32,7 @@ Soundboard binds each alphabetic key to a soundfile (served statically from ./fo
 
 To loop a sound, use the shift key.
 
-Change key bindings by holding the ctrl key and pressing the key you wish to change.  This will trigger a drop-down menu which lists all the target sounds in the library.  Click the desired sound, and your key will be re-bound.
+Change key bindings by holding the ctrl key (on OSX. For windows users, use alt key) and pressing the key you wish to change.  This will trigger a drop-down menu which lists all the target sounds in the library.  Click the desired sound, and your key will be re-bound.  In that menu you can also click on the 'listen' icon to play a sample sound.
 
 ## In this repo
 
@@ -48,21 +48,30 @@ This repo contains the following directories:
 
 Target directory for Babel to compile into.  Contains compiled version of the public directory. **DO NOT** edit files in this directory directly!
 
-### dist 
+### dist
 
 Target directory for Webpack.  Contains the bundle.js built by Webpack, before web deploy. **DO NOT** edit files in this directory directly!
 
 ### foley
 
-Contains all soundfiles Soundboard has access to.  Adding/removing files from this directory will add/remove them from the app's "library" of sounds.  Sounds should be in .wav format.
+Contains all soundfiles Soundboard has access to.  Adding/removing files from this directory will add/remove them from the app's "library" of sounds.  Sounds are organized in .wav format for consistancy but can be .mp3 or .ogg as well.
+For usage across platforms you might need .mp3 and .wav versions of every sound file.
 
 
 ### public
 
-Contains source code for the front-end elements of the app.  The components directory includes all the React code which interacts with index.html to produce the final page.  All of this eventually gets compiled into the /compiled directory.  
+Contains source code for the front-end elements of the app.  The components directory includes all the React code which interacts with index.html to produce the final page.  All of this eventually gets compiled into the /compiled directory.  The source files are as follows:
+ - app.jsx: The main logic for the page. All data flows down from here and is declared either in initial states or in
+    componentDidMount. Sets a single event listener to moniter all keypresses and react accordingly.
+ - client.jsx: our loading screen. Currently our server loads files instantly so we added a setTimeout around some of
+   our logic to simulate a short loading experience.
+ - helpers.jsx: Currently stores all setter-objects. This is where the default keybindings are stored, as well
+  as the important qwertyMap object that maps the key-bindings into a qwerty-oriented array.
+ - rebindNode.jsx: contains the render model and some logic for rebinding a song to a key.  Take note of what data
+    is passed to it through the app.jsx render function. We pass the this.reRender function from app.jsx down into
+    rebindNode for easy rendering of the DOM after a key-binding event.
+ - vKey.jsx: contains the render model and some logic for dispaying and handling key presses.
 
 ### server
 
 Contains all the code for the back-end elements of the app.  All of these files are used as helper files for server.js.  **NOTE** the lib and model directories contain schemas and config files for a Mongoose database.  This database is currently not functional/necessary but may become so during future development.
-
-
