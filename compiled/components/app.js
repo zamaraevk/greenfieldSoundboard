@@ -14,7 +14,7 @@ var testData = {
   102: "/soundfiles/drums.wav",
   103: "/soundfiles/pew-pew.wav",
   104: "/soundfiles/grendel.wav",
-  105: "/soundfiles/derp-yell.mp3",
+  105: "/soundfiles/derp-yell.wav",
   106: "/soundfiles/beltbuckle.wav",
   107: "/soundfiles/oh-yeah.wav",
   108: "/soundfiles/power-up.wav",
@@ -44,9 +44,12 @@ var qwertyMap = [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 0, 97, 115, 1
 
 //For a comprehensive list of keycode bindings, see "keycode.js"
 //in this same directory.
+
+//VKey React class.  Represents one key on our virtual keyboard.
 var VKey = React.createClass({
   displayName: "VKey",
 
+  //method for removing styling from key after its audio element has stopped playing.
   handleAudioEnd: function handleAudioEnd(event) {
     var $vKey = $('#' + this.props.keyId).parent();
 
@@ -67,16 +70,19 @@ var VKey = React.createClass({
       React.createElement(
         "p",
         { className: "filename" },
-        this.props.path.substr(12).slice(0, -4)
+        this.props.path.substr(12).slice(0, -4).split("-").join(" ")
       ),
       React.createElement("audio", { id: this.props.keyId, src: this.props.path, onEnded: this.handleAudioEnd, preload: "auto" })
     ) //
     ;
   }
 });
+
+//RebindNode React class.  Represents one entry in the drop-down list for rebinding keys.
 var RebindNode = React.createClass({
   displayName: "RebindNode",
 
+  //this is the function that actually changes the binding of the key.
   updateKeyBinding: function updateKeyBinding(event) {
     var code = this.props.targetKey.charCodeAt();
     var path = "/soundfiles/" + this.props.targetSong;
@@ -87,43 +93,46 @@ var RebindNode = React.createClass({
       }
     }, this);
   },
+  //method for previewing sound before binding it.
   playSample: function playSample() {
-    console.log("ding ding ding");
-    var soundNode = $('#secretSound');
-    soundNode.pause();
-    soundNode.attr("src", undefined.targetSong);
-    soundNode.play();
+    var soundExample = window.location.href + "soundFiles/" + this.props.targetSong;
+    var $soundNode = document.getElementById('secretSound');
+
+    $soundNode.pause();
+    $soundNode.src = soundExample;
+    $soundNode.currentTime = 0;
+    $soundNode.play();
   },
   render: function render() {
     return React.createElement(
       "div",
-      { className: "sound-rebind-entry", onClick: this.updateKeyBinding },
+      { className: "rebindNode", onClick: this.updateKeyBinding },
       React.createElement(
         "p",
-        { onClick: this.props.reRender },
+        { className: "rebindSong", onClick: this.props.reRender },
         " ",
-        this.props.targetSong.slice(0, -4),
+        this.props.targetSong.slice(0, -4).split("-").join(" "),
         " "
       ),
-      React.createElement("img", { src: "assets/listen.png", onClick: this.playSample })
+      React.createElement("img", { className: "rebindIcon", src: "assets/listen.png", onClick: this.playSample })
     );
   }
 });
+//
+
+// App React class.  Contains a number of methods which control the audio, as well as rendering pretty much the whole damn app.
 var App = React.createClass({
   displayName: "App",
 
-  // componentDidMount: function(event) {
-  //   $('.loading').hide();
-  // },
+  //declaring some states.
   getInitialState: function getInitialState() {
-    return (//playing with es6
-      {
-        bindings: [],
-        soundList: [],
-        changeKey: ""
-      }
-    );
+    return {
+      bindings: [],
+      soundList: [],
+      changeKey: ""
+    };
   },
+  //once the component mounts, we set those states equal to the correct data.  We also hide the binding window using JQuery until it is required.
   componentDidMount: function componentDidMount() {
     $('#bindingWindow').hide();
     this.serverRequest = $.get(window.location.href + "sounds", function (result) {
@@ -137,27 +146,37 @@ var App = React.createClass({
 
     window.addEventListener('keypress', this.handleKeyPress);
   },
+
   componentWillUnmount: function componentWillUnmount() {
     this.serverRequest.abort(); //not sure what this is for but online said to put it in.
   },
+
+  //this is our keyhandler function.  It handles all keypress events on the DOM.  Plays/stops the appropriate sound file,
+  //as well as changing the styling on the appropriate hey.
   handleKeyPress: function handleKeyPress(event) {
+    //store all our relevent DOM elements as variables so that we can reference them easily later.
     var key = event.code.toLowerCase()[3],
         keyNumber = key.charCodeAt(),
         $audio = document.getElementById(keyNumber),
         $vKey = $('#' + keyNumber).parent();
 
+    //handles the ctrl+key menu drop.
     if (event.ctrlKey && $('#keyboardWindow').is(':visible')) {
       if (keyNumber < 123 && keyNumber > 96) {
         this.setState({ changeKey: key });
         this.handleCtrlKey();
       }
     } else if (event.shiftKey) {
+      //handles the shift+key loop functionality
       $vKey.addClass('red pressed');
       this.handleShiftKey($audio, event);
     } else {
+      //handles a bare keypress.
       this.triggerKey($vKey, $audio);
     }
   },
+
+  //All this does is change the styling of a key as appropriate, and plays/pauses the audio element as appropriate.
   triggerKey: function triggerKey($vKey, $audio) {
     $vKey.addClass('green pressed');
     $audio.currentTime = 0;
@@ -170,11 +189,13 @@ var App = React.createClass({
     }
     event.preventDefault();
   },
+  //Hides and shows the rebinding menu using jQuery.
   handleCtrlKey: function handleCtrlKey() {
-
     $('#bindingWindow').animate({ height: 'toggle' }, 350);
     $('#keyboardWindow').animate({ width: 'toggle' }, 350);
   },
+
+  //Sets the specified audio element to loop, then plays/pauses and styles as appropriate.
   handleShiftKey: function handleShiftKey($audio, event) {
     var key = event.code.toLowerCase()[3],
         keyNumber = key.charCodeAt(),
@@ -188,8 +209,9 @@ var App = React.createClass({
       $vKey.removeClass('green red pressed');
     }
   },
-  reRender: function reRender() {
 
+  //useful helper for re-rendering DOM when a new binding is assigned.
+  reRender: function reRender() {
     $('#bindingWindow').animate({ height: 'toggle' }, 350);
     $('#keyboardWindow').animate({ width: 'toggle' }, 350);
     ReactDOM.render(React.createElement(
@@ -198,6 +220,7 @@ var App = React.createClass({
       React.createElement(App, null)
     ), document.getElementById('app'));
   },
+
   render: function render() {
     var _this = this;
 
@@ -206,17 +229,17 @@ var App = React.createClass({
       { id: "appWindow" },
       React.createElement(
         "div",
-        { id: "bindingWindow", className: "keyboard" },
+        { id: "bindingWindow" },
         React.createElement(
-          "h1",
+          "h3",
           null,
           "Click on a file to change the binding of ",
-          this.state.changeKey,
+          this.state.changeKey.toUpperCase(),
           " to"
         ),
         React.createElement(
           "ul",
-          null,
+          { id: "binding" },
           this.state.soundList.map(function (sound, idx) {
             return (//es6 again
               React.createElement(RebindNode, { key: idx, targetSong: sound, targetKey: _this.state.changeKey, bindings: _this.state.bindings, reRender: _this.reRender })
@@ -238,6 +261,7 @@ var App = React.createClass({
 });
 
 setTimeout(function () {
+  document.getElementById('secretSound').pause();
   ReactDOM.render(React.createElement(
     "div",
     null,
