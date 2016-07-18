@@ -167,12 +167,8 @@ var App = React.createClass({
         this.handleCtrlKey();
       }
     } else if (event.shiftKey) {
-<<<<<<< HEAD
       //handles the shift+key loop functionality
-      $vKey.addClass('red');
-=======
       $vKey.addClass('red pressed');
->>>>>>> e8ed0f51ced8d54ab2b848dd12b429e6fd423a31
       this.handleShiftKey($audio, event);
     } else {
       //handles a bare keypress.
@@ -264,13 +260,8 @@ var App = React.createClass({
   }
 });
 
-<<<<<<< HEAD
-setInterval(function () {
-  // $('#secretSound').animate({volume: 0}, 2000);
-  document.getElementById('secretSound').pause();
-=======
 setTimeout(function () {
->>>>>>> e8ed0f51ced8d54ab2b848dd12b429e6fd423a31
+  document.getElementById('secretSound').pause();
   ReactDOM.render(React.createElement(
     "div",
     null,
