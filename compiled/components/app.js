@@ -8,7 +8,7 @@
 var testData = {
   97: "/soundfiles/deep-techno-groove.wav",
   98: "/soundfiles/bam-bam-bolam.wav",
-  99: "/soundfiles/footsteps.wav",
+  99: "/soundfiles/nyan-cat.wav",
   100: "/soundfiles/day.wav",
   101: "/soundfiles/beads.wav",
   102: "/soundfiles/drums.wav",
@@ -31,7 +31,7 @@ var testData = {
   119: "/soundfiles/piano-mood.wav",
   120: "/soundfiles/boing-a.wav",
   121: "/soundfiles/techno-drums.wav",
-  122: "/soundfiles/footsteps.wav"
+  122: "/soundfiles/guitar-chord.wav"
 };
 
 var qwertyMap = [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 0, 97, 115, 100, 102, 103, 104, 106, 107, 108, 0, 122, 120, 99, 118, 98, 110, 109];
@@ -87,17 +87,25 @@ var RebindNode = React.createClass({
       }
     }, this);
   },
+  playSample: function playSample() {
+    console.log("ding ding ding");
+    var soundNode = $('#secretSound');
+    soundNode.pause();
+    soundNode.attr("src", undefined.targetSong);
+    soundNode.play();
+  },
   render: function render() {
     return React.createElement(
       "div",
-      { onClick: this.updateKeyBinding },
+      { className: "sound-rebind-entry", onClick: this.updateKeyBinding },
       React.createElement(
         "p",
-        null,
+        { onClick: this.props.reRender },
         " ",
         this.props.targetSong.slice(0, -4),
         " "
-      )
+      ),
+      React.createElement("img", { src: "assets/listen.png", onClick: this.playSample })
     );
   }
 });
@@ -208,10 +216,10 @@ var App = React.createClass({
         ),
         React.createElement(
           "ul",
-          { onClick: this.reRender },
+          null,
           this.state.soundList.map(function (sound, idx) {
             return (//es6 again
-              React.createElement(RebindNode, { key: idx, targetSong: sound, targetKey: _this.state.changeKey, bindings: _this.state.bindings })
+              React.createElement(RebindNode, { key: idx, targetSong: sound, targetKey: _this.state.changeKey, bindings: _this.state.bindings, reRender: _this.reRender })
             );
           }, this)
         )

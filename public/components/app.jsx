@@ -6,7 +6,7 @@
 var testData = {
   97: "/soundfiles/deep-techno-groove.wav",
   98: "/soundfiles/bam-bam-bolam.wav",
-  99: "/soundfiles/footsteps.wav",
+  99: "/soundfiles/nyan-cat.wav",
   100: "/soundfiles/day.wav",
   101: "/soundfiles/beads.wav",
   102: "/soundfiles/drums.wav",
@@ -29,7 +29,7 @@ var testData = {
   119: "/soundfiles/piano-mood.wav",
   120: "/soundfiles/boing-a.wav",
   121: "/soundfiles/techno-drums.wav",
-  122: "/soundfiles/footsteps.wav"
+  122: "/soundfiles/guitar-chord.wav"
 };
 
 var qwertyMap = [
@@ -71,7 +71,10 @@ var qwertyMap = [
 
 //For a comprehensive list of keycode bindings, see "keycode.js"
 //in this same directory.
+
+//VKey React class.  Represents one key on our virtual keyboard.
 var VKey = React.createClass ({
+  //method for removing styling from key after its audio element has stopped playing.
   handleAudioEnd: function (event) {
     var $vKey = $('#' + this.props.keyId).parent();
 
@@ -90,7 +93,10 @@ var VKey = React.createClass ({
     )
   }
 });
+
+//RebindNode React class.  Represents one entry in the drop-down list for rebinding keys.
 var RebindNode = React.createClass({
+  //this is the function that actually changes the binding of the key.
   updateKeyBinding: function(event) {
     var code = this.props.targetKey.charCodeAt();
     var path = "/soundfiles/" + this.props.targetSong;
@@ -101,25 +107,37 @@ var RebindNode = React.createClass({
       }
     }, this);
   },
+  //method for previewing sound before binding it.
+  playSample: () => {
+    console.log("ding ding ding");
+    var soundNode = $('#secretSound');
+    soundNode.pause();
+    soundNode.attr("src", this.targetSong);
+    soundNode.play();
+  },
   render: function() {
     return (
       <div onClick = {this.updateKeyBinding}>
-        <p> {this.props.targetSong.slice(0, -4)} </p>
+        <p onClick = {this.props.reRender}> {this.props.targetSong.slice(0, -4)} </p>
+        <img src="assets/listen.png" onClick={this.playSample}/>
       </div>
     )
   }
 });
+//
+
+
+// App React class.  Contains a number of methods which control the audio, as well as rendering pretty much the whole damn app.
 var App = React.createClass({
-  // componentDidMount: function(event) {
-  //   $('.loading').hide();
-  // },
-  getInitialState: () => (//playing with es6
+  //declaring some states.
+  getInitialState: function() (
      {
       bindings: [],
       soundList: [],
       changeKey: ""
     }
   ),
+  //once the component mounts, we set those states equal to the correct data.  We also hide the binding window using JQuery until it is required.
   componentDidMount: function() {
     $('#bindingWindow').hide();
     this.serverRequest = $.get(window.location.href + "sounds", function (result) {
@@ -135,27 +153,41 @@ var App = React.createClass({
 
     window.addEventListener('keypress', this.handleKeyPress);
   },
+
   componentWillUnmount: function() {
     this.serverRequest.abort();//not sure what this is for but online said to put it in.
   },
+
+  
+  //this is our keyhandler function.  It handles all keypress events on the DOM.  Plays/stops the appropriate sound file, 
+  //as well as changing the styling on the appropriate hey.
   handleKeyPress: function(event) {
+    //store all our relevent DOM elements as variables so that we can reference them easily later.
     var key = event.code.toLowerCase()[3],
         keyNumber = key.charCodeAt(),
         $audio = document.getElementById(keyNumber),
         $vKey = $('#' + keyNumber).parent();
 
+    //handles the ctrl+key menu drop.
     if (event.ctrlKey && $('#keyboardWindow').is(':visible')) {
       if (keyNumber < 123 && keyNumber > 96) {
         this.setState({changeKey: key})
         this.handleCtrlKey();
       }
+<<<<<<< HEAD
     } else if (event.shiftKey) {
       $vKey.addClass('red pressed');
+=======
+    } else if (event.shiftKey) {  //handles the shift+key loop functionality
+      $vKey.addClass('red');
+>>>>>>> 3094529931b13b67222ecff364d2284e5063ae37
       this.handleShiftKey($audio, event);
-    } else {
+    } else {  //handles a bare keypress.
       this.triggerKey($vKey, $audio);
     }
   },
+
+  //All this does is change the styling of a key as appropriate, and plays/pauses the audio element as appropriate.
   triggerKey: function($vKey, $audio) {
     $vKey.addClass('green pressed');
     $audio.currentTime = 0;
@@ -169,11 +201,14 @@ var App = React.createClass({
     }
     event.preventDefault();
   },
-  handleCtrlKey: function() {
 
+  //Hides and shows the rebinding menu using jQuery.
+  handleCtrlKey: function() {
     $('#bindingWindow').animate({height:'toggle'},350);
     $('#keyboardWindow').animate({width:'toggle'},350);
   },
+  
+  //Sets the specified audio element to loop, then plays/pauses and styles as appropriate.
   handleShiftKey: function($audio, event) {
     var key = event.code.toLowerCase()[3],
       keyNumber = key.charCodeAt(),
@@ -187,8 +222,9 @@ var App = React.createClass({
       $vKey.removeClass('green red pressed');
     }
   },
-  reRender: function() {
 
+  //useful helper for re-rendering DOM when a new binding is assigned.
+  reRender: function() {
     $('#bindingWindow').animate({height:'toggle'},350);
     $('#keyboardWindow').animate({width:'toggle'},350);
     ReactDOM.render(<div>
@@ -196,16 +232,17 @@ var App = React.createClass({
       </div>, document.getElementById('app')
     );
   },
-  render: function() {
 
+
+  render: function() {
    return (
      <div id="appWindow">
        <div id = "bindingWindow" className="keyboard">
          <h1>Click on a file to change the binding of {this.state.changeKey} to</h1>
-           <ul onClick = {this.reRender}>
+           <ul>
            {
              this.state.soundList.map( (sound, idx) => ( //es6 again
-               <RebindNode key={idx} targetSong = {sound} targetKey = {this.state.changeKey} bindings = {this.state.bindings}/>
+               <RebindNode key={idx} targetSong = {sound} targetKey = {this.state.changeKey} bindings = {this.state.bindings} reRender={this.reRender}/>
              ), this)
            }
            </ul>
