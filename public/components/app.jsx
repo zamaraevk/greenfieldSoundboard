@@ -107,7 +107,7 @@ var RebindNode = React.createClass({
   render: function() {
     return (
       <div onClick = {this.updateKeyBinding}>
-        <p>Click here to bind: {this.props.targetSong.slice(0, -4)}</p>
+        <p> {this.props.targetSong.slice(0, -4)} </p>
       </div>
     )
   }
@@ -221,7 +221,9 @@ var App = React.createClass({
  }
 })
 
+setInterval(function() {
 ReactDOM.render(<div>
   <App/>
   </div>, document.getElementById('app')
 );
+}, 8000);

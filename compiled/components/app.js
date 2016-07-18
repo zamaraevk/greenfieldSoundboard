@@ -95,8 +95,9 @@ var RebindNode = React.createClass({
       React.createElement(
         "p",
         null,
-        "Click here to bind: ",
-        this.props.targetSong.slice(0, -4)
+        " ",
+        this.props.targetSong.slice(0, -4),
+        " "
       )
     );
   }
@@ -223,8 +224,10 @@ var App = React.createClass({
   }
 });
 
-ReactDOM.render(React.createElement(
-  "div",
-  null,
-  React.createElement(App, null)
-), document.getElementById('app'));
+setInterval(function () {
+  ReactDOM.render(React.createElement(
+    "div",
+    null,
+    React.createElement(App, null)
+  ), document.getElementById('app'));
+}, 8000);

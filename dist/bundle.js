@@ -98,9 +98,9 @@
 	  displayName: "VKey",
 	
 	  handleAudioEnd: function handleAudioEnd(event) {
-	    var $vKey = $('#' + this.props.targetKey).parent();
-	    $vKey.removeClass('green');
-	    $vKey.removeClass('red');
+	    var $vKey = $('#' + this.props.keyId).parent();
+	
+	    $vKey.removeClass('green red');
 	    event.preventDefault();
 	    this.render();
 	  },
@@ -129,11 +129,11 @@
 	
 	  updateKeyBinding: function updateKeyBinding(event) {
 	    var code = this.props.targetKey.charCodeAt();
-	    var song = "/soundfiles/" + this.props.targetSong;
+	    var path = "/soundfiles/" + this.props.targetSong;
 	
 	    this.props.bindings.forEach(function (ele, idx) {
 	      if (ele.key === code) {
-	        this.props.bindings[idx].path = song;
+	        this.props.bindings[idx].path = path;
 	      }
 	    }, this);
 	  },
@@ -144,8 +144,9 @@
 	      React.createElement(
 	        "p",
 	        null,
-	        "Click here to bind: ",
-	        this.props.targetSong.slice(0, -4)
+	        " ",
+	        this.props.targetSong.slice(0, -4),
+	        " "
 	      )
 	    );
 	  }
@@ -157,39 +158,41 @@
 	  //   $('.loading').hide();
 	  // },
 	  getInitialState: function getInitialState() {
-	    return {
-	      bindings: [],
-	      soundList: [],
-	      changeKey: ""
-	    };
+	    return (//playing with es6
+	      {
+	        bindings: [],
+	        soundList: [],
+	        changeKey: ""
+	      }
+	    );
 	  },
 	  componentDidMount: function componentDidMount() {
-	    this.serverRequest = $.get("http://localhost:8000/sounds", function (result) {
+	    $('#bindingWindow').hide();
+	    this.serverRequest = $.get(window.location.href + "sounds", function (result) {
 	      this.setState({
-	        soundList: result
+	        soundList: result,
+	        bindings: qwertyMap.map(function (key) {
+	          return key !== 0 ? { key: key, path: testData[key], loop: false, playing: false } : 0;
+	        })
 	      });
 	    }.bind(this));
 	
-	    this.setState({
-	      bindings: qwertyMap.map(function (key) {
-	        return key !== 0 ? { key: key, path: testData[key], loop: false, playing: false } : 0;
-	      })
-	    });
 	    window.addEventListener('keypress', this.handleKeyPress);
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
 	    this.serverRequest.abort(); //not sure what this is for but online said to put it in.
 	  },
 	  handleKeyPress: function handleKeyPress(event) {
+	    console.log(event);
 	    var key = event.code.toLowerCase()[3],
 	        keyNumber = key.charCodeAt(),
 	        $audio = document.getElementById(keyNumber),
 	        $vKey = $('#' + keyNumber).parent();
 	
-	    if (event.altKey) {
+	    if (event.ctrlKey && $('#keyboardWindow').is(':visible')) {
 	      if (keyNumber < 123 && keyNumber > 96) {
 	        this.setState({ changeKey: key });
-	        this.handleAltKey();
+	        this.handleCtrlKey();
 	      }
 	    } else if (event.shiftKey) {
 	      $vKey.addClass('red');
@@ -201,24 +204,30 @@
 	  triggerKey: function triggerKey($vKey, $audio) {
 	    $vKey.addClass('green');
 	    $audio.currentTime = 0;
+	
 	    if ($audio.paused) {
 	      $audio.play();
 	    } else {
 	      $audio.pause();
-	      $vKey.removeClass('green');
-	      $vKey.removeClass('red');
+	      $vKey.removeClass('green red');
 	    }
 	    event.preventDefault();
 	  },
-	  handleAltKey: function handleAltKey() {
-	    //insert logic for showing/hiding the divs.
+	  handleCtrlKey: function handleCtrlKey() {
+	
+	    $('#bindingWindow').animate({ height: 'toggle' }, 350);
+	    $('#keyboardWindow').animate({ width: 'toggle' }, 350);
 	  },
 	  handleShiftKey: function handleShiftKey($audio) {
+	
 	    $audio.loop = !$audio.loop;
 	    $audio.currentTime = 0;
 	    $audio.paused ? $audio.play() : $audio.pause();
 	  },
 	  reRender: function reRender() {
+	
+	    $('#bindingWindow').animate({ height: 'toggle' }, 350);
+	    $('#keyboardWindow').animate({ width: 'toggle' }, 350);
 	    ReactDOM.render(React.createElement(
 	      "div",
 	      null,
@@ -226,6 +235,7 @@
 	    ), document.getElementById('app'));
 	  },
 	  render: function render() {
+	    var _this = this;
 	
 	    return React.createElement(
 	      "div",
@@ -236,7 +246,7 @@
 	        React.createElement(
 	          "h1",
 	          null,
-	          "Click on a sound that you would like to change the binding of ",
+	          "Click on a file to change the binding of ",
 	          this.state.changeKey,
 	          " to"
 	        ),
@@ -244,30 +254,32 @@
 	          "ul",
 	          { onClick: this.reRender },
 	          this.state.soundList.map(function (sound, idx) {
-	            return React.createElement(RebindNode, { key: idx, targetSong: sound, targetKey: this.state.changeKey, bindings: this.state.bindings });
+	            return (//es6 again
+	              React.createElement(RebindNode, { key: idx, targetSong: sound, targetKey: _this.state.changeKey, bindings: _this.state.bindings })
+	            );
 	          }, this)
 	        )
 	      ),
 	      React.createElement(
 	        "div",
-	        { className: "keyboard" },
+	        { id: "keyboardWindow", className: "keyboard" },
 	        this.state.bindings.map(function (keyBinding, idx) {
-	          if (keyBinding === 0) {
-	            return React.createElement("br", { key: idx });
-	          } else {
-	            return React.createElement(VKey, { key: idx, keyId: keyBinding.key, path: keyBinding.path });
-	          }
+	          return (//yay es6
+	            keyBinding === 0 ? React.createElement("br", { key: idx }) : React.createElement(VKey, { key: idx, keyId: keyBinding.key, path: keyBinding.path })
+	          );
 	        })
 	      )
 	    );
 	  }
 	});
 	
-	ReactDOM.render(React.createElement(
-	  "div",
-	  null,
-	  React.createElement(App, null)
-	), document.getElementById('app'));
+	setInterval(function () {
+	  ReactDOM.render(React.createElement(
+	    "div",
+	    null,
+	    React.createElement(App, null)
+	  ), document.getElementById('app'));
+	}, 8000);
 
 /***/ }
 /******/ ]);
