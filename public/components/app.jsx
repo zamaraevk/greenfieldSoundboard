@@ -87,7 +87,7 @@ var VKey = React.createClass ({
     return (
       <div className="key">
         <p className="keyLabel">{keyCodes[this.props.keyId]}</p>
-        <p className="filename">{ this.props.path.substr(12).slice(0, -4)}</p>
+        <p className="filename">{ this.props.path.substr(12).slice(0, -4).split("-").join(" ")}</p>
         <audio id={this.props.keyId} src={ this.props.path } onEnded={ this.handleAudioEnd } preload="auto"></audio>
       </div>  //
     )
@@ -108,7 +108,7 @@ var RebindNode = React.createClass({
     }, this);
   },
   //method for previewing sound before binding it.
-  playSample: () => {
+  playSample: function() {
     var soundExample = window.location.href + "soundFiles/" + this.props.targetSong;
     var $soundNode = document.getElementById('secretSound');
 
@@ -120,7 +120,7 @@ var RebindNode = React.createClass({
   render: function() {
     return (
       <div className="rebindNode" onClick = {this.updateKeyBinding}>
-        <p className="rebindSong" onClick = {this.props.reRender}> {this.props.targetSong.slice(0, -4)} </p>
+        <p className="rebindSong" onClick = {this.props.reRender}> {this.props.targetSong.slice(0, -4).split("-").join(" ")} </p>
         <img className="rebindIcon" src="assets/listen.png" onClick={this.playSample}/>
       </div>
     )
@@ -132,7 +132,7 @@ var RebindNode = React.createClass({
 // App React class.  Contains a number of methods which control the audio, as well as rendering pretty much the whole damn app.
 var App = React.createClass({
   //declaring some states.
-  getInitialState: function() (
+  getInitialState: () => (
      {
       bindings: [],
       soundList: [],
