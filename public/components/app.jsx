@@ -224,7 +224,7 @@ var App = React.createClass({
  }
 })
 
-setInterval(function() {
+setTimeout(function() {
 ReactDOM.render(<div>
   <App/>
   </div>, document.getElementById('app')

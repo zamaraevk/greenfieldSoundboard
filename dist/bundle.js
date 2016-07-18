@@ -278,7 +278,7 @@
 	  }
 	});
 	
-	setInterval(function () {
+	setTimeout(function () {
 	  ReactDOM.render(React.createElement(
 	    "div",
 	    null,
