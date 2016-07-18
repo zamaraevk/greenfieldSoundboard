@@ -5,7 +5,7 @@ class Layout extends React.Component {
     return (
       <div className="loading">
         <h1 className="intro">Soundboard Loading...</h1>
-        <img src="styles/tumblr_luxr3mmGVw1r1sjguo1_400.gif"/>
+        <img src="assets/tumblr_luxr3mmGVw1r1sjguo1_400.gif"/>
       </div>
     );
   }

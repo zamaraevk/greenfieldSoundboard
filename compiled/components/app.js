@@ -87,6 +87,9 @@ var RebindNode = React.createClass({
       }
     }, this);
   },
+  playSample: function playSample() {
+    console.log("ding ding ding");
+  },
   render: function render() {
     return React.createElement(
       "div",
@@ -97,7 +100,8 @@ var RebindNode = React.createClass({
         " ",
         this.props.targetSong.slice(0, -4),
         " "
-      )
+      ),
+      React.createElement("img", { src: "assets/listen.png", onclick: this.playSample })
     );
   }
 });
@@ -229,4 +233,4 @@ setInterval(function () {
     null,
     React.createElement(App, null)
   ), document.getElementById('app'));
-}, 8000);
+}, 2000);

@@ -27,13 +27,7 @@ app.use('/soundfiles', express.static(__dirname + '/../foley/'));
 app.use('/node_modules', express.static(__dirname + '/../node_modules/'));
 app.use('/compiled', express.static(__dirname + '/../compiled/'));
 app.use('/styles', express.static(__dirname + '/../public/components/styles/'));
-
-// app.use(express.cookieParser('secret'));
-// app.use(session({
-//   secret: 'secretCode',
-//   resave: false,
-//   saveUninitialized: true
-// }));
+app.use('/assets', express.static(__dirname + '/assets/'));
 
 // If at root with token/auth, redirect to /user. res.sendStatus.
 // add util.checkUser

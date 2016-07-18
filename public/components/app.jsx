@@ -101,10 +101,14 @@ var RebindNode = React.createClass({
       }
     }, this);
   },
+  playSample: () => {
+    console.log("ding ding ding");
+  },
   render: function() {
     return (
       <div onClick = {this.updateKeyBinding}>
         <p> {this.props.targetSong.slice(0, -4)} </p>
+        <img src="assets/listen.png" onclick={this.playSample}/>
       </div>
     )
   }
@@ -223,4 +227,4 @@ ReactDOM.render(<div>
   <App/>
   </div>, document.getElementById('app')
 );
-}, 8000);
+}, 2000);
