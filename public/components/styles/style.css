@@ -104,20 +104,22 @@ h3 {
   font-weight: bold;
   font-family: Futura, Helvetica, Garamond, Arial;;
   font-size: 30px;
+  color: #A6CA26;
 }
 
 .creators {
   text-align: center;
   display: block;
   margin: auto;
-  width: 50%;
+  width: 100%;
 }
 
 .name {
   text-align: center;
-  font-size: 20px;
+  font-size: 25px;
   font-family: Futura, Helvetica, Garamond, Arial;
   font-weight: bolder;
+  color: lightblue;
 }
 
 a:link {
@@ -147,3 +149,5 @@ a:active {
   height: 150px;
   align-items: center;
 }
+
+
