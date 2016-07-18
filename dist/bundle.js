@@ -54,33 +54,32 @@
 	//  targetKeyCode2: "/path/to/next/source.wav"
 	//  ...
 	//}
-	
 	var testData = {
 	  97: "/soundfiles/deep-techno-groove.wav",
-	  98: "/soundfiles/beltbuckle.wav",
+	  98: "/soundfiles/bam-bam-bolam.wav",
 	  99: "/soundfiles/footsteps.wav",
-	  100: "/soundfiles/grendel.wav",
+	  100: "/soundfiles/day.wav",
 	  101: "/soundfiles/beads.wav",
-	  102: "/soundfiles/beltbuckle.wav",
-	  103: "/soundfiles/footsteps.wav",
+	  102: "/soundfiles/drums.wav",
+	  103: "/soundfiles/pew-pew.wav",
 	  104: "/soundfiles/grendel.wav",
-	  105: "/soundfiles/beads.wav",
+	  105: "/soundfiles/derp-yell.mp3",
 	  106: "/soundfiles/beltbuckle.wav",
-	  107: "/soundfiles/footsteps.wav",
-	  108: "/soundfiles/grendel.wav",
-	  109: "/soundfiles/beads.wav",
-	  110: "/soundfiles/beltbuckle.wav",
-	  111: "/soundfiles/footsteps.wav",
-	  112: "/soundfiles/grendel.wav",
-	  113: "/soundfiles/beltbuckle.wav",
-	  114: "/soundfiles/footsteps.wav",
-	  115: "/soundfiles/grendel.wav",
-	  116: "/soundfiles/beads.wav",
-	  117: "/soundfiles/beltbuckle.wav",
-	  118: "/soundfiles/footsteps.wav",
-	  119: "/soundfiles/grendel.wav",
-	  120: "/soundfiles/beads.wav",
-	  121: "/soundfiles/beltbuckle.wav",
+	  107: "/soundfiles/oh-yeah.wav",
+	  108: "/soundfiles/power-up.wav",
+	  109: "/soundfiles/straight-techno-beat.wav",
+	  110: "/soundfiles/kamehameha.wav",
+	  111: "/soundfiles/fart.wav",
+	  112: "/soundfiles/heavy-rain.wav",
+	  113: "/soundfiles/jet-whoosh.wav",
+	  114: "/soundfiles/mystery-chime.ogg",
+	  115: "/soundfiles/space-bloop.wav",
+	  116: "/soundfiles/techno-drums2.wav",
+	  117: "/soundfiles/whale.wav",
+	  118: "/soundfiles/vegeta-big-bang.wav",
+	  119: "/soundfiles/piano-mood.wav",
+	  120: "/soundfiles/boing-a.wav",
+	  121: "/soundfiles/techno-drums.wav",
 	  122: "/soundfiles/footsteps.wav"
 	};
 	
@@ -100,7 +99,7 @@
 	  handleAudioEnd: function handleAudioEnd(event) {
 	    var $vKey = $('#' + this.props.keyId).parent();
 	
-	    $vKey.removeClass('green red');
+	    $vKey.removeClass('green red pressed');
 	    event.preventDefault();
 	    this.render();
 	  },
@@ -183,7 +182,6 @@
 	    this.serverRequest.abort(); //not sure what this is for but online said to put it in.
 	  },
 	  handleKeyPress: function handleKeyPress(event) {
-	    console.log(event);
 	    var key = event.code.toLowerCase()[3],
 	        keyNumber = key.charCodeAt(),
 	        $audio = document.getElementById(keyNumber),
@@ -195,21 +193,21 @@
 	        this.handleCtrlKey();
 	      }
 	    } else if (event.shiftKey) {
-	      $vKey.addClass('red');
-	      this.handleShiftKey($audio);
+	      $vKey.addClass('red pressed');
+	      this.handleShiftKey($audio, event);
 	    } else {
 	      this.triggerKey($vKey, $audio);
 	    }
 	  },
 	  triggerKey: function triggerKey($vKey, $audio) {
-	    $vKey.addClass('green');
+	    $vKey.addClass('green pressed');
 	    $audio.currentTime = 0;
 	
 	    if ($audio.paused) {
 	      $audio.play();
 	    } else {
 	      $audio.pause();
-	      $vKey.removeClass('green red');
+	      $vKey.removeClass('green red pressed');
 	    }
 	    event.preventDefault();
 	  },
@@ -218,11 +216,18 @@
 	    $('#bindingWindow').animate({ height: 'toggle' }, 350);
 	    $('#keyboardWindow').animate({ width: 'toggle' }, 350);
 	  },
-	  handleShiftKey: function handleShiftKey($audio) {
-	
+	  handleShiftKey: function handleShiftKey($audio, event) {
+	    var key = event.code.toLowerCase()[3],
+	        keyNumber = key.charCodeAt(),
+	        $vKey = $('#' + keyNumber).parent();
 	    $audio.loop = !$audio.loop;
 	    $audio.currentTime = 0;
-	    $audio.paused ? $audio.play() : $audio.pause();
+	    if ($audio.paused) {
+	      $audio.play();
+	    } else {
+	      $audio.pause();
+	      $vKey.removeClass('green red pressed');
+	    }
 	  },
 	  reRender: function reRender() {
 	
@@ -273,13 +278,13 @@
 	  }
 	});
 	
-	setInterval(function () {
+	setTimeout(function () {
 	  ReactDOM.render(React.createElement(
 	    "div",
 	    null,
 	    React.createElement(App, null)
 	  ), document.getElementById('app'));
-	}, 8000);
+	}, 2000);
 
 /***/ }
 /******/ ]);

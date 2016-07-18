@@ -78,7 +78,7 @@ var VKey = React.createClass ({
   handleAudioEnd: function (event) {
     var $vKey = $('#' + this.props.keyId).parent();
 
-    $vKey.removeClass('green red');
+    $vKey.removeClass('green red pressed');
     event.preventDefault();
     this.render();
   },
@@ -158,8 +158,8 @@ var App = React.createClass({
     this.serverRequest.abort();//not sure what this is for but online said to put it in.
   },
 
-  
-  //this is our keyhandler function.  It handles all keypress events on the DOM.  Plays/stops the appropriate sound file, 
+
+  //this is our keyhandler function.  It handles all keypress events on the DOM.  Plays/stops the appropriate sound file,
   //as well as changing the styling on the appropriate hey.
   handleKeyPress: function(event) {
     //store all our relevent DOM elements as variables so that we can reference them easily later.
@@ -174,8 +174,8 @@ var App = React.createClass({
         this.setState({changeKey: key})
         this.handleCtrlKey();
       }
-    } else if (event.shiftKey) {  //handles the shift+key loop functionality
-      $vKey.addClass('red');
+    } else if (event.shiftKey) { //handles the shift+key loop functionality
+      $vKey.addClass('red pressed');
       this.handleShiftKey($audio, event);
     } else {  //handles a bare keypress.
       this.triggerKey($vKey, $audio);
@@ -184,7 +184,7 @@ var App = React.createClass({
 
   //All this does is change the styling of a key as appropriate, and plays/pauses the audio element as appropriate.
   triggerKey: function($vKey, $audio) {
-    $vKey.addClass('green');
+    $vKey.addClass('green pressed');
     $audio.currentTime = 0;
 
     if ($audio.paused) {
@@ -192,7 +192,7 @@ var App = React.createClass({
     }
     else {
       $audio.pause()
-      $vKey.removeClass('green red');
+      $vKey.removeClass('green red pressed');
     }
     event.preventDefault();
   },
@@ -202,7 +202,7 @@ var App = React.createClass({
     $('#bindingWindow').animate({height:'toggle'},350);
     $('#keyboardWindow').animate({width:'toggle'},350);
   },
-  
+
   //Sets the specified audio element to loop, then plays/pauses and styles as appropriate.
   handleShiftKey: function($audio, event) {
     var key = event.code.toLowerCase()[3],
@@ -214,7 +214,7 @@ var App = React.createClass({
       $audio.play();
     } else {
       $audio.pause();
-      $vKey.removeClass('green red');
+      $vKey.removeClass('green red pressed');
     }
   },
 
@@ -256,7 +256,7 @@ var App = React.createClass({
  }
 })
 
-setInterval(function() {
+setTimeout(function() {
 ReactDOM.render(<div>
   <App/>
   </div>, document.getElementById('app')

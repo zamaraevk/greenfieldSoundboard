@@ -50,7 +50,7 @@ var VKey = React.createClass({
   handleAudioEnd: function handleAudioEnd(event) {
     var $vKey = $('#' + this.props.keyId).parent();
 
-    $vKey.removeClass('green red');
+    $vKey.removeClass('green red pressed');
     event.preventDefault();
     this.render();
   },
@@ -152,21 +152,21 @@ var App = React.createClass({
         this.handleCtrlKey();
       }
     } else if (event.shiftKey) {
-      $vKey.addClass('red');
+      $vKey.addClass('red pressed');
       this.handleShiftKey($audio, event);
     } else {
       this.triggerKey($vKey, $audio);
     }
   },
   triggerKey: function triggerKey($vKey, $audio) {
-    $vKey.addClass('green');
+    $vKey.addClass('green pressed');
     $audio.currentTime = 0;
 
     if ($audio.paused) {
       $audio.play();
     } else {
       $audio.pause();
-      $vKey.removeClass('green red');
+      $vKey.removeClass('green red pressed');
     }
     event.preventDefault();
   },
@@ -185,7 +185,7 @@ var App = React.createClass({
       $audio.play();
     } else {
       $audio.pause();
-      $vKey.removeClass('green red');
+      $vKey.removeClass('green red pressed');
     }
   },
   reRender: function reRender() {
@@ -237,7 +237,7 @@ var App = React.createClass({
   }
 });
 
-setInterval(function () {
+setTimeout(function () {
   ReactDOM.render(React.createElement(
     "div",
     null,

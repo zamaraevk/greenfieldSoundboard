@@ -27,9 +27,9 @@ var Layout = function (_React$Component) {
         React.createElement(
           "h1",
           { className: "intro" },
-          "Soundboard Loading..."
+          "Good Times Ahead . . ."
         ),
-        React.createElement("img", { src: "assets/tumblr_luxr3mmGVw1r1sjguo1_400.gif" })
+        React.createElement("img", { src: "../../assets/tumblr_luxr3mmGVw1r1sjguo1_400.gif" })
       );
     }
   }]);
