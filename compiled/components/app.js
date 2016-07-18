@@ -8,7 +8,7 @@
 var testData = {
   97: "/soundfiles/deep-techno-groove.wav",
   98: "/soundfiles/bam-bam-bolam.wav",
-  99: "/soundfiles/footsteps.wav",
+  99: "/soundfiles/nyan-cat.wav",
   100: "/soundfiles/day.wav",
   101: "/soundfiles/beads.wav",
   102: "/soundfiles/drums.wav",
@@ -88,6 +88,7 @@ var RebindNode = React.createClass({
     }, this);
   },
   playSample: function playSample() {
+    console.log("ding ding ding");
     var soundNode = $('#secretSound');
     soundNode.pause();
     soundNode.attr("src", undefined.targetSong);
@@ -99,7 +100,7 @@ var RebindNode = React.createClass({
       { onClick: this.updateKeyBinding },
       React.createElement(
         "p",
-        null,
+        { onClick: this.props.reRender },
         " ",
         this.props.targetSong.slice(0, -4),
         " "
@@ -215,10 +216,10 @@ var App = React.createClass({
         ),
         React.createElement(
           "ul",
-          { onClick: this.reRender },
+          null,
           this.state.soundList.map(function (sound, idx) {
             return (//es6 again
-              React.createElement(RebindNode, { key: idx, targetSong: sound, targetKey: _this.state.changeKey, bindings: _this.state.bindings })
+              React.createElement(RebindNode, { key: idx, targetSong: sound, targetKey: _this.state.changeKey, bindings: _this.state.bindings, reRender: _this.reRender })
             );
           }, this)
         )
