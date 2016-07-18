@@ -14,7 +14,7 @@ var testData = {
   102: "/soundfiles/drums.wav",
   103: "/soundfiles/pew-pew.wav",
   104: "/soundfiles/grendel.wav",
-  105: "/soundfiles/derp-yell.mp3",
+  105: "/soundfiles/derp-yell.wav",
   106: "/soundfiles/beltbuckle.wav",
   107: "/soundfiles/oh-yeah.wav",
   108: "/soundfiles/power-up.wav",
@@ -88,24 +88,30 @@ var RebindNode = React.createClass({
     }, this);
   },
   playSample: function playSample() {
-    console.log("ding ding ding");
-    var soundNode = $('#secretSound');
-    soundNode.pause();
-    soundNode.attr("src", undefined.targetSong);
-    soundNode.play();
+    var soundExample = window.location.href + "soundFiles/" + this.props.targetSong;
+    var $soundNode = document.getElementById('secretSound');
+
+    $soundNode.pause();
+    $soundNode.src = soundExample;
+    $soundNode.currentTime = 0;
+    $soundNode.play();
   },
   render: function render() {
     return React.createElement(
       "div",
+<<<<<<< HEAD
       { className: "sound-rebind-entry", onClick: this.updateKeyBinding },
+=======
+      { className: "rebindNode", onClick: this.updateKeyBinding },
+>>>>>>> feat
       React.createElement(
         "p",
-        { onClick: this.props.reRender },
+        { className: "rebindSong", onClick: this.props.reRender },
         " ",
         this.props.targetSong.slice(0, -4),
         " "
       ),
-      React.createElement("img", { src: "assets/listen.png", onClick: this.playSample })
+      React.createElement("img", { className: "rebindIcon", src: "assets/listen.png", onClick: this.playSample })
     );
   }
 });
@@ -171,7 +177,6 @@ var App = React.createClass({
     event.preventDefault();
   },
   handleCtrlKey: function handleCtrlKey() {
-
     $('#bindingWindow').animate({ height: 'toggle' }, 350);
     $('#keyboardWindow').animate({ width: 'toggle' }, 350);
   },
@@ -206,17 +211,17 @@ var App = React.createClass({
       { id: "appWindow" },
       React.createElement(
         "div",
-        { id: "bindingWindow", className: "keyboard" },
+        { id: "bindingWindow" },
         React.createElement(
-          "h1",
+          "h3",
           null,
           "Click on a file to change the binding of ",
-          this.state.changeKey,
+          this.state.changeKey.toUpperCase(),
           " to"
         ),
         React.createElement(
           "ul",
-          null,
+          { id: "binding" },
           this.state.soundList.map(function (sound, idx) {
             return (//es6 again
               React.createElement(RebindNode, { key: idx, targetSong: sound, targetKey: _this.state.changeKey, bindings: _this.state.bindings, reRender: _this.reRender })
@@ -238,6 +243,8 @@ var App = React.createClass({
 });
 
 setInterval(function () {
+  // $('#secretSound').animate({volume: 0}, 2000);
+  document.getElementById('secretSound').pause();
   ReactDOM.render(React.createElement(
     "div",
     null,
