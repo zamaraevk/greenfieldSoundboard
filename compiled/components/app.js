@@ -97,7 +97,7 @@ var RebindNode = React.createClass({
   render: function render() {
     return React.createElement(
       "div",
-      { onClick: this.updateKeyBinding },
+      { className: "sound-rebind-entry", onClick: this.updateKeyBinding },
       React.createElement(
         "p",
         { onClick: this.props.reRender },
