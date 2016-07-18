@@ -103,7 +103,7 @@ var RebindNode = React.createClass({
   },
   render: function() {
     return (
-      <div onClick = {this.updateKeyBinding}>
+      <div className="sound-rebind-entry" onClick = {this.updateKeyBinding}>
         <p> {this.props.targetSong.slice(0, -4)} </p>
       </div>
     )
