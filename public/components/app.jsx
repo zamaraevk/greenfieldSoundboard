@@ -112,7 +112,7 @@ var RebindNode = React.createClass({
     return (
       <div onClick = {this.updateKeyBinding}>
         <p onClick = {this.props.reRender}> {this.props.targetSong.slice(0, -4)} </p>
-        <img src="assets/listen.png" onclick={this.playSample}/>
+        <img src="assets/listen.png" onClick={this.playSample}/>
       </div>
     )
   }

@@ -105,7 +105,7 @@ var RebindNode = React.createClass({
         this.props.targetSong.slice(0, -4),
         " "
       ),
-      React.createElement("img", { src: "assets/listen.png", onclick: this.playSample })
+      React.createElement("img", { src: "assets/listen.png", onClick: this.playSample })
     );
   }
 });
