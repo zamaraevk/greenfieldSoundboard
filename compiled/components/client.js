@@ -29,7 +29,7 @@ var Layout = function (_React$Component) {
           { className: "intro" },
           "Good Times Ahead . . ."
         ),
-        React.createElement("img", { src: "assets/tumblr_luxr3mmGVw1r1sjguo1_400.gif" })
+        React.createElement("img", { src: "../../assets/tumblr_luxr3mmGVw1r1sjguo1_400.gif" })
       );
     }
   }]);
