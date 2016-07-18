@@ -137,7 +137,6 @@ var App = React.createClass({
     this.serverRequest.abort(); //not sure what this is for but online said to put it in.
   },
   handleKeyPress: function handleKeyPress(event) {
-    console.log(event);
     var key = event.code.toLowerCase()[3],
         keyNumber = key.charCodeAt(),
         $audio = document.getElementById(keyNumber),
@@ -150,7 +149,7 @@ var App = React.createClass({
       }
     } else if (event.shiftKey) {
       $vKey.addClass('red');
-      this.handleShiftKey($audio);
+      this.handleShiftKey($audio, event);
     } else {
       this.triggerKey($vKey, $audio);
     }
@@ -172,11 +171,18 @@ var App = React.createClass({
     $('#bindingWindow').animate({ height: 'toggle' }, 350);
     $('#keyboardWindow').animate({ width: 'toggle' }, 350);
   },
-  handleShiftKey: function handleShiftKey($audio) {
-
+  handleShiftKey: function handleShiftKey($audio, event) {
+    var key = event.code.toLowerCase()[3],
+        keyNumber = key.charCodeAt(),
+        $vKey = $('#' + keyNumber).parent();
     $audio.loop = !$audio.loop;
     $audio.currentTime = 0;
-    $audio.paused ? $audio.play() : $audio.pause();
+    if ($audio.paused) {
+      $audio.play();
+    } else {
+      $audio.pause();
+      $vKey.removeClass('green red');
+    }
   },
   reRender: function reRender() {
 
