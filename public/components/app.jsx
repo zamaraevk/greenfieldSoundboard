@@ -6,7 +6,7 @@
 var testData = {
   97: "/soundfiles/deep-techno-groove.wav",
   98: "/soundfiles/bam-bam-bolam.wav",
-  99: "/soundfiles/footsteps.wav",
+  99: "/soundfiles/nyan-cat.wav",
   100: "/soundfiles/day.wav",
   101: "/soundfiles/beads.wav",
   102: "/soundfiles/drums.wav",
@@ -29,7 +29,7 @@ var testData = {
   119: "/soundfiles/piano-mood.wav",
   120: "/soundfiles/boing-a.wav",
   121: "/soundfiles/techno-drums.wav",
-  122: "/soundfiles/footsteps.wav"
+  122: "/soundfiles/guitar-chord.wav"
 };
 
 var qwertyMap = [
@@ -102,6 +102,7 @@ var RebindNode = React.createClass({
     }, this);
   },
   playSample: () => {
+    console.log("ding ding ding");
     var soundNode = $('#secretSound');
     soundNode.pause();
     soundNode.attr("src", this.targetSong);
@@ -110,8 +111,8 @@ var RebindNode = React.createClass({
   render: function() {
     return (
       <div onClick = {this.updateKeyBinding}>
-        <p> {this.props.targetSong.slice(0, -4)} </p>
-        <img src="assets/listen.png" onclick={this.playSample}/>
+        <p onClick = {this.props.reRender}> {this.props.targetSong.slice(0, -4)} </p>
+        <img src="assets/listen.png" onClick={this.playSample}/>
       </div>
     )
   }
@@ -209,10 +210,10 @@ var App = React.createClass({
      <div id="appWindow">
        <div id = "bindingWindow" className="keyboard">
          <h1>Click on a file to change the binding of {this.state.changeKey} to</h1>
-           <ul onClick = {this.reRender}>
+           <ul>
            {
              this.state.soundList.map( (sound, idx) => ( //es6 again
-               <RebindNode key={idx} targetSong = {sound} targetKey = {this.state.changeKey} bindings = {this.state.bindings}/>
+               <RebindNode key={idx} targetSong = {sound} targetKey = {this.state.changeKey} bindings = {this.state.bindings} reRender={this.reRender}/>
              ), this)
            }
            </ul>
