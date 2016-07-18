@@ -198,8 +198,6 @@ a:active {
   text-align: center;
   border-radius:8px;
   max-width:90%;
-  border-style: dashed;
-  border-color: yellow;
 }
 .rebindNode {
   display: inline-block;
