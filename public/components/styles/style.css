@@ -1,6 +1,8 @@
 
 body {
   background-color: #013366;
+  min-width: 100%;
+  max-width: 100%;
 }
 
 .loading {
@@ -14,7 +16,7 @@ body {
   font-family: 'Audiowide', cursive;
   margin: 50px auto;
   text-align:center;
-  font-size:5.5em;
+  font-size:5.0em;
   color:#fff;
   letter-spacing: -7px;
   font-weight:700;
@@ -25,7 +27,6 @@ body {
 }
 
 @keyframes blur {
-
       text-shadow:0 0 10px #ffa500,
       0 0 10px #ffa500,
       0 0 25px #ffa500,
@@ -46,24 +47,35 @@ body {
       0 -10px 100px #fe0000;
 }
 
+/*#appWindow {
+  overflow: scroll;
+  text-align: center;
+}*/
+
+/*#keyboardWindow {
+  max-width: 1800px;
+}*/
+
 .keyboard {
-  margin:100px 100px auto;
+  margin:80px 100px auto;
   /*border: 2px solid black;*/
   text-align: center;
   border-radius:8px;
-  max-width:90%;
+  max-width:1800px;
+  /*min-width: 100%;*/
 }
 
 .key {
   font-family: sans-serif;
   margin: 0 auto;
-  padding: 30px;
+  padding: 28px;
   display: inline-block;
   border: 2px solid black;
   border-radius: 4px;
   min-width: 65px;
+  max-width: 180px;
   max-height: 50px;
-  box-shadow: 5px 5px 10px 0 black;
+  box-shadow: 10px 5px 10px 0 black;
   background-color: lightblue;
 }
 
@@ -89,11 +101,16 @@ body {
   background-color: red;
 }
 
+.pressed {
+  box-shadow: 5px 5px 20px white;
+  /*right: 10px;
+  bottom: 10px;*/
+}
+
 .header {
-  font-family: 'Audiowide', cursive;
+  /*font-family: 'Audiowide', cursive;
   text-align: center;
   font-weight: bold;
-  /*font-family: Futura, Helvetica, Garamond, Arial;;*/
   font-size: 5em;
   color: #A6CA26;
   background: #5f2c82; /* fallback for old browsers */
@@ -101,6 +118,18 @@ body {
   background: linear-gradient(to left, #5f2c82 , #49a09d);
   padding: 50px 100px;
   border-radius: 10px;
+  font-family: 'Audiowide', cursive;
+  /*margin: 50px auto;*/
+  margin: 0 auto;
+  text-align:center;
+  font-size:6.5em;
+  color:#fff;
+  letter-spacing: -7px;
+  font-weight:700;
+  text-transform:uppercase;
+  animation:blur .75s ease-out infinite;
+  text-shadow:0 0 5px #ffff00,
+      0 0 7px #ffff00;
 }
 
 h3 {
@@ -108,22 +137,23 @@ h3 {
   font-weight: bold;
   font-family: Futura, Helvetica, Garamond, Arial;;
   font-size: 30px;
-  color: #A6CA26;
+  /*color: #A6CA26;*/
 }
 
 .creators {
+  color: white;
   text-align: center;
   display: block;
   margin: auto;
-  width: 100%;
+  width: 50%;
 }
 
 .name {
+  color: white;
   text-align: center;
   font-size: 25px;
   font-family: Futura, Helvetica, Garamond, Arial;
   font-weight: bolder;
-  color: lightblue;
 }
 
 a:link {
@@ -202,7 +232,6 @@ a:active {
 #appWindow {
   text-align: center;
 }
-
 
 .song-rebind-entry {
   box-shadow: 5px 5px 10px 0 black;

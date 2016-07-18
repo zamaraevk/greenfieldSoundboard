@@ -53,7 +53,7 @@ var VKey = React.createClass({
   handleAudioEnd: function handleAudioEnd(event) {
     var $vKey = $('#' + this.props.keyId).parent();
 
-    $vKey.removeClass('green red');
+    $vKey.removeClass('green red pressed');
     event.preventDefault();
     this.render();
   },
@@ -167,8 +167,12 @@ var App = React.createClass({
         this.handleCtrlKey();
       }
     } else if (event.shiftKey) {
+<<<<<<< HEAD
       //handles the shift+key loop functionality
       $vKey.addClass('red');
+=======
+      $vKey.addClass('red pressed');
+>>>>>>> e8ed0f51ced8d54ab2b848dd12b429e6fd423a31
       this.handleShiftKey($audio, event);
     } else {
       //handles a bare keypress.
@@ -178,14 +182,14 @@ var App = React.createClass({
 
   //All this does is change the styling of a key as appropriate, and plays/pauses the audio element as appropriate.
   triggerKey: function triggerKey($vKey, $audio) {
-    $vKey.addClass('green');
+    $vKey.addClass('green pressed');
     $audio.currentTime = 0;
 
     if ($audio.paused) {
       $audio.play();
     } else {
       $audio.pause();
-      $vKey.removeClass('green red');
+      $vKey.removeClass('green red pressed');
     }
     event.preventDefault();
   },
@@ -206,7 +210,7 @@ var App = React.createClass({
       $audio.play();
     } else {
       $audio.pause();
-      $vKey.removeClass('green red');
+      $vKey.removeClass('green red pressed');
     }
   },
 
@@ -260,9 +264,13 @@ var App = React.createClass({
   }
 });
 
+<<<<<<< HEAD
 setInterval(function () {
   // $('#secretSound').animate({volume: 0}, 2000);
   document.getElementById('secretSound').pause();
+=======
+setTimeout(function () {
+>>>>>>> e8ed0f51ced8d54ab2b848dd12b429e6fd423a31
   ReactDOM.render(React.createElement(
     "div",
     null,
