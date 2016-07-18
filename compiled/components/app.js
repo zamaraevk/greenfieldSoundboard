@@ -31,7 +31,7 @@ var testData = {
   119: "/soundfiles/piano-mood.wav",
   120: "/soundfiles/boing-a.wav",
   121: "/soundfiles/techno-drums.wav",
-  122: "/soundfiles/guitar-chord.wav"
+  122: "/soundfiles/footsteps.wav"
 };
 
 var qwertyMap = [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 0, 97, 115, 100, 102, 103, 104, 106, 107, 108, 0, 122, 120, 99, 118, 98, 110, 109];
