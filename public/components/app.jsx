@@ -148,11 +148,11 @@ var App = React.createClass({
 //This simulates a loading page. In all of our tests the server loaded the sound
 //files instantly but by the time we noticed this we already had an awesome
 //loading page up and running. This timeout feature honors that hard work
-setTimeout(function() {
-  document.getElementById('secretSound').pause();
-  ReactDOM.render(<div>
-    <App/>
-    </div>, document.getElementById('app')
-  );
-
-}, 2000);
+// setTimeout(function() {
+//   document.getElementById('secretSound').pause();
+//   ReactDOM.render(<div>
+//     <App/>
+//     </div>, document.getElementById('app')
+//   );
+//
+// }, 2000);
