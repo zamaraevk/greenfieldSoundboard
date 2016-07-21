@@ -5,7 +5,7 @@
 //  targetKeyCode2: "/path/to/next/source.wav"
 //  ...
 //}
-var defaultData = {
+var defaultData = { //when you getElementById in app.jsx, it is referring to this object. Finds the corresponding sound file for an ASCII value
   97: "/soundfiles/deep-techno-groove.wav",
   98: "/soundfiles/bam-bam-bolam.wav",
   99: "/soundfiles/nyan-cat.wav",
@@ -34,9 +34,10 @@ var defaultData = {
   122: "/soundfiles/guitar-chord.wav"
 };
 
-var qwertyMap = [113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 0, 97, 115, 100, 102, 103, 104, 106, 107, 108, 0, 122, 120, 99, 118, 98, 110, 109];
+var qwertyMap = [//correspond to key codes below ordered in the format of a QWERTY keyboard
+113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 0, 97, 115, 100, 102, 103, 104, 106, 107, 108, 0, 122, 120, 99, 118, 98, 110, 109];
 
-var keyCodes = {
+var keyCodes = { //key is ASCII value, value is string of keyboard key
   3: "break",
   8: "backspace / delete",
   9: "tab",
