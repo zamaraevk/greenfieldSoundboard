@@ -20,7 +20,7 @@ var App = React.createClass({
   //once the component mounts, we set those states equal to the correct data.  We also hide the binding window using JQuery until it is required.
   componentDidMount: function() {
     $('#bindingWindow').hide();
-    this.serverRequest = $.get(window.location.href + "sounds", function (result) {
+    this.serverRequest = $.get(window.location.href + "sounds", function (result) { //this url has an array of all the sounds
       this.setState({
         soundList: result,
         bindings: qwertyMap.map(function(key) {
@@ -48,11 +48,11 @@ var App = React.createClass({
 
   //this is our keyhandler function.  It handles all keypress events on the DOM.  Plays/stops the appropriate sound file,
   //as well as changing the styling on the appropriate hey.
-  handleKeyPress: function(event) {
+  handleKeyPress: function(event) { //event a specific key
     //store all our relevent DOM elements as variables so that we can reference them easily later.
     var key = event.code.toLowerCase()[3],
-        keyNumber = key.charCodeAt(),
-        $audio = document.getElementById(keyNumber),
+        keyNumber = key.charCodeAt(), //converts key to ASCII value
+        $audio = document.getElementById(keyNumber), //see helper.jsx for appropriate audio element
         $vKey = $('#' + keyNumber).parent();
 
     // handles the ctrl+key menu drop.
