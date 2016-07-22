@@ -28,6 +28,7 @@ conn.once('open', function () {
 
 
 var keyboardSchema = new Schema({
+  name: String,
   97 : String,
   98 : String,
   99 : String,
