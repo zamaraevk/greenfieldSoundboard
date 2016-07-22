@@ -1,7 +1,8 @@
 var express = require('express');
 var fs = require('fs');
+var bodyParser = require('body-parser');
 var path = require('path');
-
+var multer = require('multer');
 var app = express();
 
 // set a normalized path to public.
@@ -15,6 +16,8 @@ app.use('/node_modules', express.static(__dirname + '/../node_modules/'));
 app.use('/compiled', express.static(__dirname + '/../compiled/'));
 app.use('/styles', express.static(__dirname + '/../public/components/styles/'));
 app.use('/assets', express.static(__dirname + '/assets/'));
+app.use(bodyParser.json());
+
 
 // At root, send index.html. It's location is appended to the rootPath.
 app.get('/', function(req, res) {
@@ -28,6 +31,10 @@ app.get('/sounds', function (req, res) {
     res.send(files);
   });
 });
+
+app.post('/soundUpload', multer({ dest: './uploads/'}).single('sound'), function(req, res){
+  console.log("POST request multer at soundUpload with: ", req.file);
+})
 
 app.get('/defaults', function (req, res) {
   var defaults = {

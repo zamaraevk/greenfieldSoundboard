@@ -39,6 +39,7 @@
     "lodash": "^4.6.1",
     "mongodb": "^2.2.1",
     "mongoose": "^4.5.4",
+    "multer": "^1.1.0",
     "react": "^15.0.1",
     "react-dom": "^0.14.7",
     "request": "^2.72.0",
