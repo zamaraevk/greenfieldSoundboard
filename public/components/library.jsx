@@ -3,7 +3,7 @@ class Library extends React.Component {
     super(props);
 
     this.state = {
-      library: null
+      library: []
     };
   }
   componentDidMount() {
@@ -28,8 +28,7 @@ class Library extends React.Component {
     console.log("yuck you", this.state.library)
     return (
       <div>
-        Helloooooooo
-      <pre></pre>
+        <LibraryList library={this.state.library}/>
       </div>
     );
   }

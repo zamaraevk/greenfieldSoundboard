@@ -4,10 +4,7 @@ var soundSearch = function soundSearch(_ref, callback) {
   var key = _ref.key;
   var query = _ref.query;
 
-  $.get('http://www.freesound.org/apiv2/search/text/?', {
-    query: query + '&fields=name,previews',
-    token: key
-  }).done(function (_ref2) {
+  $.get('http://www.freesound.org/apiv2/search/text/?query=' + query + '&fields=name,previews&token=' + key).done(function (_ref2) {
     var results = _ref2.results;
 
     //console.log("hello", results);

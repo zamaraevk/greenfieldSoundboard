@@ -17,7 +17,7 @@ var Library = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Library).call(this, props));
 
     _this.state = {
-      library: null
+      library: []
     };
     return _this;
   }
@@ -49,8 +49,7 @@ var Library = function (_React$Component) {
       return React.createElement(
         'div',
         null,
-        'Helloooooooo',
-        React.createElement('pre', null)
+        React.createElement(LibraryList, { library: this.state.library })
       );
     }
   }]);

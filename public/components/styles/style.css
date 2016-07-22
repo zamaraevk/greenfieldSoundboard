@@ -235,3 +235,18 @@ a:active {
   box-shadow: 5px 5px 10px 0 black;
   background-color: lightblue;
 }
+
+/* Konstantin's styles*/
+
+.sound-library {
+  display: block;
+  background-color: #ccc;
+  font-size: 24px;
+}
+.sound-item {
+  display: block;
+  margin: 5px;
+  padding: 5px;
+  background-color: #eee;
+  border: 1px solid #000;
+}
