@@ -16,7 +16,9 @@ var Library = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Library).call(this, props));
 
-    _this.state = {};
+    _this.state = {
+      library: null
+    };
     return _this;
   }
 
@@ -32,14 +34,18 @@ var Library = function (_React$Component) {
         key: '8mv3F2fRjY7HXptzrqlxrI5XLedmX862Pdp1rFnr',
         query: query
       };
-
+      //bind this keyword, to have access to state
+      var component = this;
       soundSearch(options, function (resp) {
-        console.log(resp);
+        component.setState({
+          library: resp
+        });
       });
     }
   }, {
     key: 'render',
     value: function render() {
+      console.log("yuck you", this.state.library);
       return React.createElement(
         'div',
         null,

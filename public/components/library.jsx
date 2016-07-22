@@ -3,10 +3,9 @@ class Library extends React.Component {
     super(props);
 
     this.state = {
-
+      library: null
     };
   }
-
   componentDidMount() {
     this.getSound('bass');
   }
@@ -16,17 +15,21 @@ class Library extends React.Component {
       key: '8mv3F2fRjY7HXptzrqlxrI5XLedmX862Pdp1rFnr',
       query: query
     };
-
+    //bind this keyword, to have access to state
+    var component = this;
     soundSearch(options, function(resp){
-      console.log(resp);
+        component.setState({
+          library: resp
+        })
     })
   }
 
   render() {
+    console.log("yuck you", this.state.library)
     return (
       <div>
         Helloooooooo
-      <pre>{}</pre>
+      <pre></pre>
       </div>
     );
   }
