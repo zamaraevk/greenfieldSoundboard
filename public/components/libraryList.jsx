@@ -19,10 +19,11 @@ var LibraryList = ({library}) => {
     <div className="sound-library">
       <ul>
         {results.map(function(result) {
-         return <li className="sound-item" key={results.indexOf(result)} onClick={() => playTrack(result.previews['preview-hq-mp3'])}>{results.indexOf(result)}</li>;
+         return <li className="sound-item" key={results.indexOf(result)} onClick={() => playTrack(result.previews['preview-hq-mp3'])}></li>;
        })}
       </ul>
     </div>
+
   );
 };
 

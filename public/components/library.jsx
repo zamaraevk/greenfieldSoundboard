@@ -28,7 +28,8 @@ class Library extends React.Component {
   render() {
     console.log("yuck you", this.state.library)
     return (
-      <div>
+      <div className="library-container">
+        <h2 className="library">SOUND LIBRARY</h2>
         <Search handleInputSearch = {this.getSound.bind(this)} />
         <LibraryList library={this.state.library}/>
       </div>

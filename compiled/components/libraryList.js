@@ -26,13 +26,9 @@ var LibraryList = function LibraryList(_ref) {
       "ul",
       null,
       results.map(function (result) {
-        return React.createElement(
-          "li",
-          { className: "sound-item", key: results.indexOf(result), onClick: function onClick() {
-              return playTrack(result.previews['preview-hq-mp3']);
-            } },
-          results.indexOf(result)
-        );
+        return React.createElement("li", { className: "sound-item", key: results.indexOf(result), onClick: function onClick() {
+            return playTrack(result.previews['preview-hq-mp3']);
+          } });
       })
     )
   );

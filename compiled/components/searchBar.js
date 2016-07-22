@@ -35,18 +35,13 @@ var Search = function (_React$Component) {
     value: function render() {
       return React.createElement(
         "div",
-        { className: "search-bar form-inline" },
+        { className: "search-bar" },
         React.createElement("input", {
           className: "form-control",
           type: "text",
           value: this.state.value,
           onChange: this.handleInputChange.bind(this)
-        }),
-        React.createElement(
-          "button",
-          { className: "btn hidden-sm-down" },
-          React.createElement("span", { className: "glyphicon glyphicon-search" })
-        )
+        })
       );
     }
   }]);

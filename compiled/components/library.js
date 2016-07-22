@@ -49,7 +49,12 @@ var Library = function (_React$Component) {
       console.log("yuck you", this.state.library);
       return React.createElement(
         'div',
-        null,
+        { className: 'library-container' },
+        React.createElement(
+          'h2',
+          { className: 'library' },
+          'SOUND LIBRARY'
+        ),
         React.createElement(Search, { handleInputSearch: this.getSound.bind(this) }),
         React.createElement(LibraryList, { library: this.state.library })
       );
