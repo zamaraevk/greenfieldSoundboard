@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -8,55 +8,50 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Library = function (_React$Component) {
-  _inherits(Library, _React$Component);
+var Search = function (_React$Component) {
+  _inherits(Search, _React$Component);
 
-  function Library(props) {
-    _classCallCheck(this, Library);
+  function Search(props) {
+    _classCallCheck(this, Search);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Library).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Search).call(this, props));
 
     _this.state = {
-      library: []
+      value: ''
     };
     return _this;
   }
 
-  _createClass(Library, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.getSound('bass');
-    }
-  }, {
-    key: 'getSound',
-    value: function getSound(query) {
-      var options = {
-        key: '8mv3F2fRjY7HXptzrqlxrI5XLedmX862Pdp1rFnr',
-        query: query
-      };
-      //bind this keyword, to have access to state
-      var component = this;
-      soundSearch(options, function (resp) {
-        console.log(resp);
-        component.setState({
-          library: resp
-        });
+  _createClass(Search, [{
+    key: "handleInputChange",
+    value: function handleInputChange(e) {
+      this.props.handleInputSearch(e.target.value);
+      this.setState({
+        value: e.target.value
       });
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
-      console.log("yuck you", this.state.library);
       return React.createElement(
-        'div',
-        null,
-        React.createElement(Search, { handleInputSearch: this.getSound.bind(this) }),
-        React.createElement(LibraryList, { library: this.state.library })
+        "div",
+        { className: "search-bar form-inline" },
+        React.createElement("input", {
+          className: "form-control",
+          type: "text",
+          value: this.state.value,
+          onChange: this.handleInputChange.bind(this)
+        }),
+        React.createElement(
+          "button",
+          { className: "btn hidden-sm-down" },
+          React.createElement("span", { className: "glyphicon glyphicon-search" })
+        )
       );
     }
   }]);
 
-  return Library;
+  return Search;
 }(React.Component);
 
-ReactDOM.render(React.createElement(Library, null), document.getElementById('app'));
+window.Search = Search;

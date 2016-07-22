@@ -8,13 +8,15 @@ var LibraryList = function LibraryList(_ref) {
   var audio = null;
 
   var playTrack = function playTrack(item) {
-    if (!audio) {
-      audio = new Audio(item);
-      audio.play();
-    } else {
-      audio.pause();
-      audio = null;
-    }
+    audio = new Audio(item);
+    audio.play();
+    // if(!audio){
+    //   audio = new Audio(item);
+    //   audio.play();
+    // } else {
+    //   audio.pause();
+    //   audio = null;
+    // }
   };
 
   return React.createElement(

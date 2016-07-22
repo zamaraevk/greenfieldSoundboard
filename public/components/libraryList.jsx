@@ -4,13 +4,15 @@ var LibraryList = ({library}) => {
   var audio = null;
 
   var playTrack = function(item){
-  if(!audio){
     audio = new Audio(item);
     audio.play();
-  } else {
-    audio.pause();
-    audio = null;
-  }
+  // if(!audio){
+  //   audio = new Audio(item);
+  //   audio.play();
+  // } else {
+  //   audio.pause();
+  //   audio = null;
+  // }
 }
 
   return (

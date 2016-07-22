@@ -18,6 +18,7 @@ class Library extends React.Component {
     //bind this keyword, to have access to state
     var component = this;
     soundSearch(options, function(resp){
+        console.log(resp);
         component.setState({
           library: resp
         })
@@ -28,6 +29,7 @@ class Library extends React.Component {
     console.log("yuck you", this.state.library)
     return (
       <div>
+        <Search handleInputSearch = {this.getSound.bind(this)} />
         <LibraryList library={this.state.library}/>
       </div>
     );
