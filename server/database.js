@@ -116,7 +116,7 @@ var retrieveSound = function(name, res) {
 
 module.exports = {
   'keyboard': Keyboard,
-  'Sound': Sound,
+  'sound': Sound,
   'saveToDB': saveToDB,
   'retrieveSound': retrieveSound,
   'retrieveLibrary': retrieveLibrary
