@@ -2,26 +2,35 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Grid = require('gridfs-stream');
 var fs = require('fs');
-
-mongoose.connect('mongodb://needsclosure:needsclosure1@ds027175.mlab.com:27175/soundboard');
-var conn = mongoose.connection;
+var fse = require('fs-extra');
+var db = require('./dbConnection.js')
+db.conn.once('open', function(){
+  console.log("connection established to remoteDB");
+})
 Grid.mongo = mongoose.mongo;
 
 // TO ADD SOUND TO DATABASE
-var saveToDB = function(name) {
-  conn.once('open', function () {
-      console.log('open');
-      var gfs = Grid(conn.db);
-      // streaming to gridfs
-      //filename to store in mongodb
-      var writestream = gfs.createWriteStream({
-          filename: name
-      });
-      fs.createReadStream('./uploads/' + name).pipe(writestream);
-      writestream.on('close', function (file) {
-          // do something with `file`
-          console.log(file.filename + 'Written To remote DB!!');
-      });
+var saveToDB = function(name, res) {
+  console.log("saveToDB called in database.js!!!!", name);
+  //establishes filestream to remoteDB
+  var gfs = Grid(db.conn.db);
+
+  //creates stream to remote database and defines file name to be saved
+  var writestream = gfs.createWriteStream({
+      filename: name
+  });
+  //reads sound from uploads folder and sends it to remoteDB
+  fs.createReadStream('./uploads/' + name).pipe(writestream);
+  //when file is done uploading to DB
+  writestream.on('close', function (file) {
+    //deletes from local directory after saved to remoteDB to avoid buildup of space
+    fse.remove('./uploads/' + name, function (err) {
+      if (err) return console.error(err)
+      console.log(file.filename + 'Written To remote DB!! and deleted from local directory');
+      //should change this response to the next() middleware so that appropriate front-end .then can be implemented
+      res.send("file saved to DB!");
+      console.log('success!')
+    })
   });
 }
 
@@ -78,5 +87,7 @@ var keyboardSchema = new Schema({
 var Keyboard = mongoose.model('Keyboard', keyboardSchema);
 
 module.exports = {
-  'keyboard': Keyboard
+  'keyboard': Keyboard,
+  'saveToDB': saveToDB,
+  'retrieveSound': retrieveSound
 }

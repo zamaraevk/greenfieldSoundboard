@@ -3,6 +3,7 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var path = require('path');
 var multer = require('multer');
+var db = require('./database.js');
 var app = express();
 
 // set a normalized path to public.
@@ -43,7 +44,7 @@ app.get('/sounds', function (req, res) {
 
 app.post('/soundUpload', upload.single('sound'), function(req, res){
   console.log("POST request multer at soundUpload with: ", req.file);
-  res.send("song saved");
+  db.saveToDB(req.file.filename, res)
 })
 
 app.get('/defaults', function (req, res) {
