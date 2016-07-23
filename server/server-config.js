@@ -3,6 +3,7 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var path = require('path');
 var multer = require('multer');
+var db = require('./database.js');
 var app = express();
 
 // set a normalized path to public.
@@ -12,12 +13,21 @@ var rootPath = path.normalize(__dirname + '/../public');
 // note that the script tags in index.html are simplified as a result.
 app.use('/dist', express.static(__dirname + '/../dist/'));
 app.use('/soundfiles', express.static(__dirname + '/../foley/'));
+app.use('/downloads', express.static(__dirname + '/../downloads/'));
 app.use('/node_modules', express.static(__dirname + '/../node_modules/'));
 app.use('/compiled', express.static(__dirname + '/../compiled/'));
 app.use('/styles', express.static(__dirname + '/../public/components/styles/'));
 app.use('/assets', express.static(__dirname + '/assets/'));
 app.use(bodyParser.json());
 
+//adjusts the filename to be the same as the name of the song in the user's directory
+var storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: function (req, file, cb) {
+      cb(null,  file.originalname );
+  }
+});
+var upload = multer({ storage: storage });
 
 // At root, send index.html. It's location is appended to the rootPath.
 app.get('/', function(req, res) {
@@ -32,8 +42,9 @@ app.get('/sounds', function (req, res) {
   });
 });
 
-app.post('/soundUpload', multer({ dest: './uploads/'}).single('sound'), function(req, res){
+app.post('/soundUpload', upload.single('sound'), function(req, res){
   console.log("POST request multer at soundUpload with: ", req.file);
+  db.saveToDB(req.file.filename, res)
 })
 
 app.get('/defaults', function (req, res) {
