@@ -4,10 +4,12 @@ class Library extends React.Component {
 
     this.state = {
       currentSoud: null,
-      nameOfCurrentSound: null,
+      name: '',
       library: []
     }
     this.getCurrentSound = this.getCurrentSound.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
     this.getSound('bass');
@@ -18,10 +20,12 @@ class Library extends React.Component {
       currentSoud: sound
     })
   }
-  handleInputChange(e) {
-    this.setState({
-      nameOfCurrentSound: e.target.value
-    });
+  handleNameChange(e) {
+   this.setState({name: e.target.value});
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log('name',this.state.name, this.state.currentSoud);
   }
   getSound(query) {
     var options = {
@@ -49,12 +53,18 @@ class Library extends React.Component {
           <LibraryList library={this.state.library} getCurrentSound={this.getCurrentSound}/>
         </div>
         <div className="sound-save">
+          <h2 className="library">SAVE SOUND</h2>
             <div className="sound-name">{this.state.currentSoud}</div>
+             <form className="soundForm">
               <input
+                className="new-name"
                 type="text"
-                nameOfCurrentSound={this.state.nameOfCurrentSound}
-                onChange={this.handleInputChange.bind(this)}
+                onChange={this.handleNameChange}
+                placeholder="New Sound Name..."
               />
+            <pre>Hello = {this.state.name}</pre>
+            <button onClick={this.handleSubmit}>Save Sound</button>
+          </form>
         </div>
       </div>
       // <pre>nameOfCurrentSound = {this.state.nameOfCurrentSound}</pre>
