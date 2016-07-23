@@ -51,9 +51,20 @@ var keyboardSchema = new Schema({
 
 var Keyboard = mongoose.model('Keyboard', keyboardSchema);
 
+//RETRIEVE SOUND LIBRARY FROM DB
+var retrieveLibrary = function(next, res){
+  Sound.find({}, function(err, sounds){
+    if(err){
+      next(new Error(err));
+    }
+    console.log("SOUNDS RETRIEVED", sounds);
+    res.send(sounds);
+  })
+}
+
 //HANDLE UPLOADS
 
-// TO ADD SOUND TO DATABASE
+// TO ADD UPLOADED SOUND TO DATABASE
 var saveToDB = function(name, res) {
   console.log("saveToDB called in database.js!!!!", name);
   //establishes filestream to remoteDB
@@ -70,7 +81,8 @@ var saveToDB = function(name, res) {
     //create new sound in collection so that when library is retrieved, uploaded sounds are also seen
     var newSound = new Sound({
       "name": name,
-      "link": './downloads/' + name
+      "soundLink": './downloads/' + name,
+      "uploaded": true
     })
     newSound.save(function(err){
       //deletes from local directory after saved to remoteDB to avoid buildup of space
@@ -86,27 +98,26 @@ var saveToDB = function(name, res) {
   });
 }
 
-//TO RETRIEVE SOUND FROM DATABASE
-var retrieveSound = function(name) {
-  conn.once('open', function(){
-      console.log('open');
-      var gfs = Grid(conn.db);
-      var fs_write_stream = fs.createWriteStream('./downloads/'+ name);
+//TO RETRIEVE UPLOADED SOUND FROM DATABASE
+var retrieveSound = function(name, res) {
+  var gfs = Grid(db.conn.db);
+  var fs_write_stream = fs.createWriteStream('./downloads/'+ name);
 
   //read from mongodb
   var readstream = gfs.createReadStream({
-       filename: 'sound files'
+       filename: name
   });
   readstream.pipe(fs_write_stream);
   fs_write_stream.on('close', function () {
        console.log('sound downloaded');
-     })
-   })
+       res.send("sound saved to app directory")
+    })
 }
 
 module.exports = {
   'keyboard': Keyboard,
   'Sound': Sound,
   'saveToDB': saveToDB,
-  'retrieveSound': retrieveSound
+  'retrieveSound': retrieveSound,
+  'retrieveLibrary': retrieveLibrary
 }

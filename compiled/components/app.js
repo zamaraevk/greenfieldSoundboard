@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //sample input:
 //This example would bind the 'a' key to the "example.wav" file.
@@ -11,29 +11,42 @@
 
 // App React class.  Contains a number of methods which control the audio, as well as rendering pretty much the whole damn app.
 var App = React.createClass({
-  displayName: "App",
+  displayName: 'App',
 
   //declaring some states.
   getInitialState: function getInitialState() {
     return {
       bindings: [],
       soundList: [],
+      library: [],
       changeKey: ""
     };
   },
   //once the component mounts, we set those states equal to the correct data.  We also hide the binding window using JQuery until it is required.
   componentDidMount: function componentDidMount() {
     $('#bindingWindow').hide();
-    this.serverRequest = $.get(window.location.href + "sounds", function (result) {
-      //this url has an array of all the sounds
-      console.log('old source', result);
+    // this.serverRequest = $.get(window.location.href + "sounds", function (result) { //this url has an array of all the sounds
+    //   console.log('old source', result);
+    //   this.setState({
+    //     soundList: result,
+    //     bindings: qwertyMap.map(function(key) {
+    //       return key !== 0
+    //         ? {key: key, path: defaultData[key], loop: false, playing: false}
+    //         : 0;
+    //     })
+    //   });
+    // }.bind(this));
+
+    this.serverRequest = $.get('/soundLibrary', function (sounds) {
       this.setState({
-        soundList: result,
+        library: sounds,
         bindings: qwertyMap.map(function (key) {
           return key !== 0 ? { key: key, path: defaultData[key], loop: false, playing: false } : 0;
         })
       });
     }.bind(this));
+
+    console.log("library", this.state.library);
     //OSX and MAC reserve functionality of either the alt or ctrl key, this checks the OS
     // and sets the rebind-key trigger to be that specific keypress
     navigator.appVersion.includes("Windows") ? this.setState({ bindTrigger: "altKey" }) : this.setState({ bindTrigger: "ctrlKey" });
@@ -117,7 +130,7 @@ var App = React.createClass({
     $('#bindingWindow').animate({ height: 'toggle' }, 350);
     $('#keyboardWindow').animate({ width: 'toggle' }, 350);
     ReactDOM.render(React.createElement(
-      "div",
+      'div',
       null,
       React.createElement(App, null)
     ), document.getElementById('app'));
@@ -127,21 +140,21 @@ var App = React.createClass({
     var _this = this;
 
     return React.createElement(
-      "div",
-      { id: "appWindow" },
+      'div',
+      { id: 'appWindow' },
       React.createElement(
-        "div",
-        { id: "bindingWindow" },
+        'div',
+        { id: 'bindingWindow' },
         React.createElement(
-          "h3",
+          'h3',
           null,
-          "Click on a file to change the binding of ",
+          'Click on a file to change the binding of ',
           this.state.changeKey.toUpperCase(),
-          " to"
+          ' to'
         ),
         React.createElement(
-          "ul",
-          { id: "binding" },
+          'ul',
+          { id: 'binding' },
           this.state.soundList.map(function (sound, idx) {
             return (//es6 again
               React.createElement(RebindNode, { key: idx, targetSong: sound, targetKey: _this.state.changeKey, bindings: _this.state.bindings, reRender: _this.reRender })
@@ -150,11 +163,11 @@ var App = React.createClass({
         )
       ),
       React.createElement(
-        "div",
-        { id: "keyboardWindow", className: "keyboard" },
+        'div',
+        { id: 'keyboardWindow', className: 'keyboard' },
         this.state.bindings.map(function (keyBinding, idx) {
           return (//yay es6
-            keyBinding === 0 ? React.createElement("br", { key: idx }) : React.createElement(VKey, { key: idx, keyId: keyBinding.key, path: keyBinding.path })
+            keyBinding === 0 ? React.createElement('br', { key: idx }) : React.createElement(VKey, { key: idx, keyId: keyBinding.key, path: keyBinding.path })
           );
         })
       )
@@ -165,11 +178,11 @@ var App = React.createClass({
 // This simulates a loading page. In all of our tests the server loaded the sound
 // files instantly but by the time we noticed this we already had an awesome
 // loading page up and running. This timeout feature honors that hard work
-// setTimeout(function() {
-//   document.getElementById('secretSound').pause();
-//   ReactDOM.render(<div>
-//     <App/>
-//     </div>, document.getElementById('app')
-//   );
-//
-// }, 2000);
+setTimeout(function () {
+  document.getElementById('secretSound').pause();
+  ReactDOM.render(React.createElement(
+    'div',
+    null,
+    React.createElement(App, null)
+  ), document.getElementById('app'));
+}, 2000);
