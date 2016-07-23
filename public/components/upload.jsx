@@ -23,7 +23,7 @@ var Upload = React.createClass ({
     return (
       <div>
         <h1> Upload file </h1>
-        <form encType="multipart/form-data" method="post" onChange={console.log("form changed!")} action='/soundUpload'>
+        <form encType="multipart/form-data" method="post" action='/soundUpload'>
           <input id="audio" type="file" name='sound' accept='audio/*'/>
           <button onClick={this.readFile()}> Submit</button>
         </form>

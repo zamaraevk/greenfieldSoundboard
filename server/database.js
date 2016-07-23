@@ -12,13 +12,12 @@ var saveToDB = function(name) {
   conn.once('open', function () {
       console.log('open');
       var gfs = Grid(conn.db);
-      console.log('OPEN!')
       // streaming to gridfs
       //filename to store in mongodb
       var writestream = gfs.createWriteStream({
           filename: name
       });
-      fs.createReadStream('./uploads/412d6e3f5e8bad66d8d4ac0220c09660').pipe(writestream);
+      fs.createReadStream('./uploads/' + name).pipe(writestream);
       writestream.on('close', function (file) {
           // do something with `file`
           console.log(file.filename + 'Written To remote DB!!');

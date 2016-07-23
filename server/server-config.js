@@ -31,7 +31,6 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 
-
 // At root, send index.html. It's location is appended to the rootPath.
 app.get('/', function(req, res) {
   res.sendFile(path.join(rootPath + '/index.html'));

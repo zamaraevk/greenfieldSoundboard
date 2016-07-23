@@ -33,7 +33,7 @@ var Upload = React.createClass({
       ),
       React.createElement(
         'form',
-        { encType: 'multipart/form-data', method: 'post', onChange: console.log("form changed!"), action: '/soundUpload' },
+        { encType: 'multipart/form-data', method: 'post', action: '/soundUpload' },
         React.createElement('input', { id: 'audio', type: 'file', name: 'sound', accept: 'audio/*' }),
         React.createElement(
           'button',
