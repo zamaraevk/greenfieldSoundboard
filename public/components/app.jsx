@@ -14,23 +14,37 @@ var App = React.createClass({
      {
       bindings: [],
       soundList: [],
+      library: [],
       changeKey: ""
     }
   ),
   //once the component mounts, we set those states equal to the correct data.  We also hide the binding window using JQuery until it is required.
   componentDidMount: function() {
     $('#bindingWindow').hide();
-    this.serverRequest = $.get(window.location.href + "sounds", function (result) { //this url has an array of all the sounds
-      console.log('old source', result);
-      this.setState({
-        soundList: result,
-        bindings: qwertyMap.map(function(key) {
-          return key !== 0
+    // this.serverRequest = $.get(window.location.href + "sounds", function (result) { //this url has an array of all the sounds
+    //   console.log('old source', result);
+    //   this.setState({
+    //     soundList: result,
+    //     bindings: qwertyMap.map(function(key) {
+    //       return key !== 0
+    //         ? {key: key, path: defaultData[key], loop: false, playing: false}
+    //         : 0;
+    //     })
+    //   });
+    // }.bind(this));
+
+    this.serverRequest = $.get('/soundLibrary', function (sounds) {
+       this.setState({
+         library: sounds,
+         bindings: qwertyMap.map(function(key) {
+           return key !== 0
             ? {key: key, path: defaultData[key], loop: false, playing: false}
             : 0;
-        })
-      });
-    }.bind(this));
+          })
+       });
+     }.bind(this));
+
+   console.log("library", this.state.library);
     //OSX and MAC reserve functionality of either the alt or ctrl key, this checks the OS
     // and sets the rebind-key trigger to be that specific keypress
     navigator.appVersion.includes("Windows")
@@ -149,11 +163,11 @@ var App = React.createClass({
 // This simulates a loading page. In all of our tests the server loaded the sound
 // files instantly but by the time we noticed this we already had an awesome
 // loading page up and running. This timeout feature honors that hard work
-// setTimeout(function() {
-//   document.getElementById('secretSound').pause();
-//   ReactDOM.render(<div>
-//     <App/>
-//     </div>, document.getElementById('app')
-//   );
-//
-// }, 2000);
+setTimeout(function() {
+  document.getElementById('secretSound').pause();
+  ReactDOM.render(<div>
+    <App/>
+    </div>, document.getElementById('app')
+  );
+
+}, 2000);

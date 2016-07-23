@@ -7,28 +7,13 @@ var Upload = React.createClass({
     return { value: 'Hello!' };
   },
 
-  readFile: function readFile() {
-    var file = $('#audio').val();
-    console.log("FILE", file);
-    if (file) {
-      console.log("file", file.val());
-    }
-    var reader = new FileReader();
-    // reader.onload = function(e)
-    // {
-    //     document.getElementById('outputDiv').innerHTML = e.target.result;
-    // };
-    console.log("hi");
-    console.log("READER", reader);
-    // console.log("FILE READING", reader(file));
-  },
   render: function render() {
     return React.createElement(
       'div',
       null,
       React.createElement(
         'h1',
-        null,
+        { className: 'uploadHeader' },
         ' Upload file '
       ),
       React.createElement(
@@ -37,7 +22,7 @@ var Upload = React.createClass({
         React.createElement('input', { id: 'audio', type: 'file', name: 'sound', accept: 'audio/*' }),
         React.createElement(
           'button',
-          { onClick: this.readFile() },
+          null,
           ' Submit'
         )
       )

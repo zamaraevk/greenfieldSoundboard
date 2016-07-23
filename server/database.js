@@ -64,7 +64,7 @@ var retrieveLibrary = function(next, res){
 
 //HANDLE UPLOADS
 
-// TO ADD SOUND TO DATABASE
+// TO ADD UPLOADED SOUND TO DATABASE
 var saveToDB = function(name, res) {
   console.log("saveToDB called in database.js!!!!", name);
   //establishes filestream to remoteDB
