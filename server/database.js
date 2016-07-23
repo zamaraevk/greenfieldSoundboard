@@ -9,54 +9,14 @@ db.conn.once('open', function(){
 })
 Grid.mongo = mongoose.mongo;
 
-// TO ADD SOUND TO DATABASE
-var saveToDB = function(name, res) {
-  console.log("saveToDB called in database.js!!!!", name);
-  //establishes filestream to remoteDB
-  var gfs = Grid(db.conn.db);
-
-  //creates stream to remote database and defines file name to be saved
-  var writestream = gfs.createWriteStream({
-      filename: name
-  });
-  //reads sound from uploads folder and sends it to remoteDB
-  fs.createReadStream('./uploads/' + name).pipe(writestream);
-  //when file is done uploading to DB
-  writestream.on('close', function (file) {
-    //deletes from local directory after saved to remoteDB to avoid buildup of space
-    fse.remove('./uploads/' + name, function (err) {
-      if (err) return console.error(err)
-      console.log(file.filename + 'Written To remote DB!! and deleted from local directory');
-      //should change this response to the next() middleware so that appropriate front-end .then can be implemented
-      res.send("file saved to DB!");
-      console.log('success!')
-    })
-  });
-}
-
-//TO RETRIEVE SOUND FROM DATABASE
-var retrieveSound = function(name) {
-  conn.once('open', function(){
-      console.log('open');
-      var gfs = Grid(conn.db);
-      var fs_write_stream = fs.createWriteStream('./downloads/'+ name);
-
-  //read from mongodb
-  var readstream = gfs.createReadStream({
-       filename: 'sound files'
-  });
-  readstream.pipe(fs_write_stream);
-  fs_write_stream.on('close', function () {
-       console.log('sound downloaded');
-     })
-   })
-}
-
+//SCHEMAS AND MODELS
 var soundSchema = new Schema({
   name: String,
-  soundLink: String
+  soundLink: String,
+  uploaded: Boolean
 });
 
+var Sound = mongoose.model('Sound', soundSchema);
 
 var keyboardSchema = new Schema({
   name: String,
@@ -90,7 +50,59 @@ var keyboardSchema = new Schema({
 
 
 var Keyboard = mongoose.model('Keyboard', keyboardSchema);
-var Sound = mongoose.model('Sound', soundSchema);
+
+//HANDLE UPLOADS
+
+// TO ADD SOUND TO DATABASE
+var saveToDB = function(name, res) {
+  console.log("saveToDB called in database.js!!!!", name);
+  //establishes filestream to remoteDB
+  var gfs = Grid(db.conn.db);
+
+  //creates stream to remote database and defines file name to be saved
+  var writestream = gfs.createWriteStream({
+      filename: name
+  });
+  //reads sound from uploads folder and sends it to remoteDB
+  fs.createReadStream('./uploads/' + name).pipe(writestream);
+  //when file is done uploading to DB
+  writestream.on('close', function (file) {
+    //create new sound in collection so that when library is retrieved, uploaded sounds are also seen
+    var newSound = new Sound({
+      "name": name,
+      "link": './downloads/' + name
+    })
+    newSound.save(function(err){
+      //deletes from local directory after saved to remoteDB to avoid buildup of space
+      fse.remove('./uploads/' + name, function (err) {
+        if (err) return console.error(err)
+        console.log(file.filename + 'Written To remote DB!! and deleted from local directory');
+        //should change this response to the next() middleware so that appropriate front-end .then can be implemented
+        res.send("file saved to DB and new sound added to sound collection!");
+        console.log('success!')
+      })
+    })
+
+  });
+}
+
+//TO RETRIEVE SOUND FROM DATABASE
+var retrieveSound = function(name) {
+  conn.once('open', function(){
+      console.log('open');
+      var gfs = Grid(conn.db);
+      var fs_write_stream = fs.createWriteStream('./downloads/'+ name);
+
+  //read from mongodb
+  var readstream = gfs.createReadStream({
+       filename: 'sound files'
+  });
+  readstream.pipe(fs_write_stream);
+  fs_write_stream.on('close', function () {
+       console.log('sound downloaded');
+     })
+   })
+}
 
 module.exports = {
   'keyboard': Keyboard,
