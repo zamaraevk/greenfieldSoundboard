@@ -19,14 +19,11 @@ app.use('/styles', express.static(__dirname + '/../public/components/styles/'));
 app.use('/assets', express.static(__dirname + '/assets/'));
 app.use(bodyParser.json());
 
+//adjusts the filename to be the same as the name of the song in the user's directory
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads/')
-  },
+  destination: './uploads/',
   filename: function (req, file, cb) {
-
       cb(null,  file.originalname );
-
   }
 });
 var upload = multer({ storage: storage });
@@ -44,7 +41,7 @@ app.get('/sounds', function (req, res) {
   });
 });
 
-app.post('/soundUpload', multer({ dest: './uploads/'}).single('sound'), function(req, res){
+app.post('/soundUpload', upload.single('sound'), function(req, res){
   console.log("POST request multer at soundUpload with: ", req.file);
   res.send("song saved");
 })
