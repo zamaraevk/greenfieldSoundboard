@@ -26,6 +26,7 @@ var App = React.createClass({
     $('#bindingWindow').hide();
     this.serverRequest = $.get(window.location.href + "sounds", function (result) {
       //this url has an array of all the sounds
+      console.log('old source', result);
       this.setState({
         soundList: result,
         bindings: qwertyMap.map(function (key) {
@@ -161,14 +162,14 @@ var App = React.createClass({
   }
 });
 
-//This simulates a loading page. In all of our tests the server loaded the sound
-//files instantly but by the time we noticed this we already had an awesome
-//loading page up and running. This timeout feature honors that hard work
-setTimeout(function () {
-  document.getElementById('secretSound').pause();
-  ReactDOM.render(React.createElement(
-    "div",
-    null,
-    React.createElement(App, null)
-  ), document.getElementById('app'));
-}, 2000);
+// This simulates a loading page. In all of our tests the server loaded the sound
+// files instantly but by the time we noticed this we already had an awesome
+// loading page up and running. This timeout feature honors that hard work
+// setTimeout(function() {
+//   document.getElementById('secretSound').pause();
+//   ReactDOM.render(<div>
+//     <App/>
+//     </div>, document.getElementById('app')
+//   );
+//
+// }, 2000);

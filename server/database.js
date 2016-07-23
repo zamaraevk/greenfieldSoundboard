@@ -8,23 +8,23 @@ var conn = mongoose.connection;
 Grid.mongo = mongoose.mongo;
 
 
-conn.once('open', function () {
-    console.log('open');
-    var gfs = Grid(conn.db);
-    console.log('OPEN!')
-    // streaming to gridfs
-    //filename to store in mongodb
-    var writestream = gfs.createWriteStream({
-        filename: 'sound files'
-    });
-    fs.createReadStream('./uploads/412d6e3f5e8bad66d8d4ac0220c09660').pipe(writestream);
-
-    writestream.on('close', function (file) {
-        // do something with `file`
-        console.log(file.filename + 'Written To remote DB!!');
-    });
-
-});
+// conn.once('open', function () {
+//     console.log('open');
+//     var gfs = Grid(conn.db);
+//     console.log('OPEN!')
+//     // streaming to gridfs
+//     //filename to store in mongodb
+//     var writestream = gfs.createWriteStream({
+//         filename: 'sound files'
+//     });
+//     fs.createReadStream('./uploads/412d6e3f5e8bad66d8d4ac0220c09660').pipe(writestream);
+//
+//     writestream.on('close', function (file) {
+//         // do something with `file`
+//         console.log(file.filename + 'Written To remote DB!!');
+//     });
+//
+// });
 
 
 var keyboardSchema = new Schema({
