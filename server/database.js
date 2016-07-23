@@ -52,6 +52,11 @@ var retrieveSound = function(name) {
    })
 }
 
+var soundSchema = new Schema({
+  name: String,
+  soundLink: String
+});
+
 
 var keyboardSchema = new Schema({
   name: String,
@@ -85,9 +90,11 @@ var keyboardSchema = new Schema({
 
 
 var Keyboard = mongoose.model('Keyboard', keyboardSchema);
+var Sound = mongoose.model('Sound', soundSchema);
 
 module.exports = {
   'keyboard': Keyboard,
+  'Sound': Sound,
   'saveToDB': saveToDB,
   'retrieveSound': retrieveSound
 }

@@ -18,10 +18,12 @@ var Library = function (_React$Component) {
 
     _this.state = {
       currentSoud: null,
-      nameOfCurrentSound: null,
+      name: '',
       library: []
     };
     _this.getCurrentSound = _this.getCurrentSound.bind(_this);
+    _this.handleNameChange = _this.handleNameChange.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
     return _this;
   }
 
@@ -39,11 +41,15 @@ var Library = function (_React$Component) {
       });
     }
   }, {
-    key: 'handleInputChange',
-    value: function handleInputChange(e) {
-      this.setState({
-        nameOfCurrentSound: e.target.value
-      });
+    key: 'handleNameChange',
+    value: function handleNameChange(e) {
+      this.setState({ name: e.target.value });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      console.log('name', this.state.name, this.state.currentSoud);
     }
   }, {
     key: 'getSound',
@@ -84,15 +90,36 @@ var Library = function (_React$Component) {
           'div',
           { className: 'sound-save' },
           React.createElement(
+            'h2',
+            { className: 'library' },
+            'SAVE SOUND'
+          ),
+          React.createElement(
             'div',
             { className: 'sound-name' },
             this.state.currentSoud
           ),
-          React.createElement('input', {
-            type: 'text',
-            nameOfCurrentSound: this.state.nameOfCurrentSound,
-            onChange: this.handleInputChange.bind(this)
-          })
+          React.createElement(
+            'form',
+            { className: 'soundForm' },
+            React.createElement('input', {
+              className: 'new-name',
+              type: 'text',
+              onChange: this.handleNameChange,
+              placeholder: 'New Sound Name...'
+            }),
+            React.createElement(
+              'pre',
+              null,
+              'Hello = ',
+              this.state.name
+            ),
+            React.createElement(
+              'button',
+              { onClick: this.handleSubmit },
+              'Save Sound'
+            )
+          )
         )
       )
       // <pre>nameOfCurrentSound = {this.state.nameOfCurrentSound}</pre>
