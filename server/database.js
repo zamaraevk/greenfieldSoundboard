@@ -113,11 +113,26 @@ var retrieveSound = function(name, res) {
        res.send("sound saved to app directory")
     })
 }
+var newSound = function(sound){
+  console.log("My sound", sound);
+  var newSound = new Sound({
+      name: sound.name,
+      soundLink: sound.currentSoud,
+      uploaded: false
+    });
+  newSound.save(function(err){
+    if(err){
+      console.log("newSound not saved")
+    }
+    console.log("newSound saved!");
+  })
+}
 
 module.exports = {
   'keyboard': Keyboard,
-  'Sound': Sound,
+  'sound': Sound,
   'saveToDB': saveToDB,
   'retrieveSound': retrieveSound,
-  'retrieveLibrary': retrieveLibrary
+  'retrieveLibrary': retrieveLibrary,
+  'newSound': newSound
 }
