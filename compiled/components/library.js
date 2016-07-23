@@ -17,8 +17,11 @@ var Library = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Library).call(this, props));
 
     _this.state = {
+      currentSoud: null,
+      nameOfCurrentSound: null,
       library: []
     };
+    _this.getCurrentSound = _this.getCurrentSound.bind(_this);
     return _this;
   }
 
@@ -26,6 +29,21 @@ var Library = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.getSound('bass');
+    }
+  }, {
+    key: 'getCurrentSound',
+    value: function getCurrentSound(sound) {
+      console.log('getting sound name', sound);
+      this.setState({
+        currentSoud: sound
+      });
+    }
+  }, {
+    key: 'handleInputChange',
+    value: function handleInputChange(e) {
+      this.setState({
+        nameOfCurrentSound: e.target.value
+      });
     }
   }, {
     key: 'getSound',
@@ -46,22 +64,43 @@ var Library = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      //this.createKeyboard();
       console.log("yuck you", this.state.library);
       return React.createElement(
         'div',
         { className: 'library-container' },
         React.createElement(
-          'h2',
-          { className: 'library' },
-          'SOUND LIBRARY'
+          'div',
+          { className: 'library-search' },
+          React.createElement(
+            'h2',
+            { className: 'library' },
+            'SOUND LIBRARY'
+          ),
+          React.createElement(Search, { handleInputSearch: this.getSound.bind(this) }),
+          React.createElement(LibraryList, { library: this.state.library, getCurrentSound: this.getCurrentSound })
         ),
-        React.createElement(Search, { handleInputSearch: this.getSound.bind(this) }),
-        React.createElement(LibraryList, { library: this.state.library })
-      );
+        React.createElement(
+          'div',
+          { className: 'sound-save' },
+          React.createElement(
+            'div',
+            { className: 'sound-name' },
+            this.state.currentSoud
+          ),
+          React.createElement('input', {
+            type: 'text',
+            nameOfCurrentSound: this.state.nameOfCurrentSound,
+            onChange: this.handleInputChange.bind(this)
+          })
+        )
+      )
+      // <pre>nameOfCurrentSound = {this.state.nameOfCurrentSound}</pre>
+      ;
     }
   }]);
 
   return Library;
 }(React.Component);
 
-ReactDOM.render(React.createElement(Library, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(Library, null), document.getElementById('lib'));

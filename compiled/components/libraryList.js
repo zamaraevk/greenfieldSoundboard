@@ -2,8 +2,8 @@
 
 var LibraryList = function LibraryList(_ref) {
   var library = _ref.library;
+  var getCurrentSound = _ref.getCurrentSound;
 
-  console.log('I am in libraryList', library);
   var results = library;
   var audio = null;
 
@@ -27,7 +27,8 @@ var LibraryList = function LibraryList(_ref) {
       null,
       results.map(function (result) {
         return React.createElement("li", { className: "sound-item", key: results.indexOf(result), onClick: function onClick() {
-            return playTrack(result.previews['preview-hq-mp3']);
+            playTrack(result.previews['preview-hq-mp3']);
+            getCurrentSound(result.previews['preview-hq-mp3']);
           } });
       })
     )

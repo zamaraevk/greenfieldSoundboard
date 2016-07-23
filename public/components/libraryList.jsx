@@ -1,5 +1,4 @@
-var LibraryList = ({library}) => {
-  console.log('I am in libraryList', library);
+var LibraryList = ({library, getCurrentSound}) => {
   var results = library;
   var audio = null;
 
@@ -19,7 +18,10 @@ var LibraryList = ({library}) => {
     <div className="sound-library">
       <ul>
         {results.map(function(result) {
-         return <li className="sound-item" key={results.indexOf(result)} onClick={() => playTrack(result.previews['preview-hq-mp3'])}></li>;
+         return <li className="sound-item" key={results.indexOf(result)} onClick={() =>
+             { playTrack(result.previews['preview-hq-mp3']);
+               getCurrentSound(result.previews['preview-hq-mp3']);
+             }}></li>;
        })}
       </ul>
     </div>
