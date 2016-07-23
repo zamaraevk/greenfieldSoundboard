@@ -12,11 +12,24 @@ var rootPath = path.normalize(__dirname + '/../public');
 // note that the script tags in index.html are simplified as a result.
 app.use('/dist', express.static(__dirname + '/../dist/'));
 app.use('/soundfiles', express.static(__dirname + '/../foley/'));
+app.use('/downloads', express.static(__dirname + '/../downloads/'));
 app.use('/node_modules', express.static(__dirname + '/../node_modules/'));
 app.use('/compiled', express.static(__dirname + '/../compiled/'));
 app.use('/styles', express.static(__dirname + '/../public/components/styles/'));
 app.use('/assets', express.static(__dirname + '/assets/'));
 app.use(bodyParser.json());
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads/')
+  },
+  filename: function (req, file, cb) {
+
+      cb(null,  file.originalname );
+
+  }
+});
+var upload = multer({ storage: storage });
 
 
 // At root, send index.html. It's location is appended to the rootPath.
@@ -34,6 +47,7 @@ app.get('/sounds', function (req, res) {
 
 app.post('/soundUpload', multer({ dest: './uploads/'}).single('sound'), function(req, res){
   console.log("POST request multer at soundUpload with: ", req.file);
+  res.send("song saved");
 })
 
 app.get('/defaults', function (req, res) {
