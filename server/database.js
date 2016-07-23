@@ -70,7 +70,8 @@ var saveToDB = function(name, res) {
     //create new sound in collection so that when library is retrieved, uploaded sounds are also seen
     var newSound = new Sound({
       "name": name,
-      "link": './downloads/' + name
+      "soundLink": './downloads/' + name,
+      "uploaded": true
     })
     newSound.save(function(err){
       //deletes from local directory after saved to remoteDB to avoid buildup of space
@@ -87,21 +88,19 @@ var saveToDB = function(name, res) {
 }
 
 //TO RETRIEVE SOUND FROM DATABASE
-var retrieveSound = function(name) {
-  conn.once('open', function(){
-      console.log('open');
-      var gfs = Grid(conn.db);
-      var fs_write_stream = fs.createWriteStream('./downloads/'+ name);
+var retrieveSound = function(name, res) {
+  var gfs = Grid(db.conn.db);
+  var fs_write_stream = fs.createWriteStream('./downloads/'+ name);
 
   //read from mongodb
   var readstream = gfs.createReadStream({
-       filename: 'sound files'
+       filename: name
   });
   readstream.pipe(fs_write_stream);
   fs_write_stream.on('close', function () {
        console.log('sound downloaded');
-     })
-   })
+       res.send("sound saved to app directory")
+    })
 }
 
 module.exports = {

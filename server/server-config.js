@@ -45,6 +45,10 @@ app.get('/sounds', function (req, res) {
 app.post('/soundUpload', upload.single('sound'), function(req, res){
   console.log("POST request multer at soundUpload with: ", req.file);
   db.saveToDB(req.file.filename, res)
+});
+
+app.post('/soundDownload', function(req, res){
+  db.retrieveSound(req.body.name, res);
 })
 
 app.get('/defaults', function (req, res) {
