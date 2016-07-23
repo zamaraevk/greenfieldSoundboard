@@ -51,6 +51,17 @@ var keyboardSchema = new Schema({
 
 var Keyboard = mongoose.model('Keyboard', keyboardSchema);
 
+//RETRIEVE SOUND LIBRARY FROM DB
+var retrieveLibrary = function(next, res){
+  Sound.find({}, function(err, sounds){
+    if(err){
+      next(new Error(err));
+    }
+    console.log("SOUNDS RETRIEVED", sounds);
+    res.send(sounds);
+  })
+}
+
 //HANDLE UPLOADS
 
 // TO ADD SOUND TO DATABASE
@@ -87,7 +98,7 @@ var saveToDB = function(name, res) {
   });
 }
 
-//TO RETRIEVE SOUND FROM DATABASE
+//TO RETRIEVE UPLOADED SOUND FROM DATABASE
 var retrieveSound = function(name, res) {
   var gfs = Grid(db.conn.db);
   var fs_write_stream = fs.createWriteStream('./downloads/'+ name);
@@ -107,5 +118,6 @@ module.exports = {
   'keyboard': Keyboard,
   'Sound': Sound,
   'saveToDB': saveToDB,
-  'retrieveSound': retrieveSound
+  'retrieveSound': retrieveSound,
+  'retrieveLibrary': retrieveLibrary
 }

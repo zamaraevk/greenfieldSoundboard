@@ -42,6 +42,10 @@ app.get('/sounds', function (req, res) {
   });
 });
 
+app.get('/soundLibrary', function(req, res, next){
+  db.retrieveLibrary(next, res);
+})
+
 app.post('/soundUpload', upload.single('sound'), function(req, res){
   console.log("POST request multer at soundUpload with: ", req.file);
   db.saveToDB(req.file.filename, res)
