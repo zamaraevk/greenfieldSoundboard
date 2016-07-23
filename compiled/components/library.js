@@ -50,6 +50,27 @@ var Library = function (_React$Component) {
     value: function handleSubmit(e) {
       e.preventDefault();
       console.log('name', this.state.name, this.state.currentSoud);
+      var soundObject = { "name": this.state.name, "currentSoud": this.state.currentSoud };
+      console.log("object being sent", soundObject);
+
+      // $.post('/sound', {hey: 'hey'} ).done(function(data){
+      //   console.log('HEEEY', data);
+      // })
+      $.ajax({
+        type: 'POST',
+        url: '/newSound',
+        dataType: 'json',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: JSON.stringify(soundObject),
+        success: function success(data) {
+          console.log('success and ', data);
+        },
+        error: function error(err) {
+          console.log('failed and ', err);
+        }
+      });
     }
   }, {
     key: 'getSound',

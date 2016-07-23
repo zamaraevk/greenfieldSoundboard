@@ -55,6 +55,12 @@ app.post('/soundDownload', function(req, res){
   db.retrieveSound(req.body.name, res);
 })
 
+app.post('/newSound', function(req, res){
+  console.log('server side:', req.body, req.url, req.method);
+  db.newSound(req.body);
+  res.end()
+})
+
 app.get('/defaults', function (req, res) {
   var defaults = {
     97: "/soundfiles/deep-techno-groove.wav",
