@@ -45,6 +45,7 @@ var LibraryList = ({library, getCurrentSound}) => {
     <div className="sound-library">
       <div className="akai">
         AKAI
+      <img className="logo" src="http://zamaraevk.github.io/portfolio/css/decep.png"></img>
       </div>
       <div className="wawa">
         <div id="waveform"></div>

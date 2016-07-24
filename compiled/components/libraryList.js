@@ -51,7 +51,8 @@ var LibraryList = function LibraryList(_ref) {
     React.createElement(
       "div",
       { className: "akai" },
-      "AKAI"
+      "AKAI",
+      React.createElement("img", { className: "logo", src: "http://zamaraevk.github.io/portfolio/css/decep.png" })
     ),
     React.createElement(
       "div",

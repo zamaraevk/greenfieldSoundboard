@@ -21,22 +21,26 @@ h2 {
 .akai {
   width: 200px;
   float: left;
-  height: 150px;
+  height: 170px;
   background-color:#171717;
   color: #222;
   text-align: left;
   font-size: 48px;
-  padding: 20px;
+  padding: 30px;
   padding-left: 30px;
+  padding-bottom: 0px;
   margin-bottom: 20px;
+}
+.logo {
+  height: 50px;
 }
 .wawa {
   width: 300px;
   float: left;
-  height: 150px;
+  height: 170px;
   background-color:#171717;
   color: #222;
-  padding: 20px;
+  padding: 30px;
   padding-left: 30px;
   margin-bottom: 20px;
 }
@@ -47,7 +51,7 @@ h2 {
 }
 .sound-library {
   width: 500px;
-  height: 470px;
+  height: 500px;
   padding-bottom: 20px;
   margin: 0 auto;
   margin-top: 50px;
