@@ -38,8 +38,9 @@ var App = React.createClass({
     // }.bind(this));
 
     this.serverRequest = $.get('/soundLibrary', function (sounds) {
+      console.log("FFFFFFFF", sounds);
       this.setState({
-        library: sounds,
+        soundList: sounds,
         bindings: qwertyMap.map(function (key) {
           return key !== 0 ? { key: key, path: defaultData[key], loop: false, playing: false } : 0;
         })
