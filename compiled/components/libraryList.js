@@ -6,22 +6,43 @@ var LibraryList = function LibraryList(_ref) {
 
   var results = library;
   var audio = null;
+  var wave = null;
+  var wavesurfer = null;
 
-  var stopTrack = function stopTrack() {
-    audio.pause();
-    audio = null;
-  };
   var playTrack = function playTrack(item) {
-    // audio = new Audio(item);
-    // audio.play();
-    if (!audio) {
-      audio = new Audio(item);
-      audio.play();
+    audio = new Audio(item);
+    audio.play();
+    var parent = document.getElementById("waveform");
+    var wave = document.getElementsByTagName("wave");
+    var a = document.getElementsByTagName("audio");
+    console.log('sound here', a);
+    console.log(wave);
+    if (!wave.length) {
+      wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: 'red',
+        progressColor: 'purple'
+      });
+      wavesurfer.load(item);
     } else {
-      audio.stop();
-      audio = null;
+      console.log('WAVE ALREADY EXIST', wave);
+      $('#waveform').empty();
+      wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: 'red',
+        progressColor: 'purple'
+      });
+      wavesurfer.load(item);
     }
-    console.log(audio);
+
+    // if(!audio){
+    //   audio = new Audio(item);
+    //   audio.play();
+    // } else {
+    //   audio.pause();
+    //   audio = null;
+    // }
+    // console.log(audio);
   };
 
   return React.createElement(
@@ -31,6 +52,11 @@ var LibraryList = function LibraryList(_ref) {
       "div",
       { className: "akai" },
       "AKAI"
+    ),
+    React.createElement(
+      "div",
+      { className: "wawa" },
+      React.createElement("div", { id: "waveform" })
     ),
     React.createElement(
       "ul",

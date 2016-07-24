@@ -12,7 +12,7 @@ class Library extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    this.getSound('bass');
+    this.getSound('transformers');
   }
   getCurrentSound(sound){
     console.log('getting sound name', sound);

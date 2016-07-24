@@ -30,7 +30,7 @@ var Library = function (_React$Component) {
   _createClass(Library, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.getSound('bass');
+      this.getSound('transformers');
     }
   }, {
     key: 'getCurrentSound',
