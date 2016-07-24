@@ -68,26 +68,31 @@ class Library extends React.Component {
     //this.createKeyboard();
     console.log("yuck you", this.state.library)
     return (
-      <div className="library-container">
-        <div className="library-search">
-          <h2 className="library">SOUND LIBRARY</h2>
-          <Search handleInputSearch = {this.getSound.bind(this)} />
-          <LibraryList library={this.state.library} getCurrentSound={this.getCurrentSound}/>
+      <div className="container-fluid">
+        <div className="row library">
+            <div className="col-md-12">
+              <h2>SOUND LIBRARY</h2>
+            </div>
         </div>
-        <div className="sound-save">
-          <h2 className="library">SAVE SOUND</h2>
-            <div className="sound-name">{this.state.currentSoud}</div>
-             <form className="soundForm">
-              <input
-                className="new-name"
-                type="text"
-                onChange={this.handleNameChange}
-                placeholder="New Sound Name..."
-              />
-            <pre>Hello = {this.state.name}</pre>
-            <button onClick={this.handleSubmit}>Save Sound</button>
-          </form>
-        </div>
+        <div className="row">
+            <div className="col-md-6 center">
+              <Search handleInputSearch = {this.getSound.bind(this)} />
+              <LibraryList library={this.state.library} getCurrentSound={this.getCurrentSound}/>
+            </div>
+            <div className="col-md-6 center">
+              <h2 className="library">SAVE SOUND</h2>
+                <div className="sound-name">{this.state.currentSoud}</div>
+                 <form className="soundForm">
+                  <input
+                    className="form-control"
+                    type="text"
+                    onChange={this.handleNameChange}
+                    placeholder="New Sound Name..."
+                  />
+                <button className="btn btn-default" onClick={this.handleSubmit}>Save Sound</button>
+              </form>
+            </div>
+      </div>
       </div>
       // <pre>nameOfCurrentSound = {this.state.nameOfCurrentSound}</pre>
     );

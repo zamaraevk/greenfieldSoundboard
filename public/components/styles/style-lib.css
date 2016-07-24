@@ -1,0 +1,71 @@
+
+
+/* Konstantin's styles*/
+body {
+  background-color: #333;
+}
+h2 {
+  font-size: 28px;
+  color:#2ebd59;
+}
+.center {
+  text-align: center;
+}
+.library {
+  background-color: #000;
+}
+.form-control {
+  margin: 0 auto;
+  width: 500px;
+}
+.akai {
+  width: 500px;
+  height: 150px;
+  background-color:#171717;
+  color: #222;
+  text-align: left;
+  font-size: 48px;
+  padding: 5px;
+  padding-left: 30px;
+}
+.sound-library {
+  width: 500px;
+  height: 460px;
+  padding-bottom: 10px;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: block;
+  background-color: #171717;
+  font-size: 24px;
+}
+.sound-library ul{
+  padding-left: 0;
+}
+.sound-item {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  margin: 5px;
+  padding: 5px;
+  background-color: #222;
+  border: 3px solid #222;
+  border-radius: 8px;
+  box-shadow: 0 0 6px black;
+}
+.sound-item:hover, .sound-item:active, .sound-item:focus {
+  border: 3px solid orange;
+  cursor: pointer;
+}
+.sound-item:active {
+  background-color: orange;
+}
+.sound-save {
+  text-align: center;
+  width: 600px;
+  display: block;
+  float:left;
+}
+.uploadHeader {
+  color: white;
+}

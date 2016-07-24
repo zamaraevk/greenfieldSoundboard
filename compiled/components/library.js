@@ -95,50 +95,56 @@ var Library = function (_React$Component) {
       console.log("yuck you", this.state.library);
       return React.createElement(
         'div',
-        { className: 'library-container' },
+        { className: 'container-fluid' },
         React.createElement(
           'div',
-          { className: 'library-search' },
+          { className: 'row library' },
           React.createElement(
-            'h2',
-            { className: 'library' },
-            'SOUND LIBRARY'
-          ),
-          React.createElement(Search, { handleInputSearch: this.getSound.bind(this) }),
-          React.createElement(LibraryList, { library: this.state.library, getCurrentSound: this.getCurrentSound })
+            'div',
+            { className: 'col-md-12' },
+            React.createElement(
+              'h2',
+              null,
+              'SOUND LIBRARY'
+            )
+          )
         ),
         React.createElement(
           'div',
-          { className: 'sound-save' },
+          { className: 'row' },
           React.createElement(
-            'h2',
-            { className: 'library' },
-            'SAVE SOUND'
+            'div',
+            { className: 'col-md-6 center' },
+            React.createElement(Search, { handleInputSearch: this.getSound.bind(this) }),
+            React.createElement(LibraryList, { library: this.state.library, getCurrentSound: this.getCurrentSound })
           ),
           React.createElement(
             'div',
-            { className: 'sound-name' },
-            this.state.currentSoud
-          ),
-          React.createElement(
-            'form',
-            { className: 'soundForm' },
-            React.createElement('input', {
-              className: 'new-name',
-              type: 'text',
-              onChange: this.handleNameChange,
-              placeholder: 'New Sound Name...'
-            }),
+            { className: 'col-md-6 center' },
             React.createElement(
-              'pre',
-              null,
-              'Hello = ',
-              this.state.name
+              'h2',
+              { className: 'library' },
+              'SAVE SOUND'
             ),
             React.createElement(
-              'button',
-              { onClick: this.handleSubmit },
-              'Save Sound'
+              'div',
+              { className: 'sound-name' },
+              this.state.currentSoud
+            ),
+            React.createElement(
+              'form',
+              { className: 'soundForm' },
+              React.createElement('input', {
+                className: 'form-control',
+                type: 'text',
+                onChange: this.handleNameChange,
+                placeholder: 'New Sound Name...'
+              }),
+              React.createElement(
+                'button',
+                { className: 'btn btn-default', onClick: this.handleSubmit },
+                'Save Sound'
+              )
             )
           )
         )
