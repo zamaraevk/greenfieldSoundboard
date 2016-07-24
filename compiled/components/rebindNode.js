@@ -7,7 +7,7 @@ var RebindNode = React.createClass({
   //this is the function that actually changes the binding of the key.
   updateKeyBinding: function updateKeyBinding(event) {
     var code = this.props.targetKey.charCodeAt();
-    var path = "/soundfiles/" + this.props.targetSong;
+    var path = this.props.targetSong.soundLink;
 
     this.props.bindings.forEach(function (ele, idx) {
       if (ele.key === code) {
@@ -17,13 +17,7 @@ var RebindNode = React.createClass({
   },
   //method for previewing sound before binding it.
   playSample: function playSample() {
-    var soundExample = window.location.href + "soundFiles/" + this.props.targetSong;
-    var $soundNode = document.getElementById('secretSound');
-
-    $soundNode.pause();
-    $soundNode.src = soundExample;
-    $soundNode.currentTime = 0;
-    $soundNode.play();
+    var soundExample = this.props.targetSong.soundLink;
   },
   render: function render() {
     return React.createElement(
@@ -32,9 +26,7 @@ var RebindNode = React.createClass({
       React.createElement(
         "p",
         { className: "rebindSong", onClick: this.props.reRender },
-        " ",
-        this.props.targetSong.slice(0, -4).split("-").join(" "),
-        " "
+        this.props.targetSong.name
       ),
       React.createElement("img", { className: "rebindIcon", src: "assets/listen.png", onClick: this.playSample })
     );

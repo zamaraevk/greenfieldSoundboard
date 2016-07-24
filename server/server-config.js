@@ -33,6 +33,9 @@ var upload = multer({ storage: storage });
 app.get('/', function(req, res) {
   res.sendFile(path.join(rootPath + '/index.html'));
 });
+app.get('/lib', function(req, res) {
+  res.sendFile(path.join(rootPath + '/lib.html'));
+});
 
 //returns an array of all the sounds in foley folder
 app.get('/sounds', function (req, res) {
