@@ -99,7 +99,7 @@ class Library extends React.Component {
                     <div className="center">
                       <span className="title">FILE UPLOAD</span>
                       <form encType="multipart/form-data" method="post" action='/soundUpload'>
-                        <input type="file" name="file" id="file" className="inputfile" multiple accept='audio/*' data-multiple-caption="{count} files selected"/>
+                        <input type="file" name="sound" id="file" className="inputfile" multiple accept='audio/*' data-multiple-caption="{count} files selected"/>
                         <label htmlFor="file">Choose a file</label>
                         <button className="btn-custom">Submit</button>
                       </form>
