@@ -159,6 +159,30 @@ var Library = function (_React$Component) {
                     { className: 'btn-custom', onClick: this.handleSubmit },
                     'Save Sound'
                   )
+                ),
+                React.createElement(
+                  'div',
+                  { className: 'center' },
+                  React.createElement(
+                    'span',
+                    { className: 'title' },
+                    'FILE UPLOAD'
+                  ),
+                  React.createElement(
+                    'form',
+                    { encType: 'multipart/form-data', method: 'post', action: '/soundUpload' },
+                    React.createElement('input', { type: 'file', name: 'sound', id: 'file', className: 'inputfile', multiple: true, accept: 'audio/*', 'data-multiple-caption': '{count} files selected' }),
+                    React.createElement(
+                      'label',
+                      { htmlFor: 'file' },
+                      'Choose a file'
+                    ),
+                    React.createElement(
+                      'button',
+                      { className: 'btn-custom' },
+                      'Submit'
+                    )
+                  )
                 )
               )
             )

@@ -12,6 +12,7 @@ var RebindNode = React.createClass({
 
     //this.props.targetSong  is going to be entire song object
     // var path = "/soundfiles/" + this.props.targetSong;
+
     var path = this.props.targetSong.soundLink;
     if (path[0] === "/") {
       path = "." + path;
