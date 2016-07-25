@@ -4,7 +4,17 @@ body {
   min-width: 100%;
   max-width: 100%;
 }
-
+#app {
+  margin-top: 100px;
+}
+.main-nav, .main-nav h2{
+  background-color:#171717;
+  color:#555;
+  font-size: 20px;
+}
+.main-nav h2:hover {
+  color:orange;
+}
 .loading {
   margin:0 auto;
   text-align: center;

@@ -85,7 +85,7 @@ class Library extends React.Component {
                 <Search handleInputSearch = {this.getSound.bind(this)} />
               </div>
               <div className="menu">
-                <p>M</p>
+                <p className="tog">M</p>
                   <div className="center">
                        <form className="soundForm">
                         <input
