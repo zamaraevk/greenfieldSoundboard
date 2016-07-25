@@ -1,3 +1,4 @@
+
 class Library extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +13,7 @@ class Library extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    this.getSound('bass');
+    this.getSound('transformers');
   }
   getCurrentSound(sound){
     console.log('getting sound name', sound);
@@ -68,25 +69,37 @@ class Library extends React.Component {
     //this.createKeyboard();
     console.log("yuck you", this.state.library)
     return (
-      <div className="library-container">
-        <div className="library-search">
-          <h2 className="library">SOUND LIBRARY</h2>
-          <Search handleInputSearch = {this.getSound.bind(this)} />
-          <LibraryList library={this.state.library} getCurrentSound={this.getCurrentSound}/>
+      <div className="container-fluid">
+        <div className="row library">
+            <div className="col-md-10">
+              <h2>SOUND LIBRARY</h2>
+            </div>
+            <div className="col-md-2">
+              <a className="exit" href="/"><h2>EXIT</h2></a>
+          </div>
         </div>
-        <div className="sound-save">
-          <h2 className="library">SAVE SOUND</h2>
-            <div className="sound-name">{this.state.currentSoud}</div>
-             <form className="soundForm">
-              <input
-                className="new-name"
-                type="text"
-                onChange={this.handleNameChange}
-                placeholder="New Sound Name..."
-              />
-            <pre>Hello = {this.state.name}</pre>
-            <button onClick={this.handleSubmit}>Save Sound</button>
-          </form>
+        <div className="row">
+            <div className="col-md-12 center">
+              <div className="console">
+                <LibraryList library={this.state.library} getCurrentSound={this.getCurrentSound}/>
+                <Search handleInputSearch = {this.getSound.bind(this)} />
+              </div>
+              <div className="menu">
+                <p>M</p>
+                  <div className="center">
+                       <form className="soundForm">
+                        <input
+                          className=""
+                          type="text"
+                          onChange={this.handleNameChange}
+                          placeholder="New Sound Name..."
+                        />
+                      <button className="btn-custom" onClick={this.handleSubmit}>Save Sound</button>
+                    </form>
+
+                  </div>
+              </div>
+            </div>
         </div>
       </div>
       // <pre>nameOfCurrentSound = {this.state.nameOfCurrentSound}</pre>

@@ -30,7 +30,7 @@ var Library = function (_React$Component) {
   _createClass(Library, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.getSound('bass');
+      this.getSound('transformers');
     }
   }, {
     key: 'getCurrentSound',
@@ -95,50 +95,72 @@ var Library = function (_React$Component) {
       console.log("yuck you", this.state.library);
       return React.createElement(
         'div',
-        { className: 'library-container' },
+        { className: 'container-fluid' },
         React.createElement(
           'div',
-          { className: 'library-search' },
+          { className: 'row library' },
           React.createElement(
-            'h2',
-            { className: 'library' },
-            'SOUND LIBRARY'
-          ),
-          React.createElement(Search, { handleInputSearch: this.getSound.bind(this) }),
-          React.createElement(LibraryList, { library: this.state.library, getCurrentSound: this.getCurrentSound })
-        ),
-        React.createElement(
-          'div',
-          { className: 'sound-save' },
-          React.createElement(
-            'h2',
-            { className: 'library' },
-            'SAVE SOUND'
+            'div',
+            { className: 'col-md-10' },
+            React.createElement(
+              'h2',
+              null,
+              'SOUND LIBRARY'
+            )
           ),
           React.createElement(
             'div',
-            { className: 'sound-name' },
-            this.state.currentSoud
-          ),
-          React.createElement(
-            'form',
-            { className: 'soundForm' },
-            React.createElement('input', {
-              className: 'new-name',
-              type: 'text',
-              onChange: this.handleNameChange,
-              placeholder: 'New Sound Name...'
-            }),
+            { className: 'col-md-2' },
             React.createElement(
-              'pre',
-              null,
-              'Hello = ',
-              this.state.name
+              'a',
+              { className: 'exit', href: '/' },
+              React.createElement(
+                'h2',
+                null,
+                'EXIT'
+              )
+            )
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'row' },
+          React.createElement(
+            'div',
+            { className: 'col-md-12 center' },
+            React.createElement(
+              'div',
+              { className: 'console' },
+              React.createElement(LibraryList, { library: this.state.library, getCurrentSound: this.getCurrentSound }),
+              React.createElement(Search, { handleInputSearch: this.getSound.bind(this) })
             ),
             React.createElement(
-              'button',
-              { onClick: this.handleSubmit },
-              'Save Sound'
+              'div',
+              { className: 'menu' },
+              React.createElement(
+                'p',
+                null,
+                'M'
+              ),
+              React.createElement(
+                'div',
+                { className: 'center' },
+                React.createElement(
+                  'form',
+                  { className: 'soundForm' },
+                  React.createElement('input', {
+                    className: '',
+                    type: 'text',
+                    onChange: this.handleNameChange,
+                    placeholder: 'New Sound Name...'
+                  }),
+                  React.createElement(
+                    'button',
+                    { className: 'btn-custom', onClick: this.handleSubmit },
+                    'Save Sound'
+                  )
+                )
+              )
             )
           )
         )
