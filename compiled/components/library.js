@@ -139,7 +139,7 @@ var Library = function (_React$Component) {
               { className: 'menu' },
               React.createElement(
                 'p',
-                null,
+                { className: 'tog' },
                 'M'
               ),
               React.createElement(
