@@ -12,14 +12,16 @@ var RebindNode = React.createClass({
 
     //this.props.targetSong  is going to be entire song object
     // var path = "/soundfiles/" + this.props.targetSong;
-    // var path = this.props.targetSong.soundLink.split('').splice(1, this.props.targetSong.soundLink.length).join('');
     var path = this.props.targetSong.soundLink;
-
-    console.log("NEW PATH WIth PERIOD", path);
+    if (path[0] === "/") {
+      path = "." + path;
+      console.log("NEW PATH", path);
+    }
     var songName = this.props.targetSong.name;
     var bindings = this.props.bindings;
     console.log("PATH", path);
     var pathPrefix = path.split('').splice(0, 3).join('');
+    console.log("path prefix", pathPrefix);
     //if the rebind is for an uploaded sound
     if (pathPrefix === "./d") {
       console.log("sound was uploaded!");
