@@ -38,7 +38,7 @@ var App = React.createClass({
     // }.bind(this));
 
     this.serverRequest = $.get('/soundLibrary', function (sounds) {
-      console.log("FFFFFFFF", sounds);
+      console.log("sounds returned", sounds);
       this.setState({
         soundList: sounds,
         bindings: qwertyMap.map(function (key) {
@@ -47,7 +47,6 @@ var App = React.createClass({
       });
     }.bind(this));
 
-    console.log("library", this.state.library);
     //OSX and MAC reserve functionality of either the alt or ctrl key, this checks the OS
     // and sets the rebind-key trigger to be that specific keypress
     navigator.appVersion.includes("Windows") ? this.setState({ bindTrigger: "altKey" }) : this.setState({ bindTrigger: "ctrlKey" });

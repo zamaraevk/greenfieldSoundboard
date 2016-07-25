@@ -3,6 +3,9 @@ var RebindNode = React.createClass({
   //this is the function that actually changes the binding of the key.
   updateKeyBinding: function(event) {
     var code = this.props.targetKey.charCodeAt();
+
+    //this.props.targetSong  is going to be entire song object
+    // var path = "/soundfiles/" + this.props.targetSong;
     var path = this.props.targetSong.soundLink;
 
     this.props.bindings.forEach(function (ele, idx) {
@@ -14,6 +17,33 @@ var RebindNode = React.createClass({
   //method for previewing sound before binding it.
   playSample: function() {
     var soundExample = this.props.targetSong.soundLink;
+
+  },
+  bindKey: function(idx) {
+    console.log("bindKey called");
+    console.log("index of song", idx);
+    var name = this.state.library[idx].name;
+    if(this.state.library[idx].uploaded){
+      console.log("song was uploaded...")
+      $.ajax({
+        method: "POST",
+        headers: {
+          'Content-Type': 'json'
+        },
+        data: {
+          "name": name
+        }
+      }).done(function(){
+        console.log("song downloaded")
+      })
+      .fail(function(err){
+        console.log("song not downloaded", err);
+      })
+    }
+    else{
+      console.log("song was not uplaoded");
+      //bind key to link
+    }
   },
   render: function() {
     return (
