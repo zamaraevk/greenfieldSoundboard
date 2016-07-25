@@ -22,21 +22,20 @@ var RebindNode = React.createClass({
   playSample: function playSample() {
     var soundExample = this.props.targetSong.soundLink;
   },
-  bindKey: function bindKey(idx) {
+  bindKey: function bindKey(song) {
     console.log("bindKey called");
-    console.log("index of song", idx);
-    var name = this.state.library[idx].name;
-    if (this.state.library[idx].uploaded) {
+    console.log("index of song", song);
+    if (song.uploaded) {
       console.log("song was uploaded...");
       $.ajax({
-        method: "POST",
+        type: "POST",
+        url: '/soundDownload',
         headers: {
-          'Content-Type': 'json'
+          'Content-Type': 'application/json'
         },
-        data: {
-          "name": name
-        }
+        data: JSON.stringify({ "name": song.name })
       }).done(function () {
+        this.props.reRender();
         console.log("song downloaded");
       }).fail(function (err) {
         console.log("song not downloaded", err);
