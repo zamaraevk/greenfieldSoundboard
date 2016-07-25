@@ -101,11 +101,24 @@ var Library = function (_React$Component) {
           { className: 'row library' },
           React.createElement(
             'div',
-            { className: 'col-md-12' },
+            { className: 'col-md-10' },
             React.createElement(
               'h2',
               null,
               'SOUND LIBRARY'
+            )
+          ),
+          React.createElement(
+            'div',
+            { className: 'col-md-2' },
+            React.createElement(
+              'a',
+              { className: 'exit', href: '/' },
+              React.createElement(
+                'h2',
+                null,
+                'EXIT'
+              )
             )
           )
         ),
@@ -114,36 +127,39 @@ var Library = function (_React$Component) {
           { className: 'row' },
           React.createElement(
             'div',
-            { className: 'col-md-6 center' },
-            React.createElement(LibraryList, { library: this.state.library, getCurrentSound: this.getCurrentSound }),
-            React.createElement(Search, { handleInputSearch: this.getSound.bind(this) })
-          ),
-          React.createElement(
-            'div',
-            { className: 'col-md-6 center' },
+            { className: 'col-md-12 center' },
             React.createElement(
-              'h2',
-              { className: 'library' },
-              'SAVE SOUND'
+              'div',
+              { className: 'console' },
+              React.createElement(LibraryList, { library: this.state.library, getCurrentSound: this.getCurrentSound }),
+              React.createElement(Search, { handleInputSearch: this.getSound.bind(this) })
             ),
             React.createElement(
               'div',
-              { className: 'sound-name' },
-              this.state.currentSoud
-            ),
-            React.createElement(
-              'form',
-              { className: 'soundForm' },
-              React.createElement('input', {
-                className: 'form-control',
-                type: 'text',
-                onChange: this.handleNameChange,
-                placeholder: 'New Sound Name...'
-              }),
+              { className: 'menu' },
               React.createElement(
-                'button',
-                { className: 'btn btn-default', onClick: this.handleSubmit },
-                'Save Sound'
+                'p',
+                null,
+                'M'
+              ),
+              React.createElement(
+                'div',
+                { className: 'center' },
+                React.createElement(
+                  'form',
+                  { className: 'soundForm' },
+                  React.createElement('input', {
+                    className: '',
+                    type: 'text',
+                    onChange: this.handleNameChange,
+                    placeholder: 'New Sound Name...'
+                  }),
+                  React.createElement(
+                    'button',
+                    { className: 'btn-custom', onClick: this.handleSubmit },
+                    'Save Sound'
+                  )
+                )
               )
             )
           )

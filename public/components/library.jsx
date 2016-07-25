@@ -1,3 +1,4 @@
+
 class Library extends React.Component {
   constructor(props) {
     super(props);
@@ -70,29 +71,36 @@ class Library extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row library">
-            <div className="col-md-12">
+            <div className="col-md-10">
               <h2>SOUND LIBRARY</h2>
             </div>
+            <div className="col-md-2">
+              <a className="exit" href="/"><h2>EXIT</h2></a>
+          </div>
         </div>
         <div className="row">
-            <div className="col-md-6 center">
-              <LibraryList library={this.state.library} getCurrentSound={this.getCurrentSound}/>
-              <Search handleInputSearch = {this.getSound.bind(this)} />
+            <div className="col-md-12 center">
+              <div className="console">
+                <LibraryList library={this.state.library} getCurrentSound={this.getCurrentSound}/>
+                <Search handleInputSearch = {this.getSound.bind(this)} />
+              </div>
+              <div className="menu">
+                <p>M</p>
+                  <div className="center">
+                       <form className="soundForm">
+                        <input
+                          className=""
+                          type="text"
+                          onChange={this.handleNameChange}
+                          placeholder="New Sound Name..."
+                        />
+                      <button className="btn-custom" onClick={this.handleSubmit}>Save Sound</button>
+                    </form>
+
+                  </div>
+              </div>
             </div>
-            <div className="col-md-6 center">
-              <h2 className="library">SAVE SOUND</h2>
-                <div className="sound-name">{this.state.currentSoud}</div>
-                 <form className="soundForm">
-                  <input
-                    className="form-control"
-                    type="text"
-                    onChange={this.handleNameChange}
-                    placeholder="New Sound Name..."
-                  />
-                <button className="btn btn-default" onClick={this.handleSubmit}>Save Sound</button>
-              </form>
-            </div>
-      </div>
+        </div>
       </div>
       // <pre>nameOfCurrentSound = {this.state.nameOfCurrentSound}</pre>
     );

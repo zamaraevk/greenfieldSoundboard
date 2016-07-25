@@ -7,14 +7,94 @@ body {
   padding: 0;
 }
 h2 {
-  font-size: 28px;
-  color:#2ebd59;
+  font-size: 20px;
+  color:#555;
+}
+.exit, .exit:hover {
+  text-decoration: none;
+}
+.exit h2:hover {
+  color:orange;
 }
 .center {
   text-align: center;
 }
 .library {
-  background-color: #000;
+  background-color: #171717;
+}
+.console {
+  float: left;
+}
+.menu {
+  z-index: 0;
+  left: 52px;
+  position: absolute;
+  float: left;
+  color: #222;
+  padding-top: 0;
+  font-size: 18px;
+  text-decoration: underline;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 50px;
+  height: 500px;
+  width: 500px;
+  background-color: #171717;
+  transition: all 2s;
+  --webkit-transition: all 2s;
+  --moz-transition: all 2s;
+}
+.menu p{
+  float: right;
+  height: 500px;
+  padding-top: 5px;
+  padding-left: 10px;
+  border-left: 1px solid #222;
+}
+.menu:hover {
+  color: orange;
+  width: 500px;
+  left: 516px;
+  transition: all 2s;
+  --webkit-transition: all 2s;
+  --moz-transition: all 2s;
+}
+.soundForm {
+  margin-top: 50px;
+}
+.soundForm input{
+  margin-top: 50px;
+  background-color: #171717;
+  color: #555;
+  width: 400px;
+  border: none;
+  border-bottom: 1px solid #222;
+  outline: none;
+  text-align: center;
+}
+.soundForm input:focus{
+    outline: none;
+}
+.soundForm input::-webkit-input-placeholder {
+   color: #555;
+   font: bold;
+}
+.sound-name {
+  font-size: 14px;
+  color: #555;
+  margin-top: 50px;
+  width: 300px;
+}
+.btn-custom {
+  margin: 30px;
+  color: #555;
+  background-color: #171717;
+  border: 1px solid #222;
+  outline: none;
+}
+.btn-custom:active {
+  color: orange;
+  border: 1px solid orange;
 }
 .form-control{
   text-align: center;
@@ -75,10 +155,11 @@ h2 {
   min-height: 135px;
 }
 .sound-library {
+  z-index: 999;
+  position: relative;
   width: 500px;
   height: 500px;
   padding-bottom: 0px;
-  margin: 0 auto;
   margin-top: 50px;
   display: block;
   background-color: #171717;
@@ -106,7 +187,6 @@ h2 {
 .search-bar {
   background-color: #222;
   color: #171717;
-  margin: 0 auto;
   width: 500px;
   text-align: center;
 }
