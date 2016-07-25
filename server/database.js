@@ -90,7 +90,7 @@ var saveToDB = function(name, res, next) {
         if (err) return console.error(err)
         console.log(file.filename + 'Written To remote DB!! and deleted from local directory');
         //should change this response to the next() middleware so that appropriate front-end .then can be implemented
-        next("file saved to DB and new sound added to sound collection!");
+        next("Congrats! Your sound is safe in our database.");
         console.log('success!')
       })
     })
