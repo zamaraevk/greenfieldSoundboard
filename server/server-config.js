@@ -47,6 +47,7 @@ app.get('/sounds', function (req, res) {
 
 app.post('/checkDirectory', function(req, res, next){
   console.log("request received for checkDirectory", req.body);
+  // req.body.path = "./downloads/02 Black Skinhead.mp3"
   fs.exists(req.body.path, function(exists){
     if(exists){
       next("file found!")
@@ -61,9 +62,9 @@ app.get('/soundLibrary', function(req, res, next){
   db.retrieveLibrary(next, res);
 })
 
-app.post('/soundUpload', upload.single('sound'), function(req, res){
+app.post('/soundUpload', upload.single('sound'), function(req, res, next){
   console.log("POST request multer at soundUpload with: ", req.file);
-  db.saveToDB(req.file.filename, res)
+  db.saveToDB(req.file.filename, res, next)
 });
 
 app.post('/soundDownload', function(req, res, next){

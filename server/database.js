@@ -65,7 +65,7 @@ var retrieveLibrary = function(next, res){
 //HANDLE UPLOADS
 
 // TO ADD UPLOADED SOUND TO DATABASE
-var saveToDB = function(name, res) {
+var saveToDB = function(name, res, next) {
   console.log("saveToDB called in database.js!!!!", name);
   //establishes filestream to remoteDB
   var gfs = Grid(db.conn.db);
@@ -90,7 +90,7 @@ var saveToDB = function(name, res) {
         if (err) return console.error(err)
         console.log(file.filename + 'Written To remote DB!! and deleted from local directory');
         //should change this response to the next() middleware so that appropriate front-end .then can be implemented
-        res.send("file saved to DB and new sound added to sound collection!");
+        next("file saved to DB and new sound added to sound collection!");
         console.log('success!')
       })
     })
