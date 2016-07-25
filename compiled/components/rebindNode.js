@@ -1,49 +1,77 @@
 "use strict";
 
 //RebindNode React class.  Represents one entry in the drop-down list for rebinding keys.
+// var fs = require('fs');
 var RebindNode = React.createClass({
   displayName: "RebindNode",
 
   //this is the function that actually changes the binding of the key.
   updateKeyBinding: function updateKeyBinding(event) {
+    console.log("updateKeyBinding called");
     var code = this.props.targetKey.charCodeAt();
 
     //this.props.targetSong  is going to be entire song object
     // var path = "/soundfiles/" + this.props.targetSong;
+    // var path = this.props.targetSong.soundLink.split('').splice(1, this.props.targetSong.soundLink.length).join('');
     var path = this.props.targetSong.soundLink;
 
-    this.props.bindings.forEach(function (ele, idx) {
-      if (ele.key === code) {
-        this.props.bindings[idx].path = path;
-      }
-    }, this);
+    console.log("NEW PATH WIth PERIOD", path);
+    var songName = this.props.targetSong.name;
+    var bindings = this.props.bindings;
+    console.log("PATH", path);
+    var pathPrefix = path.split('').splice(0, 3).join('');
+    //if the rebind is for an uploaded sound
+    if (pathPrefix === "./d") {
+      console.log("sound was uploaded!");
+      $.ajax({
+        type: 'POST',
+        url: '/checkDirectory',
+        dataType: 'json',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: JSON.stringify({ "path": path }),
+        success: function success(data) {
+          console.log("file found");
+        },
+        error: function error(err) {
+          console.log('file not found', err);
+          $.ajax({
+            type: 'POST',
+            url: '/soundDownload',
+            dataType: 'json',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            data: JSON.stringify({ "name": songName }),
+            success: function success(data) {
+              console.log("song downloaded");
+            },
+            error: function error(err) {
+              console.log('song not downloaded', err);
+              bindings.forEach(function (ele, idx) {
+                if (ele.key === code) {
+                  console.log("TESTING!!", path);
+                  bindings[idx]["path"] = path;
+                  console.log("new bindings", bindings);
+                }
+              }, this);
+            }
+          });
+        }
+      });
+    } else {
+      this.props.bindings.forEach(function (ele, idx) {
+        if (ele.key === code) {
+          console.log("has get requested failed yet?", code, ele);
+          this.props.bindings[idx].path = path;
+        }
+      }, this);
+    }
   },
   //method for previewing sound before binding it.
   playSample: function playSample() {
     var soundExample = this.props.targetSong.soundLink;
-  },
-  bindKey: function bindKey(song) {
-    console.log("bindKey called");
-    console.log("index of song", song);
-    if (song.uploaded) {
-      console.log("song was uploaded...");
-      $.ajax({
-        type: "POST",
-        url: '/soundDownload',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: JSON.stringify({ "name": song.name })
-      }).done(function () {
-        this.props.reRender();
-        console.log("song downloaded");
-      }).fail(function (err) {
-        console.log("song not downloaded", err);
-      });
-    } else {
-      console.log("song was not uplaoded");
-      //bind key to link
-    }
   },
   render: function render() {
     return React.createElement(
