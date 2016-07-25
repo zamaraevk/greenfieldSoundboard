@@ -23,14 +23,13 @@ h2 {
   text-decoration: none;
   color:orange;
 }
-.custom-file-upload {
-    border: 1px solid #222;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-}
-input[type="file"] {
-    display: none;
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
 
 .library {
