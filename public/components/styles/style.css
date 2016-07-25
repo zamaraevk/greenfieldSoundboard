@@ -57,19 +57,12 @@ body {
   padding: 5px;
   color: #555;
   display: inline-block;
-<<<<<<< 82453676e004c2b6d4f05db46316943753d555b1
-  border: 2px solid black;
-  border-radius: 4px;
-  max-width: 180px;
-  max-height: 50px;
-  box-shadow: 10px 5px 10px 0 black;
-  background-color: lightblue;
-=======
+
   background-color: #222;
   border: 3px solid #222;
   border-radius: 8px;
   box-shadow: 0 0 6px black;
->>>>>>> soundboard styles -- stage 1
+
 }
 
 .keyLabel {
