@@ -171,7 +171,7 @@ var Library = function (_React$Component) {
                   React.createElement(
                     'form',
                     { encType: 'multipart/form-data', method: 'post', action: '/soundUpload' },
-                    React.createElement('input', { type: 'file', name: 'sound', id: 'file', className: 'inputfile', multiple: true, accept: 'audio/*', 'data-multiple-caption': '{count} files selected' }),
+                    React.createElement('input', { type: 'file', name: 'file', id: 'file', className: 'inputfile', multiple: true, accept: 'audio/*', 'data-multiple-caption': '{count} files selected' }),
                     React.createElement(
                       'label',
                       { htmlFor: 'file' },
