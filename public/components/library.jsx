@@ -76,8 +76,8 @@ class Library extends React.Component {
         </div>
         <div className="row">
             <div className="col-md-6 center">
-              <Search handleInputSearch = {this.getSound.bind(this)} />
               <LibraryList library={this.state.library} getCurrentSound={this.getCurrentSound}/>
+              <Search handleInputSearch = {this.getSound.bind(this)} />
             </div>
             <div className="col-md-6 center">
               <h2 className="library">SAVE SOUND</h2>

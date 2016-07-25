@@ -115,8 +115,8 @@ var Library = function (_React$Component) {
           React.createElement(
             'div',
             { className: 'col-md-6 center' },
-            React.createElement(Search, { handleInputSearch: this.getSound.bind(this) }),
-            React.createElement(LibraryList, { library: this.state.library, getCurrentSound: this.getCurrentSound })
+            React.createElement(LibraryList, { library: this.state.library, getCurrentSound: this.getCurrentSound }),
+            React.createElement(Search, { handleInputSearch: this.getSound.bind(this) })
           ),
           React.createElement(
             'div',

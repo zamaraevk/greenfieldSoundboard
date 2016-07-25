@@ -39,7 +39,7 @@ var Search = function (_React$Component) {
         React.createElement("input", {
           className: "form-control",
           type: "text",
-          placeholder: "Search New Sound",
+          placeholder: "SEARCH NEW SOUND",
           value: this.state.value,
           onChange: this.handleInputChange.bind(this)
         })
