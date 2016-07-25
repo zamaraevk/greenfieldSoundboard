@@ -99,7 +99,7 @@ var saveToDB = function(name, res) {
 }
 
 //TO RETRIEVE UPLOADED SOUND FROM DATABASE
-var retrieveSound = function(name, res) {
+var retrieveSound = function(name, next) {
   var gfs = Grid(db.conn.db);
   var fs_write_stream = fs.createWriteStream('./downloads/'+ name);
 
@@ -110,7 +110,7 @@ var retrieveSound = function(name, res) {
   readstream.pipe(fs_write_stream);
   fs_write_stream.on('close', function () {
        console.log('sound downloaded');
-       res.send("sound saved to app directory")
+       next("sound saved to app directory")
     })
 }
 var newSound = function(sound){

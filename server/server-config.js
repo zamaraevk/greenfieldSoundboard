@@ -45,6 +45,18 @@ app.get('/sounds', function (req, res) {
   });
 });
 
+app.post('/checkDirectory', function(req, res, next){
+  console.log("request received for checkDirectory", req.body);
+  fs.exists(req.body.path, function(exists){
+    if(exists){
+      next("file found!")
+    }
+    else{
+      console.log("file not found");
+      next(new Error("file not found"));
+    }
+  })
+})
 app.get('/soundLibrary', function(req, res, next){
   db.retrieveLibrary(next, res);
 })
@@ -54,8 +66,9 @@ app.post('/soundUpload', upload.single('sound'), function(req, res){
   db.saveToDB(req.file.filename, res)
 });
 
-app.post('/soundDownload', function(req, res){
-  db.retrieveSound(req.body.name, res);
+app.post('/soundDownload', function(req, res, next){
+  console.log("request received at soundDownload");
+  db.retrieveSound(req.body.name, next);
 })
 
 app.post('/newSound', function(req, res){
