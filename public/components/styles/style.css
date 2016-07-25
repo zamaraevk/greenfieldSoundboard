@@ -72,7 +72,6 @@ body {
   display: inline-block;
   border: 2px solid black;
   border-radius: 4px;
-  min-width: 65px;
   max-width: 180px;
   max-height: 50px;
   box-shadow: 10px 5px 10px 0 black;
