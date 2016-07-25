@@ -96,7 +96,14 @@ class Library extends React.Component {
                         />
                       <button className="btn-custom" onClick={this.handleSubmit}>Save Sound</button>
                     </form>
-
+                    <div className="center">
+                      <span className="title">FILE UPLOAD</span>
+                      <form encType="multipart/form-data" method="post" action='/soundUpload'>
+                        <input type="file" name='sound' id="file" className="inputfile" multiple accept='audio/*' data-multiple-caption="{count} files selected"/>
+                        <label htmlFor="file">Choose a file</label>
+                        <button className="btn-custom">Submit</button>
+                      </form>
+                    </div>
                   </div>
               </div>
             </div>
