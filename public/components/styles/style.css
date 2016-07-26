@@ -18,6 +18,9 @@ body {
 .hint:hover {
   color: orange;
 }
+.hint-text {
+  margin-top: 15px;
+}
 .helper {
   position: absolute;
   margin-left: 100px;

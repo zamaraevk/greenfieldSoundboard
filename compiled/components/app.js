@@ -151,6 +151,11 @@ var App = React.createClass({
           'span',
           { className: 'hint' },
           'x'
+        ),
+        React.createElement(
+          'p',
+          { className: 'hint-text' },
+          'Hello, this is hint from Konstantin'
         )
       ),
       React.createElement(
