@@ -144,6 +144,7 @@ var App = React.createClass({
     return React.createElement(
       'div',
       { id: 'appWindow' },
+      React.createElement('div', { className: 'helper' }),
       React.createElement(
         'div',
         { id: 'keyboardWindow', className: 'keyboard' },
