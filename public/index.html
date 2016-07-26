@@ -54,6 +54,13 @@
     <!-- The main application script -->
     <script src="../compiled/js/main.js"></script>
     <!-- <script src="../dist/bundle.js" type="text/javascript"></script> -->
-
+    <script>
+      $(document).ready(function(){
+          $( ".hint" ).click(function(){
+            console.log('hide');
+            $('.helper').hide();
+          });
+      });
+    </script>
   </body>
 </html>

@@ -138,7 +138,7 @@ var App = React.createClass({
   render: function() {
    return (
      <div id="appWindow">
-       <div className="helper"></div>
+       <div className="helper"><span className="hint">x</span></div>
        <div id='keyboardWindow' className="keyboard">
        {
          this.state.bindings.map( (keyBinding, idx) => //yay es6

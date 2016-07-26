@@ -8,6 +8,16 @@ body {
   margin-top: 100px;
   position: relative;
 }
+.hint {
+  margin-right: 3px;
+  color: #555;
+  float: right;
+  cursor: pointer;
+  font-size: 10px;
+}
+.hint:hover {
+  color: orange;
+}
 .helper {
   position: absolute;
   margin-left: 100px;
