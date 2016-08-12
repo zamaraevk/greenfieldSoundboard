@@ -2,7 +2,7 @@
 
 /* Konstantin's styles*/
 body {
-  background-color: #333;
+  background-color: #444;
   margin: 0;
   padding: 0;
 }
@@ -145,7 +145,7 @@ h2 {
   float: left;
   height: 170px;
   background-color:#171717;
-  color: #222;
+  color: #444;
   text-align: left;
   font-size: 48px;
   padding: 30px;

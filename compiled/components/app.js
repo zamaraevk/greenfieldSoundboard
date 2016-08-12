@@ -146,6 +146,20 @@ var App = React.createClass({
       { id: 'appWindow' },
       React.createElement(
         'div',
+        { className: 'helper2' },
+        React.createElement(
+          'span',
+          { className: 'hint2' },
+          'x'
+        ),
+        React.createElement(
+          'p',
+          { className: 'hint-text' },
+          'Find new sound in the Library'
+        )
+      ),
+      React.createElement(
+        'div',
         { className: 'helper' },
         React.createElement(
           'span',
@@ -155,7 +169,7 @@ var App = React.createClass({
         React.createElement(
           'p',
           { className: 'hint-text' },
-          'Hello, this is hint from Konstantin'
+          'Ctrl + key to bind new sound'
         )
       ),
       React.createElement(

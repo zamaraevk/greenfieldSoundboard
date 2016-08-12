@@ -138,8 +138,11 @@ var App = React.createClass({
   render: function() {
    return (
      <div id="appWindow">
+       <div className="helper2"><span className="hint2">x</span>
+       <p className="hint-text">Find new sound in the Library</p>
+       </div>
        <div className="helper"><span className="hint">x</span>
-       <p className="hint-text">Hello, this is hint from Konstantin</p>
+       <p className="hint-text">Ctrl + key to bind new sound</p>
        </div>
        <div id='keyboardWindow' className="keyboard">
        {
