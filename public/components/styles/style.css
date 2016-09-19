@@ -1,23 +1,216 @@
-keyboard {
- margin:100px auto;
- border: 2px solid black;
- border-radius:8px;
- max-width:90%;
+
+body {
+  background-color: #333;
+  min-width: 100%;
+  max-width: 100%;
+}
+#app {
+  margin-top: 100px;
+}
+.main-nav, .main-nav h2{
+  background-color:#171717;
+  color:#555;
+  font-size: 20px;
+}
+.main-nav h2:hover {
+  color:orange;
+}
+.loading {
+  margin:0 auto;
+  text-align: center;
+  border-radius:8px;
+  max-width:90%;
+}
+
+.intro{
+  font-family: 'Audiowide', cursive;
+  margin: 50px auto;
+  text-align:center;
+  font-size:5.0em;
+  color:#fff;
+  letter-spacing: -7px;
+  font-weight:700;
+  text-transform:uppercase;
+  animation:blur .75s ease-out infinite;
+  text-shadow:0 0 5px #ffff00,
+      0 0 7px #ffff00;
+}
+
+
+
+.keyboard {
+  padding-top:100px;
+  margin:80px 100px auto;
+  /*border: 2px solid black;*/
+  text-align: center;
+  border-radius:8px;
+  max-width:1800px;
+  /*min-width: 100%;*/
 }
 
 .key {
- margin: 0 auto;
- padding: 30px;
- display: inline-block;
- border: 2px solid black;
- border-radius: 4px;
- min-width: 65px;
- max-height: 50px;
- box-shadow: 5px 5px 10px 0 black;
+  font-size: 18px;
+  margin: 0 auto;
+  width: 80px;
+  height: 80px;
+  margin: 5px;
+  padding: 5px;
+  color: #555;
+  display: inline-block;
+
+  background-color: #222;
+  border: 3px solid #222;
+  border-radius: 8px;
+  box-shadow: 0 0 6px black;
+
 }
 
 .keyLabel {
- margin: auto;
- font-size: 50px;
- text-align: center;
+  position:relative;
+  bottom:10px;
+  margin: auto;
+
+  text-align: center;
 }
+
+.filename {
+  position:relative;
+  bottom:25px;
+  font-size: 20px;
+}
+
+
+.pressed {
+  color:orange;
+}
+
+.header {
+  /*font-family: 'Audiowide', cursive;
+  text-align: center;
+  font-weight: bold;
+  font-size: 5em;
+  color: #A6CA26;
+  background: #5f2c82; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #5f2c82 , #49a09d);
+  background: linear-gradient(to left, #5f2c82 , #49a09d);
+  padding: 50px 100px;
+  border-radius: 10px;
+  font-family: 'Audiowide', cursive;
+  /*margin: 50px auto;*/
+  margin: 0 auto;
+  text-align:center;
+  font-size:6.5em;
+  color:#fff;
+  letter-spacing: -7px;
+  font-weight:700;
+  text-transform:uppercase;
+  animation:blur .75s ease-out infinite;
+  text-shadow:0 0 5px #ffff00,
+      0 0 7px #ffff00;
+}
+
+h3 {
+  text-align: center;
+  font-weight: bold;
+  font-family: Futura, Helvetica, Garamond, Arial;;
+  font-size: 30px;
+  /*color: #A6CA26;*/
+}
+
+.creators {
+  color: white;
+  text-align: center;
+  display: block;
+  margin: auto;
+  width: 50%;
+}
+
+.name {
+  color: white;
+  text-align: center;
+  font-size: 25px;
+  font-family: Futura, Helvetica, Garamond, Arial;
+  font-weight: bolder;
+}
+
+a:link {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+a:active {
+  text-decoration: underline;
+}
+
+.person {
+  float: left;
+  margin: 0 auto;
+  width: calc(100% / 4);
+}
+
+.img {
+  border-radius: 10px;
+  border: 5px solid black;
+  width: 150px;
+  height: 150px;
+  align-items: center;
+}
+
+#bindingWindow {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#binding {
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  margin: 0 auto;
+  background-color: #222;
+  border-top: 1px solid #555;
+  overflow: scroll;
+  height: 200px;
+  text-align: center;
+  max-width:100%;
+  transition: all 1s;
+  --webkit-transition: all 1s;
+  --moz-transition: all 1s;
+}
+.rebindNode {
+  display: inline-block;
+  float: left;
+  width: 400px;
+  margin: 10px;
+  padding-top: 10px;
+  color: #555;
+  border-bottom: 1px solid #555;
+  text-align: center;
+}
+.rebindNode:hover {
+  background-color: #555;
+  color: #171717;
+}
+
+.rebindSong {
+  font-size: 18px;
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+#appWindow {
+  text-align: center;
+}
+
+.song-rebind-entry {
+  color:#fff;
+}
+
+/* Konstantin's styles*/
